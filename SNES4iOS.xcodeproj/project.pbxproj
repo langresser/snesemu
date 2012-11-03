@@ -14,6 +14,34 @@
 		2804200B108E984D000629CD /* RomSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28042008108E984D000629CD /* RomSelectionViewController.m */; };
 		2804200C108E984D000629CD /* RomDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2804200A108E984D000629CD /* RomDetailViewController.m */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
+		3B6F1DEA1645923400330662 /* AnalogStick.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DE91645923400330662 /* AnalogStick.m */; };
+		3B6F1E1E1645A8D300330662 /* CPPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF21645A8CA00330662 /* CPPickerView.m */; };
+		3B6F1E1F1645A8D300330662 /* CPPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF41645A8CA00330662 /* CPPickerViewCell.m */; };
+		3B6F1E201645A8D300330662 /* horizontalPickerShadow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF61645A8CA00330662 /* horizontalPickerShadow@2x.png */; };
+		3B6F1E211645A8D300330662 /* shadowOverlay@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF71645A8CA00330662 /* shadowOverlay@2x.png */; };
+		3B6F1E221645A8D300330662 /* stretchableGlass@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF81645A8CA00330662 /* stretchableGlass@2x.png */; };
+		3B6F1E231645A8D300330662 /* wheelBackground@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF91645A8CA00330662 /* wheelBackground@2x.png */; };
+		3B6F1E241645A8D300330662 /* DLStarRatingControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DFC1645A8CB00330662 /* DLStarRatingControl.m */; };
+		3B6F1E251645A8D300330662 /* DLStarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DFE1645A8CB00330662 /* DLStarView.m */; };
+		3B6F1E261645A8D300330662 /* star.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E001645A8CB00330662 /* star.png */; };
+		3B6F1E271645A8D300330662 /* star@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E011645A8CB00330662 /* star@2x.png */; };
+		3B6F1E281645A8D300330662 /* star_highlighted-darker.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E021645A8CB00330662 /* star_highlighted-darker.png */; };
+		3B6F1E291645A8D300330662 /* star_highlighted-darker@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E031645A8CB00330662 /* star_highlighted-darker@2x.png */; };
+		3B6F1E2A1645A8D300330662 /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E041645A8CB00330662 /* star_highlighted.png */; };
+		3B6F1E2B1645A8D300330662 /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E051645A8CB00330662 /* star_highlighted@2x.png */; };
+		3B6F1E2C1645A8D300330662 /* UIView+Subviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E071645A8CB00330662 /* UIView+Subviews.m */; };
+		3B6F1E2D1645A8D300330662 /* GameListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E091645A8CC00330662 /* GameListViewController.mm */; };
+		3B6F1E2E1645A8D300330662 /* iosUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0B1645A8CD00330662 /* iosUtil.mm */; };
+		3B6F1E2F1645A8D300330662 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0D1645A8CD00330662 /* JSONKit.m */; };
+		3B6F1E301645A8D300330662 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0F1645A8CD00330662 /* NSString+MD5Addition.m */; };
+		3B6F1E311645A8D300330662 /* platform_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E101645A8CF00330662 /* platform_util.cpp */; };
+		3B6F1E321645A8D300330662 /* SettingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E131645A8CF00330662 /* SettingViewController.mm */; };
+		3B6F1E331645A8D300330662 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E151645A8D000330662 /* TDBadgedCell.m */; };
+		3B6F1E341645A8D300330662 /* UIDevice+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E171645A8D200330662 /* UIDevice+Util.m */; };
+		3B6F1E351645A8D300330662 /* UIGlossyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E191645A8D200330662 /* UIGlossyButton.m */; };
+		3B6F1E361645A8D300330662 /* UIImageView+Reflected.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E1B1645A8D200330662 /* UIImageView+Reflected.m */; };
+		3B6F1E371645A8D300330662 /* UIView+LayerEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E1D1645A8D300330662 /* UIView+LayerEffects.m */; };
+		3B6F1E3A1645AB6B00330662 /* DView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E391645AB6B00330662 /* DView.m */; };
 		5508024B156E141C004D365C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 55080249156E141C004D365C /* settings.png */; };
 		5508024C156E141C004D365C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5508024A156E141C004D365C /* settings@2x.png */; };
 		5570B47F156F8C62001C3F11 /* ScreenLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA77D0119F3F6100440258 /* ScreenLayer.m */; };
@@ -22,7 +50,6 @@
 		55724B4C156B8C3800FF5BA6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55724B4B156B8C3800FF5BA6 /* Icon@2x.png */; };
 		55724B4E156B940200FF5BA6 /* Icon72.png in Resources */ = {isa = PBXBuildFile; fileRef = 55724B4D156B940100FF5BA6 /* Icon72.png */; };
 		55724B50156B940500FF5BA6 /* Icon72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55724B4F156B940500FF5BA6 /* Icon72@2x.png */; };
-		6C3CE6EB135BCD0400D61F53 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C3CE6EA135BCD0400D61F53 /* IOSurface.framework */; };
 		6CD00F45135FED04003E789A /* libpocketsnes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD00F44135FED04003E789A /* libpocketsnes.a */; };
 		6CD00F60135FEE9C003E789A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD00F5F135FEE9C003E789A /* AudioToolbox.framework */; };
 		6CD00F64135FEEBA003E789A /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 6CD00F63135FEEBA003E789A /* libz.dylib */; };
@@ -104,13 +131,58 @@
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* SNES4iOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNES4iOS_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3B6F1DE81645923400330662 /* AnalogStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogStick.h; sourceTree = "<group>"; };
+		3B6F1DE91645923400330662 /* AnalogStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogStick.m; sourceTree = "<group>"; };
+		3B6F1DF11645A8CA00330662 /* CPPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPickerView.h; sourceTree = "<group>"; };
+		3B6F1DF21645A8CA00330662 /* CPPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPickerView.m; sourceTree = "<group>"; };
+		3B6F1DF31645A8CA00330662 /* CPPickerViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPickerViewCell.h; sourceTree = "<group>"; };
+		3B6F1DF41645A8CA00330662 /* CPPickerViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPPickerViewCell.m; sourceTree = "<group>"; };
+		3B6F1DF61645A8CA00330662 /* horizontalPickerShadow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "horizontalPickerShadow@2x.png"; sourceTree = "<group>"; };
+		3B6F1DF71645A8CA00330662 /* shadowOverlay@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "shadowOverlay@2x.png"; sourceTree = "<group>"; };
+		3B6F1DF81645A8CA00330662 /* stretchableGlass@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "stretchableGlass@2x.png"; sourceTree = "<group>"; };
+		3B6F1DF91645A8CA00330662 /* wheelBackground@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wheelBackground@2x.png"; sourceTree = "<group>"; };
+		3B6F1DFB1645A8CB00330662 /* DLStarRatingControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLStarRatingControl.h; sourceTree = "<group>"; };
+		3B6F1DFC1645A8CB00330662 /* DLStarRatingControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLStarRatingControl.m; sourceTree = "<group>"; };
+		3B6F1DFD1645A8CB00330662 /* DLStarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLStarView.h; sourceTree = "<group>"; };
+		3B6F1DFE1645A8CB00330662 /* DLStarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLStarView.m; sourceTree = "<group>"; };
+		3B6F1E001645A8CB00330662 /* star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star.png; sourceTree = "<group>"; };
+		3B6F1E011645A8CB00330662 /* star@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star@2x.png"; sourceTree = "<group>"; };
+		3B6F1E021645A8CB00330662 /* star_highlighted-darker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted-darker.png"; sourceTree = "<group>"; };
+		3B6F1E031645A8CB00330662 /* star_highlighted-darker@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted-darker@2x.png"; sourceTree = "<group>"; };
+		3B6F1E041645A8CB00330662 /* star_highlighted.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_highlighted.png; sourceTree = "<group>"; };
+		3B6F1E051645A8CB00330662 /* star_highlighted@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_highlighted@2x.png"; sourceTree = "<group>"; };
+		3B6F1E061645A8CB00330662 /* UIView+Subviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Subviews.h"; sourceTree = "<group>"; };
+		3B6F1E071645A8CB00330662 /* UIView+Subviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Subviews.m"; sourceTree = "<group>"; };
+		3B6F1E081645A8CB00330662 /* GameListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameListViewController.h; sourceTree = "<group>"; };
+		3B6F1E091645A8CC00330662 /* GameListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameListViewController.mm; sourceTree = "<group>"; };
+		3B6F1E0A1645A8CC00330662 /* iosUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosUtil.h; sourceTree = "<group>"; };
+		3B6F1E0B1645A8CD00330662 /* iosUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iosUtil.mm; sourceTree = "<group>"; };
+		3B6F1E0C1645A8CD00330662 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		3B6F1E0D1645A8CD00330662 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		3B6F1E0E1645A8CD00330662 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
+		3B6F1E0F1645A8CD00330662 /* NSString+MD5Addition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+MD5Addition.m"; sourceTree = "<group>"; };
+		3B6F1E101645A8CF00330662 /* platform_util.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = platform_util.cpp; sourceTree = "<group>"; };
+		3B6F1E111645A8CF00330662 /* platform_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_util.h; sourceTree = "<group>"; };
+		3B6F1E121645A8CF00330662 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		3B6F1E131645A8CF00330662 /* SettingViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingViewController.mm; sourceTree = "<group>"; };
+		3B6F1E141645A8D000330662 /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
+		3B6F1E151645A8D000330662 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
+		3B6F1E161645A8D000330662 /* UIDevice+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Util.h"; sourceTree = "<group>"; };
+		3B6F1E171645A8D200330662 /* UIDevice+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Util.m"; sourceTree = "<group>"; };
+		3B6F1E181645A8D200330662 /* UIGlossyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIGlossyButton.h; sourceTree = "<group>"; };
+		3B6F1E191645A8D200330662 /* UIGlossyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIGlossyButton.m; sourceTree = "<group>"; };
+		3B6F1E1A1645A8D200330662 /* UIImageView+Reflected.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Reflected.h"; sourceTree = "<group>"; };
+		3B6F1E1B1645A8D200330662 /* UIImageView+Reflected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Reflected.m"; sourceTree = "<group>"; };
+		3B6F1E1C1645A8D300330662 /* UIView+LayerEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+LayerEffects.h"; sourceTree = "<group>"; };
+		3B6F1E1D1645A8D300330662 /* UIView+LayerEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+LayerEffects.m"; sourceTree = "<group>"; };
+		3B6F1E381645AB6A00330662 /* DView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DView.h; sourceTree = "<group>"; };
+		3B6F1E391645AB6B00330662 /* DView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DView.m; sourceTree = "<group>"; };
 		55080249156E141C004D365C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		5508024A156E141C004D365C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		55724B48156B8C3300FF5BA6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		55724B4B156B8C3800FF5BA6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
 		55724B4D156B940100FF5BA6 /* Icon72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon72.png; sourceTree = "<group>"; };
 		55724B4F156B940500FF5BA6 /* Icon72@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon72@2x.png"; sourceTree = "<group>"; };
-		6C3CE6EA135BCD0400D61F53 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/PrivateFrameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		6CD00F44135FED04003E789A /* libpocketsnes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpocketsnes.a; path = src/snes4iphone_src/libpocketsnes.a; sourceTree = "<group>"; };
 		6CD00F5F135FEE9C003E789A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6CD00F63135FEEBA003E789A /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -216,7 +288,6 @@
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				CEA57F0B1198E6F8004DCD60 /* GameKit.framework in Frameworks */,
 				CE43A4B4119DF2B00007E399 /* QuartzCore.framework in Frameworks */,
-				6C3CE6EB135BCD0400D61F53 /* IOSurface.framework in Frameworks */,
 				6CD00F45135FED04003E789A /* libpocketsnes.a in Frameworks */,
 				6CD00F60135FEE9C003E789A /* AudioToolbox.framework in Frameworks */,
 				6CD00F64135FEEBA003E789A /* libz.dylib in Frameworks */,
@@ -230,6 +301,34 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3B6F1E381645AB6A00330662 /* DView.h */,
+				3B6F1E391645AB6B00330662 /* DView.m */,
+				3B6F1DF01645A8CA00330662 /* CPPickerView */,
+				3B6F1DFA1645A8CA00330662 /* DLStarRating */,
+				3B6F1E081645A8CB00330662 /* GameListViewController.h */,
+				3B6F1E091645A8CC00330662 /* GameListViewController.mm */,
+				3B6F1E0A1645A8CC00330662 /* iosUtil.h */,
+				3B6F1E0B1645A8CD00330662 /* iosUtil.mm */,
+				3B6F1E0C1645A8CD00330662 /* JSONKit.h */,
+				3B6F1E0D1645A8CD00330662 /* JSONKit.m */,
+				3B6F1E0E1645A8CD00330662 /* NSString+MD5Addition.h */,
+				3B6F1E0F1645A8CD00330662 /* NSString+MD5Addition.m */,
+				3B6F1E101645A8CF00330662 /* platform_util.cpp */,
+				3B6F1E111645A8CF00330662 /* platform_util.h */,
+				3B6F1E121645A8CF00330662 /* SettingViewController.h */,
+				3B6F1E131645A8CF00330662 /* SettingViewController.mm */,
+				3B6F1E141645A8D000330662 /* TDBadgedCell.h */,
+				3B6F1E151645A8D000330662 /* TDBadgedCell.m */,
+				3B6F1E161645A8D000330662 /* UIDevice+Util.h */,
+				3B6F1E171645A8D200330662 /* UIDevice+Util.m */,
+				3B6F1E181645A8D200330662 /* UIGlossyButton.h */,
+				3B6F1E191645A8D200330662 /* UIGlossyButton.m */,
+				3B6F1E1A1645A8D200330662 /* UIImageView+Reflected.h */,
+				3B6F1E1B1645A8D200330662 /* UIImageView+Reflected.m */,
+				3B6F1E1C1645A8D300330662 /* UIView+LayerEffects.h */,
+				3B6F1E1D1645A8D300330662 /* UIView+LayerEffects.m */,
+				3B6F1DE81645923400330662 /* AnalogStick.h */,
+				3B6F1DE91645923400330662 /* AnalogStick.m */,
 				1D3623240D0F684500981E51 /* SNES4iOSAppDelegate.h */,
 				1D3623250D0F684500981E51 /* SNES4iOSAppDelegate.m */,
 				28042007108E984D000629CD /* RomSelectionViewController.h */,
@@ -312,6 +411,56 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3B6F1DF01645A8CA00330662 /* CPPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				3B6F1DF11645A8CA00330662 /* CPPickerView.h */,
+				3B6F1DF21645A8CA00330662 /* CPPickerView.m */,
+				3B6F1DF31645A8CA00330662 /* CPPickerViewCell.h */,
+				3B6F1DF41645A8CA00330662 /* CPPickerViewCell.m */,
+				3B6F1DF51645A8CA00330662 /* res */,
+			);
+			path = CPPickerView;
+			sourceTree = "<group>";
+		};
+		3B6F1DF51645A8CA00330662 /* res */ = {
+			isa = PBXGroup;
+			children = (
+				3B6F1DF61645A8CA00330662 /* horizontalPickerShadow@2x.png */,
+				3B6F1DF71645A8CA00330662 /* shadowOverlay@2x.png */,
+				3B6F1DF81645A8CA00330662 /* stretchableGlass@2x.png */,
+				3B6F1DF91645A8CA00330662 /* wheelBackground@2x.png */,
+			);
+			path = res;
+			sourceTree = "<group>";
+		};
+		3B6F1DFA1645A8CA00330662 /* DLStarRating */ = {
+			isa = PBXGroup;
+			children = (
+				3B6F1DFB1645A8CB00330662 /* DLStarRatingControl.h */,
+				3B6F1DFC1645A8CB00330662 /* DLStarRatingControl.m */,
+				3B6F1DFD1645A8CB00330662 /* DLStarView.h */,
+				3B6F1DFE1645A8CB00330662 /* DLStarView.m */,
+				3B6F1DFF1645A8CB00330662 /* images */,
+				3B6F1E061645A8CB00330662 /* UIView+Subviews.h */,
+				3B6F1E071645A8CB00330662 /* UIView+Subviews.m */,
+			);
+			path = DLStarRating;
+			sourceTree = "<group>";
+		};
+		3B6F1DFF1645A8CB00330662 /* images */ = {
+			isa = PBXGroup;
+			children = (
+				3B6F1E001645A8CB00330662 /* star.png */,
+				3B6F1E011645A8CB00330662 /* star@2x.png */,
+				3B6F1E021645A8CB00330662 /* star_highlighted-darker.png */,
+				3B6F1E031645A8CB00330662 /* star_highlighted-darker@2x.png */,
+				3B6F1E041645A8CB00330662 /* star_highlighted.png */,
+				3B6F1E051645A8CB00330662 /* star_highlighted@2x.png */,
+			);
+			path = images;
+			sourceTree = "<group>";
+		};
 		BF7B7A0C14A64BEE00014E61 /* SNES Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -371,7 +520,6 @@
 		BF7B7A2814A64D3400014E61 /* IOSurface */ = {
 			isa = PBXGroup;
 			children = (
-				6C3CE6EA135BCD0400D61F53 /* IOSurface.framework */,
 				BF7B7A2914A64D3400014E61 /* IOSurface.h */,
 				BF7B7A2A14A64D3400014E61 /* IOSurfaceAPI.h */,
 				BF7B7A2B14A64D3400014E61 /* IOSurfaceBase.h */,
@@ -529,6 +677,16 @@
 				55724B50156B940500FF5BA6 /* Icon72@2x.png in Resources */,
 				5508024B156E141C004D365C /* settings.png in Resources */,
 				5508024C156E141C004D365C /* settings@2x.png in Resources */,
+				3B6F1E201645A8D300330662 /* horizontalPickerShadow@2x.png in Resources */,
+				3B6F1E211645A8D300330662 /* shadowOverlay@2x.png in Resources */,
+				3B6F1E221645A8D300330662 /* stretchableGlass@2x.png in Resources */,
+				3B6F1E231645A8D300330662 /* wheelBackground@2x.png in Resources */,
+				3B6F1E261645A8D300330662 /* star.png in Resources */,
+				3B6F1E271645A8D300330662 /* star@2x.png in Resources */,
+				3B6F1E281645A8D300330662 /* star_highlighted-darker.png in Resources */,
+				3B6F1E291645A8D300330662 /* star_highlighted-darker@2x.png in Resources */,
+				3B6F1E2A1645A8D300330662 /* star_highlighted.png in Resources */,
+				3B6F1E2B1645A8D300330662 /* star_highlighted@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -554,6 +712,24 @@
 				BF7B7A0B14A64BEA00014E61 /* SNESControllerViewController.m in Sources */,
 				5570B47F156F8C62001C3F11 /* ScreenLayer.m in Sources */,
 				5570B480156F8C72001C3F11 /* EmulationViewController.m in Sources */,
+				3B6F1DEA1645923400330662 /* AnalogStick.m in Sources */,
+				3B6F1E1E1645A8D300330662 /* CPPickerView.m in Sources */,
+				3B6F1E1F1645A8D300330662 /* CPPickerViewCell.m in Sources */,
+				3B6F1E241645A8D300330662 /* DLStarRatingControl.m in Sources */,
+				3B6F1E251645A8D300330662 /* DLStarView.m in Sources */,
+				3B6F1E2C1645A8D300330662 /* UIView+Subviews.m in Sources */,
+				3B6F1E2D1645A8D300330662 /* GameListViewController.mm in Sources */,
+				3B6F1E2E1645A8D300330662 /* iosUtil.mm in Sources */,
+				3B6F1E2F1645A8D300330662 /* JSONKit.m in Sources */,
+				3B6F1E301645A8D300330662 /* NSString+MD5Addition.m in Sources */,
+				3B6F1E311645A8D300330662 /* platform_util.cpp in Sources */,
+				3B6F1E321645A8D300330662 /* SettingViewController.mm in Sources */,
+				3B6F1E331645A8D300330662 /* TDBadgedCell.m in Sources */,
+				3B6F1E341645A8D300330662 /* UIDevice+Util.m in Sources */,
+				3B6F1E351645A8D300330662 /* UIGlossyButton.m in Sources */,
+				3B6F1E361645A8D300330662 /* UIImageView+Reflected.m in Sources */,
+				3B6F1E371645A8D300330662 /* UIView+LayerEffects.m in Sources */,
+				3B6F1E3A1645AB6B00330662 /* DView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
