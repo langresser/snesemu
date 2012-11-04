@@ -11,11 +11,12 @@
 #import "iosUtil.h"
 #import <QuartzCore/QuartzCore.h>
 #import "DLStarRatingControl.h"
-#include "EmuSystem.hh"
 #import "UIDevice+Util.h"
 #import "UIGlossyButton.h"
 #import "MobClick.h"
 #import "TDBadgedCell.h"
+
+#include <string>
 
 extern int g_currentMB ;
 
@@ -51,8 +52,6 @@ extern int g_currentMB ;
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        CGRect rect = self.contentView.bounds;
-        
     }
     return self;
 }
@@ -451,17 +450,6 @@ extern void startGameFromMenu();
     }
     
     [self onClickBack];
-    
-    extern int openglViewIsInit;
-    if (openglViewIsInit == 0) {
-        g_romPath = [romPath UTF8String];
-    } else {
-        // 默认打开
-        if(EmuSystem::loadGame([romPath UTF8String], false, false))
-        {
-            startGameFromMenu();
-        }
-    }
 }
 
 

@@ -16,14 +16,6 @@
 
 - (void) startWithRom:(NSString *)romFile;
 
-/*
-- (void) stop;
-- (void) pause;
-- (void) resume;
-- (void) saveCurrentState;
-- (void) saveNewState;
-*/
-
 - (void) refreshScreen;
 - (void) didRotate:(NSNotification *)notification;
 

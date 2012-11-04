@@ -18,8 +18,6 @@ SNESControllerAppDelegate *ControllerAppDelegate()
 	return ((SNES4iOSAppDelegate *)[[UIApplication sharedApplication] delegate]).snesControllerAppDelegate;
 }
 
-#ifdef APP_BUILD
-
 extern unsigned long gp2x_pad_status;
 
 #define VOL_BUTTON_UP 0xe9
@@ -28,6 +26,7 @@ extern unsigned long gp2x_pad_status;
 #define L_BUTTON (1<<10)
 #define R_BUTTON (1<<11)
 
+#if !TARGET_IPHONE_SIMULATOR
 void handle_event (void* target, void* refcon, IOHIDServiceRef service, IOHIDEventRef event) {
 	// handle the events here.
 	//NSLog(@"Received event of type %2d from service %p.", IOHIDEventGetType(event), service);
@@ -59,8 +58,7 @@ void handle_event (void* target, void* refcon, IOHIDServiceRef service, IOHIDEve
 		}
 	}
 }
-
-#endif // TARGET_IPHONE_SIMULATOR
+#endif
 
 
 @implementation SNESControllerAppDelegate
@@ -72,7 +70,7 @@ void handle_event (void* target, void* refcon, IOHIDServiceRef service, IOHIDEve
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-#ifdef APP_BUILD
+#if !TARGET_IPHONE_SIMULATOR
 	NSLog(@"Setting up event handler");
 	// register our event handler callback
 	ioEventSystem = IOHIDEventSystemCreate(NULL);
@@ -109,7 +107,7 @@ void handle_event (void* target, void* refcon, IOHIDServiceRef service, IOHIDEve
 	//[self.sessionController sendPadStatus:gp2x_pad_status];
 }
 
-#ifdef APP_BUILD
+#if !TARGET_IPHONE_SIMULATOR
 - (void) applicationWillTerminate:(UIApplication *)application
 {
 	// clean up our event handler

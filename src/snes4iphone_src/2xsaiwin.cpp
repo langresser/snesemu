@@ -40,15 +40,9 @@
  */
 //#define MMX
 
-#if !defined(_SNESPPC) && !defined(__GIZ__) && !defined(__GP2X__) && !defined(__IPHONE__)
-#include "snes9x/snes9x.h"
-#include "snes9x/port.h"
-#include "snes9x/gfx.h"
-#else
 #include "snes9x.h"
 #include "port.h"
 #include "gfx.h"
-#endif
 
 #ifdef MMX
 EXTERN_C void _2xSaILine  (uint8 *srcPtr, uint8 *deltaPtr, uint32 srcPitch, uint32 width,

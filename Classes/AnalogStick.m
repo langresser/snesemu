@@ -1,47 +1,16 @@
-/*
- * This file is part of iMAME4all.
- *
- * Copyright (C) 2011 David Valdeita (Seleuco)
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- *
- * In addition, as a special exception, Seleuco
- * gives permission to link the code of this program with
- * the MAME library (or with modified versions of MAME that use the
- * same license as MAME), and distribute linked combinations including
- * the two.  You must obey the GNU General Public License in all
- * respects for all of the code used other than MAME.  If you modify
- * this file, you may extend this exception to your version of the
- * file, but you are not obligated to do so.  If you do not wish to
- * do so, delete this exception statement from your version.
- */
- 
+
 #import "AnalogStick.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
 
-#include "minimal.h"
-
 @implementation AnalogStickView
 
 CGRect rStickArea;
 
-extern float joy_analog_x[4];
-extern float joy_analog_y[4];
+float joy_analog_x[4];
+float joy_analog_y[4];
 extern unsigned long gp2x_pad_status;
 
 extern int iphone_is_landscape;
@@ -50,7 +19,7 @@ extern int iOS_full_screen_land;
 extern int iOS_full_screen_port;
 extern int iOS_inGame;
 extern int iOS_animated_DPad;
-extern int iOS_skin;
+extern int iOS_skin_data;
 extern int iOS_waysStick;
 extern int iOS_analogDeadZoneValue;
 extern int enable_dview;
@@ -83,137 +52,87 @@ int iOS_stick_radio = 60;
 		if(STICK2WAY)
 		{
             if ( v < 180  ){
-				gp2x_pad_status |= GP2X_RIGHT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_LEFT;						
+//				gp2x_pad_status |= GP2X_RIGHT;
+				
 			}
 			else if ( v >= 180  ){
-				gp2x_pad_status |= GP2X_LEFT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_LEFT;
 			}
 		}
 		else if(STICK4WAY)
 		{
 			if( v >= 315 || v < 45){
-				gp2x_pad_status |= GP2X_DOWN;
-
-                gp2x_pad_status &= ~GP2X_UP;					        
-		        gp2x_pad_status &= ~GP2X_LEFT;
-		        gp2x_pad_status &= ~GP2X_RIGHT;						
+//				gp2x_pad_status |= GP2X_DOWN;
+				
 			}
 			else if ( v >= 45 && v < 135){
-				gp2x_pad_status |= GP2X_RIGHT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_LEFT;						
+//				gp2x_pad_status |= GP2X_RIGHT;
+					
 			}
 			else if ( v >= 135 && v < 225){
-				gp2x_pad_status |= GP2X_UP;
-
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_LEFT;
-		        gp2x_pad_status &= ~GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_UP;
 			}
 			else if ( v >= 225 && v < 315 ){
-				gp2x_pad_status |= GP2X_LEFT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_LEFT;
 			}						
 		}
         else
         {
 			if( v >= 330 || v < 30){
-				gp2x_pad_status |= GP2X_DOWN;
-
-                gp2x_pad_status &= ~GP2X_UP;					        
-		        gp2x_pad_status &= ~GP2X_LEFT;
-		        gp2x_pad_status &= ~GP2X_RIGHT;						
+//				gp2x_pad_status |= GP2X_DOWN;
+				
 			}
 			else if ( v >= 30 && v <60  )  {
-				gp2x_pad_status |= GP2X_DOWN;
-				gp2x_pad_status |= GP2X_RIGHT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_LEFT;						
+//				gp2x_pad_status |= GP2X_DOWN;
+//				gp2x_pad_status |= GP2X_RIGHT;
+			
 			}
 			else if ( v >= 60 && v < 120  ){
-				gp2x_pad_status |= GP2X_RIGHT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_LEFT;						
+//				gp2x_pad_status |= GP2X_RIGHT;
+				
 			}
 			else if ( v >= 120 && v < 150  ){
-				gp2x_pad_status |= GP2X_RIGHT;
-				gp2x_pad_status |= GP2X_UP;
-
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_LEFT;
+//				gp2x_pad_status |= GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_UP;
 			}
 			else if ( v >= 150 && v < 210  ){
-				gp2x_pad_status |= GP2X_UP;
-
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_LEFT;
-		        gp2x_pad_status &= ~GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_UP;
 			}
 			else if ( v >= 210 && v < 240  ){
-				gp2x_pad_status |= GP2X_UP;
-				gp2x_pad_status |= GP2X_LEFT;
-
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_RIGHT;						
+//				gp2x_pad_status |= GP2X_UP;
+//				gp2x_pad_status |= GP2X_LEFT;
+				
 			}
 			else if ( v >= 240 && v < 300  ){
-				gp2x_pad_status |= GP2X_LEFT;
-
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_DOWN;
-		        gp2x_pad_status &= ~GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_LEFT;
 			}
 			else if ( v >= 300 && v < 330  ){
-				gp2x_pad_status |= GP2X_LEFT;
-				gp2x_pad_status |= GP2X_DOWN;
-				
-                gp2x_pad_status &= ~GP2X_UP;
-		        gp2x_pad_status &= ~GP2X_RIGHT;
+//				gp2x_pad_status |= GP2X_LEFT;
+//				gp2x_pad_status |= GP2X_DOWN;
 			}
 		}												
 	}
 	else
 	{
 	    joy_analog_x[0]=0.0f;
-	    joy_analog_y[0]=0.0f;
-	     
-	    gp2x_pad_status &= ~GP2X_UP;
-	    gp2x_pad_status &= ~GP2X_DOWN;
-	    gp2x_pad_status &= ~GP2X_LEFT;
-	    gp2x_pad_status &= ~GP2X_RIGHT;		    	    				    
+	    joy_analog_y[0]=0.0f;    	    				    
 	}
 					
-	switch (gp2x_pad_status & (GP2X_UP|GP2X_DOWN|GP2X_LEFT|GP2X_RIGHT))
-    {
-        case    GP2X_UP:    currentDirection = StickUp; break;
-        case    GP2X_DOWN:  currentDirection = StickDown; break;
-        case    GP2X_LEFT:  currentDirection = StickLeft; break;
-        case    GP2X_RIGHT: currentDirection = StickRight; break;
-            
-        case    GP2X_UP | GP2X_LEFT:  currentDirection = StickUpLeft; break;
-        case    GP2X_UP | GP2X_RIGHT: currentDirection = StickUpRight; break;
-        case    GP2X_DOWN | GP2X_LEFT:  currentDirection = StickDownLeft; break;
-        case    GP2X_DOWN | GP2X_RIGHT: currentDirection = StickDownRight; break;
-            
-        default: currentDirection = StickNone;
-    }
-    					 
+//	switch (gp2x_pad_status & (GP2X_UP|GP2X_DOWN|GP2X_LEFT|GP2X_RIGHT))
+//    {
+//        case    GP2X_UP:    currentDirection = StickUp; break;
+//        case    GP2X_DOWN:  currentDirection = StickDown; break;
+//        case    GP2X_LEFT:  currentDirection = StickLeft; break;
+//        case    GP2X_RIGHT: currentDirection = StickRight; break;
+//            
+//        case    GP2X_UP | GP2X_LEFT:  currentDirection = StickUpLeft; break;
+//        case    GP2X_UP | GP2X_RIGHT: currentDirection = StickUpRight; break;
+//        case    GP2X_DOWN | GP2X_LEFT:  currentDirection = StickDownLeft; break;
+//        case    GP2X_DOWN | GP2X_RIGHT: currentDirection = StickDownRight; break;
+//            
+//        default: currentDirection = StickNone;
+//    }
+    
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -234,9 +153,9 @@ int iOS_stick_radio = 60;
          	 
 	 NSString *name;
 	 
-	 if((iphone_is_landscape && iOS_full_screen_land) || (!iphone_is_landscape && iOS_full_screen_port) /*|| iOS_skin==1*/)
+	 if((iphone_is_landscape && iOS_full_screen_land) || (!iphone_is_landscape && iOS_full_screen_port))
 	 {   
-	     name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin,@"./stick-outer.png"];
+	     name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin_data,@"./stick-outer.png"];
 	     outerView = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:name]];
 	     //outerView.frame = CGRectMake(0,0,frame.size.width,frame.size.height);//frame;
 	     outerView.frame = rImg;//frame;
@@ -245,7 +164,7 @@ int iOS_stick_radio = 60;
 	      
 	     [self addSubview: outerView];   
     }
-    name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin,@"./stick-inner.png"];
+    name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin_data,@"./stick-inner.png"];
     stickWidth =  rImg.size.width * (iOS_stick_radio/100.0f);//0.60;
     stickHeight = rImg.size.height * (iOS_stick_radio/100.0f);//0.60; 
     innerView = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:name]];
@@ -405,16 +324,4 @@ int iOS_stick_radio = 60;
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[self touchesBegan:touches withEvent:event];
 }
-
-- (void)dealloc {
-
-    if(outerView!=nil)
-      [outerView release];
- 
-    if(innerView!=nil)
-      [innerView release];	   	   
-	   
-	[super dealloc];
-}
-
 @end

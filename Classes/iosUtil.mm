@@ -8,7 +8,7 @@
 
 #import "iosUtil.h"
 
-bool isPad()
+int isPad()
 {
 	BOOL result = NO;
 	if ([[UIDevice currentDevice] respondsToSelector:@selector(userInterfaceIdiom)]) {
@@ -60,4 +60,13 @@ void getFileStatus(const char* pszName)
     
     
     NSLog(@"file: %s    attr:%@ ", pszName, attr);
+}
+
+const char* get_resource_path(char* file)
+{
+    static char resource_path[1024];
+    
+    sprintf(resource_path, "%s/%s", [[[NSBundle mainBundle]bundlePath]UTF8String] ,file);
+    
+    return resource_path;
 }

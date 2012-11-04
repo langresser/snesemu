@@ -48,11 +48,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *connectionButton;
 @property (copy, nonatomic) NSString *imageName;
 @property (strong, nonatomic) NSMutableSet *sustainedButtons;
-#if APP_BUILD
-@property (weak, nonatomic) IBOutlet UIButton *sustainButton;//This errors out when compiling emulator
-#else 
 @property (retain, nonatomic) IBOutlet UIButton *sustainButton;
-#endif
 @property (nonatomic) BOOL readyToSustain;
 
 - (IBAction) buttonPressed:(id)sender;

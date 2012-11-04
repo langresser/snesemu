@@ -58,7 +58,6 @@
 @property (copy, nonatomic) NSString *sramDirectoryPath;
 
 - (void) showEmulator:(BOOL)showOrHide;
-//- (void) showEmulationMenu:(BOOL)showOrHide;
 + (NSString *) applicationDocumentsDirectory;
 
 @end

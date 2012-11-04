@@ -37,8 +37,6 @@ SNES4iOSAppDelegate *AppDelegate()
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     
-    //[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
-    
 	settingsViewController = [[SettingsViewController alloc] init];
 	// access the view property to force it to load
 	settingsViewController.view = settingsViewController.view;
@@ -93,12 +91,6 @@ SNES4iOSAppDelegate *AppDelegate()
         emulationViewController.view.userInteractionEnabled = YES;
     }
     [self.window makeKeyAndVisible];
-	
-    
-	// Add the split view controller's view to the window and display.
-    //[window addSubview:splitViewController.view];
-	
-	// Add the emulation view in its hidden state.
     
     emulationViewController.view.hidden = NO;
 	

@@ -41,7 +41,9 @@ void *threadedStart(NSString *completeFilePath)
         strcpy(filename, (char *)romName);
 		printf("Starting emulator for %s\n", filename);
 		__emulation_run = 1;
+#if !TARGET_IPHONE_SIMULATOR
 		iphone_main(filename);
+#endif
 		__emulation_run = 0;
 		__emulation_saving = 0;
 		
@@ -50,10 +52,6 @@ void *threadedStart(NSString *completeFilePath)
     
     return 0;
 }
-
-
-
-extern unsigned short *vrambuffer;  // this holds the 256x224 framebuffer in L565 format
 
 void convertBufferToARGB(unsigned int *dest, unsigned short *source, int w, int h)
 {
@@ -78,11 +76,13 @@ void convertBufferToARGB(unsigned int *dest, unsigned short *source, int w, int 
 // helper function to save a snapshot of the current framebuffer contents
 void saveScreenshotToFile(char *filepath)
 {
+#if !TARGET_IPHONE_SIMULATOR
     NSLog(@"writing screenshot to %s", filepath);
     int width = 256;
     int height = 224;
     
     unsigned int *argb_buffer = (unsigned int *)malloc(width * height * 4);
+    extern unsigned short *vrambuffer;  // this holds the 256x224 framebuffer in L565 format
     convertBufferToARGB(argb_buffer, vrambuffer, width, height);
     
     // make data provider from buffer
@@ -106,23 +106,12 @@ void saveScreenshotToFile(char *filepath)
     CGColorSpaceRelease(colorSpaceRef);
     CGDataProviderRelease(provider);
     free(argb_buffer);
-
+#endif
 }
 
 @implementation EmulationViewController
 
 @synthesize pauseAlert;
-
-/*
- // The designated initializer.  Override if you create the controller programmatically and want to perform customization that is not appropriate for viewDidLoad.
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
-        // Custom initialization
-    }
-    return self;
-}
-*/
-
 - (void)loadView {
 	self.view = (UIView *)[[ScreenView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
@@ -130,87 +119,20 @@ void saveScreenshotToFile(char *filepath)
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     }
-    
-    /*if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        UIButton *exitButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        exitButton.frame = CGRectMake(0, 0, 100, 100);
-        [exitButton addTarget:self action:@selector(exit:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:exitButton];
-        
-        UIButton *loadStateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        loadStateButton.frame = CGRectMake(self.view.bounds.size.width - 100, 0, 100, 100);
-        [loadStateButton addTarget:self action:@selector(loadState:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:loadStateButton];
-        
-        UIButton *saveNewStateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        saveNewStateButton.frame = CGRectMake(0, self.view.bounds.size.height - 100, 100, 100);
-        saveNewStateButton.tag = 1;
-        [saveNewStateButton addTarget:self action:@selector(saveState:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:saveNewStateButton];
-        
-        UIButton *saveStateButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        saveStateButton.frame = CGRectMake(self.view.bounds.size.width - 100, self.view.bounds.size.height - 100, 100, 100);
-        saveStateButton.tag = 2;
-        [saveStateButton addTarget:self action:@selector(saveState:) forControlEvents:UIControlEventTouchUpInside];
-        [self.view addSubview:saveStateButton];
-    }*/
-    //Above methods were a replacement to the double-tapping to access these options, which sometimes crashes the app. Convering over to GCD appears to have fixed this crash, but I've left these here just in case.
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [self didRotate:[NSNotification notificationWithName:@"RotateNotification" object:nil]];
 }
 
-#pragma mark - Save States
-
-/*
-- (void)saveState:(id)sender {
-    UIButton *button = (UIButton *)sender;
-    __emulation_saving = button.tag;
-    double delayInSeconds = 0.1;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void){
-        NSString *message = @"Saved state!";
-        if (button.tag == 1) {
-            message = @"Saved new state!";
-        }
-    });
-}
-
-- (void)loadState:(id)sender {
-    
-}
-*/
-
-#pragma mark -
-
-/*
-- (void) exit:(id)sender {
-    __emulation_run = 0;
-    [AppDelegate() showEmulator:NO];
-}
-*/
-
 - (void) refreshScreen
 {
-    //[(ScreenView *) self.view update];
     [self.view setNeedsDisplay];
-	//[self.view.layer setNeedsDisplay];
 }
 
 - (void) startWithRom:(NSString *)romFile
 {
-    
-    /*
-    pthread_create(&main_tid, NULL, threadedStart, (void *) [[romFile lastPathComponent] UTF8String]);
-	
-	struct sched_param    param;
-    param.sched_priority = 46;
-    if(pthread_setschedparam(main_tid, SCHED_OTHER, &param) != 0)
-    {
-		fprintf(stderr, "Error setting pthread priority\n");
-    }*/
-    
+   
     dispatch_queue_t dispatchQueue = dispatch_queue_create("EmulationThread", DISPATCH_QUEUE_CONCURRENT);
     dispatch_async(dispatchQueue, ^{
         NSLog(@"RomFile Path:%@", romFile);
@@ -222,8 +144,6 @@ void saveScreenshotToFile(char *filepath)
 
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    // Return YES for supported orientations
-    
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
         return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
                 interfaceOrientation == UIInterfaceOrientationLandscapeRight);

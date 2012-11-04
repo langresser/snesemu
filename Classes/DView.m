@@ -29,12 +29,11 @@
  */
 
 #import "DView.h"
-
+#import "iosUtil.h"
 #import <QuartzCore/QuartzCore.h>  
 
 CGRect drects[100];
 int ndrects;
-extern int isIpad;
 
 @implementation DView
 
@@ -84,7 +83,7 @@ extern int isIpad;
     CGContextScaleCTM(context, 1, -1);
     CGContextSetRGBStrokeColor (context, 0, 1, 1, 1);
  
-   if(!isIpad)
+   if(!isPad())
    {
  //     CGContextShowTextAtPoint(context, 10, 10, "Es un iPhone",12 );
    }
@@ -94,12 +93,5 @@ extern int isIpad;
    }
 		
 }
-
-
-- (void)dealloc {
-
-    [super dealloc];
-}
-
 
 @end

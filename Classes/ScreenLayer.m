@@ -27,6 +27,7 @@ unsigned int *screenPixels;
 - (id)init {
 	if (self = [super init])
 	{
+#if !TARGET_IPHONE_SIMULATOR
 		NSLog(@"creating IOSurface buffer");
 		CFMutableDictionaryRef dict;
 		int w = 256; 
@@ -88,12 +89,14 @@ unsigned int *screenPixels;
                                                          name:@"UIDeviceOrientationDidChangeNotification" 
                                                        object:nil];
         }*/
+#endif
 	}
 	return self;
 }
 		
 
 - (void)display {
+#if !TARGET_IPHONE_SIMULATOR
     //NSLog(@"ScreenLayer display");
     IOSurfaceLock(_surface, 1, &_seed);
     self.affineTransform = CGAffineTransformIdentity;
@@ -101,6 +104,7 @@ unsigned int *screenPixels;
     self.affineTransform = rotateTransform;
     self.contents = (__bridge id) _surface;
     IOSurfaceUnlock(_surface, 1, &_seed);
+#endif
 }
 
 - (void) orientationChanged:(NSNotification *)notification

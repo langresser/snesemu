@@ -7,16 +7,11 @@
 //
 
 #import "SettingViewController.h"
-#import "iOS.hh"
-#include "gfx/interface.h"
 #import <QuartzCore/QuartzCore.h>
-#include "EmuSystem.hh"
-#include "Option.hh"
 #import "UIDevice+Util.h"
-#import "SettingView.h"
 #import "UIGlossyButton.h"
 #import "UMFeedback.h"
-
+#import "GameViewController.h"
 
 int g_currentMB = 0;
 
@@ -122,11 +117,6 @@ int g_currentMB = 0;
 
 -(void)onClickBackList
 {
-    EmuSystem::saveAutoState(1);
-    EmuSystem::saveBackupMem();
-    EmuSystem::resetAutoSaveStateTime();
-    
-
     if (isPad()) {
         [[MDGameViewController sharedInstance].popoverVC dismissPopoverAnimated:YES];
     } else {
@@ -143,12 +133,6 @@ int g_currentMB = 0;
     } else {
         [self dismissModalViewControllerAnimated:YES];
     }
-    
-    EmuSystem::start();
-    
-    extern void onViewChange(void * = 0, Gfx::GfxViewState * = 0);
-    onViewChange();
-    Base::displayNeedsUpdate();
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -212,7 +196,7 @@ int g_currentMB = 0;
             cell.peekInset = UIEdgeInsetsMake(0, 35, 0, 35);
             
             [cell reloadData];            
-            [cell selectItemAtIndex:EmuSystem::saveStateSlot + 1 animated:NO];
+//            [cell selectItemAtIndex:EmuSystem::saveStateSlot + 1 animated:NO];
             
             return cell;
         } else if (indexPath.row == 3) {
@@ -232,8 +216,7 @@ int g_currentMB = 0;
             cell.peekInset = UIEdgeInsetsMake(0, 35, 0, 35);
             
             [cell reloadData];
-            extern BasicByteOption option6BtnPad;
-            [cell selectItemAtIndex:option6BtnPad ? 1 : 0 animated:NO];
+ //           [cell selectItemAtIndex:option6BtnPad ? 1 : 0 animated:NO];
             
             return cell;
         } else {
@@ -246,34 +229,27 @@ int g_currentMB = 0;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             
-            FsSys::cPath saveStr;
-            if (EmuSystem::saveStateSlot == -1) {
-                snprintf(saveStr, 256, "%s/save/%s.0%c.gp", Base::documentsPath(), EmuSystem::gameName, 'A');
-            } else {
-                snprintf(saveStr, 256, "%s/save/%s.0%c.gp", Base::documentsPath(), EmuSystem::gameName, '0' + EmuSystem::saveStateSlot);
-            }
-            
             NSString* saveStatus;
             
             NSFileManager* fm = [NSFileManager defaultManager];
             
-            if ([fm fileExistsAtPath:[NSString stringWithUTF8String:saveStr]]) {
-                NSDictionary* attr = [fm attributesOfItemAtPath:[NSString stringWithUTF8String:saveStr] error:nil];
-                NSDate* time = [attr objectForKey:NSFileModificationDate];
-
-                if (EmuSystem::saveStateSlot == -1) {
-                    saveStatus = [NSString stringWithFormat:@"自动存档: %@", [time description]];
-                } else {
-                    saveStatus = [NSString stringWithFormat:@"%d 存档位: %@", EmuSystem::saveStateSlot, [time description]];
-                }
-                
-            } else {
-                if (EmuSystem::saveStateSlot == -1) {
-                    saveStatus = @"自动存档: 空白";
-                } else {
-                    saveStatus = [NSString stringWithFormat:@"%d 存档位: 空白", EmuSystem::saveStateSlot];
-                }
-            }
+//            if ([fm fileExistsAtPath:[NSString stringWithUTF8String:saveStr]]) {
+//                NSDictionary* attr = [fm attributesOfItemAtPath:[NSString stringWithUTF8String:saveStr] error:nil];
+//                NSDate* time = [attr objectForKey:NSFileModificationDate];
+//
+//                if (EmuSystem::saveStateSlot == -1) {
+//                    saveStatus = [NSString stringWithFormat:@"自动存档: %@", [time description]];
+//                } else {
+//                    saveStatus = [NSString stringWithFormat:@"%d 存档位: %@", EmuSystem::saveStateSlot, [time description]];
+//                }
+//                
+//            } else {
+//                if (EmuSystem::saveStateSlot == -1) {
+//                    saveStatus = @"自动存档: 空白";
+//                } else {
+//                    saveStatus = [NSString stringWithFormat:@"%d 存档位: 空白", EmuSystem::saveStateSlot];
+//                }
+//            }
             
             switch (indexPath.row) {
                 case 0:
@@ -339,11 +315,11 @@ int g_currentMB = 0;
         switch (indexPath.row) {
             case 0:
                 [self onClickBack];
-                EmuSystem::loadState();
+//                EmuSystem::loadState();
                 break;
             case 1:
                 [self onClickBack];
-                EmuSystem::saveState();
+  //              EmuSystem::saveState();
                 break;
             case 4:
             {
@@ -354,8 +330,6 @@ int g_currentMB = 0;
                 break;
             case 5:
                 [self onClickBack];
-                extern void restoreMenuFromGame();
-                restoreMenuFromGame();
                 break;
             default:
                 break;
@@ -428,17 +402,17 @@ int g_currentMB = 0;
 - (void)pickerViewAtIndexPath:(NSIndexPath *)pickerPath didSelectItem:(NSInteger)item {
     
     if (pickerPath.row == 2) {
-        EmuSystem::saveStateSlot = (item - 1);
+//        EmuSystem::saveStateSlot = (item - 1);
     } else if (pickerPath.row == 3) {
-        extern void setupMDInput();
-        extern BasicByteOption option6BtnPad;
-        if (item == 0) {
-            option6BtnPad = 0;
-            setupMDInput();
-        } else if (item == 1) {
-            option6BtnPad = 1;
-            setupMDInput();
-        }
+//        extern void setupMDInput();
+//        extern BasicByteOption option6BtnPad;
+//        if (item == 0) {
+//            option6BtnPad = 0;
+//            setupMDInput();
+//        } else if (item == 1) {
+//            option6BtnPad = 1;
+//            setupMDInput();
+//        }
     }
 
     [m_tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
@@ -450,7 +424,7 @@ int g_currentMB = 0;
     if (alertView.tag == 100) {
         if (buttonIndex == 1) {
             [self onClickBack];
-            EmuSystem::resetGame();
+//            EmuSystem::resetGame();
         }
     } else {
         if (buttonIndex == 1) {

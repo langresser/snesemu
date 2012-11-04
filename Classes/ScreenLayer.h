@@ -11,7 +11,9 @@
 #import "IOSurface/IOSurface.h"
 
 @interface ScreenLayer : CALayer {
+#if !TARGET_IPHONE_SIMULATOR
 	IOSurfaceRef _surface;
+#endif
     uint32_t _seed;
     CGAffineTransform rotateTransform;
 }

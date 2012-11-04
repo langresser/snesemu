@@ -90,17 +90,6 @@
     //iCloud stuff will go here.
 }
 
-/*
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
-*/
-/*
-- (void)viewDidDisappear:(BOOL)animated {
-    [super viewDidDisappear:animated];
-}
-*/
-
 // Ensure that the view controller supports rotation and that the split view can therefore show in both portrait and landscape.
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);//YES;
@@ -112,6 +101,10 @@
 
 - (void)scanRomDirectory:(NSString*)path 
 {
+#if TARGET_IPHONE_SIMULATOR
+    path = @"/Users/wangjiatc/Documents/";
+#endif
+    
 	unsigned long numFiles = 0;
 	[arrayOfCharacters removeAllObjects];
 	[objectsForCharacters removeAllObjects];
@@ -203,6 +196,7 @@
 
 - (void) checkForSram {
     NSFileManager *fileManager = [NSFileManager defaultManager];
+
     NSString *documentsDirectory = AppDelegate().romDirectoryPath;
     NSArray* dirContents = [fileManager contentsOfDirectoryAtPath:documentsDirectory error:nil];
     [dirContents enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
