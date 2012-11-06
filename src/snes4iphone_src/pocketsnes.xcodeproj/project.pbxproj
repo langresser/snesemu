@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		BFD15BC914B1204C009FE8C0 /* makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = makefile; sourceTree = "<group>"; };
 		BFD15BCD14B120F5009FE8C0 /* 2xsaiwin.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = 2xsaiwin.cpp; sourceTree = "<group>"; };
 		BFD15BCE14B120F5009FE8C0 /* 3d.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 3d.h; sourceTree = "<group>"; };
 		BFD15BCF14B120F5009FE8C0 /* 65c816.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = 65c816.h; sourceTree = "<group>"; };
@@ -175,7 +174,6 @@
 			isa = PBXGroup;
 			children = (
 				BFD15C1A14B120F5009FE8C0 /* main.mm */,
-				BFD15BC914B1204C009FE8C0 /* makefile */,
 				BFD15BCD14B120F5009FE8C0 /* 2xsaiwin.cpp */,
 				BFD15BCE14B120F5009FE8C0 /* 3d.h */,
 				BFD15BCF14B120F5009FE8C0 /* 65c816.h */,
@@ -399,7 +397,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -420,7 +418,7 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				SDKROOT = macosx;
 			};

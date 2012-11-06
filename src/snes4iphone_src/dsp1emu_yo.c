@@ -30,6 +30,7 @@
 #ifdef __GP32__
 #include "gp32_func.h"
 #endif
+#include "port.h"
 //#define DebugDSP1
 
 // uncomment some lines to test

@@ -9,7 +9,6 @@
 #import "SNES4iOSAppDelegate.h"
 #import "EmulationViewController.h"
 #import "ScreenView.h"
-#import "SNESControllerViewController.h"
 #import "ScreenLayer.h"
 #import <QuartzCore/QuartzCore.h>
 

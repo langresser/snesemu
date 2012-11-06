@@ -24,6 +24,9 @@
 #include "squidgehack.h"
 #endif
 
+#define DIR_SEPERATOR "/"
+#define __IPHONE__ 1
+
 #ifdef __IPHONE__
 //#include <pthread.h>
 #include <sys/time.h>

@@ -16,7 +16,6 @@
 		3B49962D1647191B00C07B01 /* libAdsMogo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49962C1647191B00C07B01 /* libAdsMogo.a */; };
 		3B499637164719D300C07B01 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B499636164719D300C07B01 /* IOSurface.framework */; };
 		3B49963916471A3100C07B01 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49963816471A3100C07B01 /* Zip.framework */; };
-		3B49964216471CF200C07B01 /* libpocketsnes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49964116471CF200C07B01 /* libpocketsnes.a */; };
 		3B49965816471F6000C07B01 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964516471F6000C07B01 /* MKAnnotationView+WebCache.m */; };
 		3B49965916471F6000C07B01 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964716471F6000C07B01 /* SDImageCache.m */; };
 		3B49965A16471F6000C07B01 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964B16471F6000C07B01 /* SDWebImageDecoder.m */; };
@@ -201,6 +200,7 @@
 		3B9B1D341646D34500E0471E /* config_iPad.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1D311646D34400E0471E /* config_iPad.txt */; };
 		3B9B1D351646D34500E0471E /* config_iPhone.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1D321646D34400E0471E /* config_iPhone.txt */; };
 		3B9B1D361646D34500E0471E /* SKIN_1 in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1D331646D34400E0471E /* SKIN_1 */; };
+		3BBDE1401649BE870077184F /* libpocketsnes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BBDE13F1649BE870077184F /* libpocketsnes.a */; };
 		3BDE510C1647162100CF4719 /* libIOKit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDE510B1647162100CF4719 /* libIOKit.dylib */; };
 		5508024B156E141C004D365C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 55080249156E141C004D365C /* settings.png */; };
 		5508024C156E141C004D365C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5508024A156E141C004D365C /* settings@2x.png */; };
@@ -292,7 +292,6 @@
 		3B49962C1647191B00C07B01 /* libAdsMogo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdsMogo.a; sourceTree = "<group>"; };
 		3B499636164719D300C07B01 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/PrivateFrameworks/IOSurface.framework; sourceTree = SDKROOT; };
 		3B49963816471A3100C07B01 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
-		3B49964116471CF200C07B01 /* libpocketsnes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpocketsnes.a; path = lib/libpocketsnes.a; sourceTree = "<group>"; };
 		3B49964416471F6000C07B01 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		3B49964516471F6000C07B01 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
 		3B49964616471F6000C07B01 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -550,6 +549,7 @@
 		3B9B1D311646D34400E0471E /* config_iPad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config_iPad.txt; sourceTree = "<group>"; };
 		3B9B1D321646D34400E0471E /* config_iPhone.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config_iPhone.txt; sourceTree = "<group>"; };
 		3B9B1D331646D34400E0471E /* SKIN_1 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SKIN_1; sourceTree = "<group>"; };
+		3BBDE13F1649BE870077184F /* libpocketsnes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpocketsnes.a; path = lib/libpocketsnes.a; sourceTree = "<group>"; };
 		3BDE510B1647162100CF4719 /* libIOKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIOKit.dylib; path = usr/lib/libIOKit.dylib; sourceTree = SDKROOT; };
 		55080249156E141C004D365C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		5508024A156E141C004D365C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
@@ -653,9 +653,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BBDE1401649BE870077184F /* libpocketsnes.a in Frameworks */,
 				3B49966416471FE000C07B01 /* ImageIO.framework in Frameworks */,
 				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
-				3B49964216471CF200C07B01 /* libpocketsnes.a in Frameworks */,
 				3BDE510C1647162100CF4719 /* libIOKit.dylib in Frameworks */,
 				3B6F1F491645BAAD00330662 /* SystemConfiguration.framework in Frameworks */,
 				3B6F1F471645BA3D00330662 /* libsqlite3.dylib in Frameworks */,
@@ -745,8 +745,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				3BBDE13F1649BE870077184F /* libpocketsnes.a */,
 				3B49966316471FE000C07B01 /* ImageIO.framework */,
-				3B49964116471CF200C07B01 /* libpocketsnes.a */,
 				3BDE510B1647162100CF4719 /* libIOKit.dylib */,
 				3B6F1E4F1645B4FB00330662 /* lib */,
 				55724B4F156B940500FF5BA6 /* Icon72@2x.png */,

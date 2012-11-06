@@ -13,7 +13,7 @@
 #define RADIANS(degrees) ((degrees * M_PI) / 180.0)
 #define DEGREES(radians) (radians * 180.0/M_PI)
 
-extern unsigned long gp2x_pad_status;
+unsigned long gp2x_pad_status11;
 int num_of_joys;
 
 extern CGRect drects[100];
@@ -83,20 +83,12 @@ int menu_exit_option = 0;
 
 int game_list_num = 0;
 
-static unsigned long newtouches[10];
-static unsigned long oldtouches[10];
-
 #define STICK4WAY (iOS_waysStick == 4 && iOS_inGame)
 #define STICK2WAY (iOS_waysStick == 2 && iOS_inGame)
         
 enum { DPAD_NONE=0,DPAD_UP=1,DPAD_DOWN=2,DPAD_LEFT=3,DPAD_RIGHT=4,DPAD_UP_LEFT=5,DPAD_UP_RIGHT=6,DPAD_DOWN_LEFT=7,DPAD_DOWN_RIGHT=8};    
 
 enum { BTN_B=0,BTN_X=1,BTN_A=2,BTN_Y=3,BTN_SELECT=4,BTN_START=5,BTN_L1=6,BTN_R1=7,BTN_L2=8,BTN_R2=9};
-
-enum  { GP2X_UP=0x1,       GP2X_LEFT=0x4,       GP2X_DOWN=0x10,  GP2X_RIGHT=0x40,
-	GP2X_START=1<<8,   GP2X_SELECT=1<<9,    GP2X_L=1<<10,    GP2X_R=1<<11,
-	GP2X_A=1<<12,      GP2X_B=1<<13,        GP2X_X=1<<14,    GP2X_Y=1<<15,
-	GP2X_VOL_UP=1<<23, GP2X_VOL_DOWN=1<<22, GP2X_PUSH=1<<27 };
 
 enum { BUTTON_PRESS=0,BUTTON_NO_PRESS=1};
 
@@ -548,6 +540,7 @@ int __emulation_run=0;
     for(i=0; i<NUM_BUTTONS;i++)
     {
         btnStates[i] = BUTTON_NO_PRESS;
+        gp2x_pad_status11 = 0;
     }
     
     for (i = 0; i < touchcount; i++)
@@ -572,31 +565,27 @@ int __emulation_run=0;
                     dpad_state = DPAD_UP;
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_UP;
-                    newtouches[i] = GP2X_UP;
+                    gp2x_pad_status11 |= GP2X_UP;
                 }
                 else if (MyCGRectContainsPoint(Down, point) && !STICK2WAY) {
                     dpad_state = DPAD_DOWN;
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_DOWN;
-                    newtouches[i] = GP2X_DOWN;
+                    gp2x_pad_status11 |= GP2X_DOWN;
                 }
                 else if (MyCGRectContainsPoint(Left, point)) {
                     dpad_state = DPAD_LEFT;
                     
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_LEFT;
-                    newtouches[i] = GP2X_LEFT;
+                    gp2x_pad_status11 |= GP2X_LEFT;
                 }
                 else if (MyCGRectContainsPoint(Right, point)) {
                     dpad_state = DPAD_RIGHT;
                     
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_RIGHT;
-                    newtouches[i] = GP2X_RIGHT;
+                    gp2x_pad_status11 |= GP2X_RIGHT;
                 }
                 else if (MyCGRectContainsPoint(UpLeft, point)) {
                     //NSLog(@"GP2X_UP | GP2X_LEFT");
@@ -610,8 +599,7 @@ int __emulation_run=0;
                     }
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_UP | GP2X_LEFT;
-                    newtouches[i] = GP2X_UP | GP2X_LEFT;
+                    gp2x_pad_status11 |= GP2X_UP | GP2X_LEFT;
                 }
                 else if (MyCGRectContainsPoint(UpRight, point)) {
                     //NSLog(@"GP2X_UP | GP2X_RIGHT");
@@ -625,8 +613,7 @@ int __emulation_run=0;
                     }
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_UP | GP2X_RIGHT;
-                    newtouches[i] = GP2X_UP | GP2X_RIGHT;
+                    gp2x_pad_status11 |= GP2X_UP | GP2X_RIGHT;
                 }
                 else if (MyCGRectContainsPoint(DownLeft, point)) {
                     //NSLog(@"GP2X_DOWN | GP2X_LEFT");
@@ -641,8 +628,7 @@ int __emulation_run=0;
                     }
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_DOWN | GP2X_LEFT;
-                    newtouches[i] = GP2X_DOWN | GP2X_LEFT;
+                    gp2x_pad_status11 |= GP2X_DOWN | GP2X_LEFT;
                 }
                 else if (MyCGRectContainsPoint(DownRight, point)) {
                     if(!STICK2WAY && !STICK4WAY)
@@ -655,8 +641,7 @@ int __emulation_run=0;
                     }
                     stickTouch = touch;
                     
-                    gp2x_pad_status |= GP2X_DOWN | GP2X_RIGHT;
-                    newtouches[i] = GP2X_DOWN | GP2X_RIGHT;
+                    gp2x_pad_status11 |= GP2X_DOWN | GP2X_RIGHT;
                 }
             }
             
@@ -665,14 +650,12 @@ int __emulation_run=0;
             if (MyCGRectContainsPoint(ButtonUp, point)) {
                 btnStates[BTN_Y] = BUTTON_PRESS;
                 //NSLog(@"GP2X_Y");
-                gp2x_pad_status |= GP2X_Y;
-				newtouches[i] = GP2X_Y;
+                gp2x_pad_status11 |= GP2X_Y;
             }
             else if (MyCGRectContainsPoint(ButtonDown, point)) {
                 btnStates[BTN_X] = BUTTON_PRESS;
                 //NSLog(@"GP2X_X");
-                gp2x_pad_status |= GP2X_X;
-				newtouches[i] = GP2X_X;
+                gp2x_pad_status11 |= GP2X_X;
             }
             else if (MyCGRectContainsPoint(ButtonLeft, point)) {
                 if(iOS_BplusX)
@@ -685,8 +668,7 @@ int __emulation_run=0;
                 {
                     btnStates[BTN_A] = BUTTON_PRESS;
                     
-                    gp2x_pad_status |= GP2X_A;
-                    newtouches[i] = GP2X_A;
+                    gp2x_pad_status11 |= GP2X_A;
                 }
                 //NSLog(@"GP2X_A");
             }
@@ -694,16 +676,14 @@ int __emulation_run=0;
                 btnStates[BTN_B] = BUTTON_PRESS;
                 //NSLog(@"GP2X_B");
                 
-                gp2x_pad_status |= GP2X_B;
-				newtouches[i] = GP2X_B;
+                gp2x_pad_status11 |= GP2X_B;
             }
             else if (MyCGRectContainsPoint(ButtonUpLeft, point)) {
                 btnStates[BTN_Y] = BUTTON_PRESS;
                 btnStates[BTN_A] = BUTTON_PRESS;
                 //NSLog(@"GP2X_Y | GP2X_A");
                 
-                gp2x_pad_status |= GP2X_A | GP2X_Y;
-				newtouches[i] = GP2X_A | GP2X_Y;
+                gp2x_pad_status11 |= GP2X_A | GP2X_Y;
             }
             else if (MyCGRectContainsPoint(ButtonDownLeft, point)) {
                 
@@ -711,15 +691,13 @@ int __emulation_run=0;
                 btnStates[BTN_X] = BUTTON_PRESS;							
                 //NSLog(@"GP2X_X | GP2X_A");
                 
-                gp2x_pad_status |= GP2X_X | GP2X_A;
-				newtouches[i] = GP2X_X | GP2X_A;
+                gp2x_pad_status11 |= GP2X_X | GP2X_A;
             }
             else if (MyCGRectContainsPoint(ButtonUpRight, point)) {                btnStates[BTN_B] = BUTTON_PRESS;
                 btnStates[BTN_Y] = BUTTON_PRESS;				
                 //NSLog(@"GP2X_Y | GP2X_B");
                 
-                gp2x_pad_status |= GP2X_B | GP2X_Y;
-				newtouches[i] = GP2X_B | GP2X_Y;
+                gp2x_pad_status11 |= GP2X_B | GP2X_Y;
             }			
             else if (MyCGRectContainsPoint(ButtonDownRight, point)) {
                 if(!iOS_BplusX && iOS_landscape_buttons>=3)
@@ -727,56 +705,51 @@ int __emulation_run=0;
                     btnStates[BTN_B] = BUTTON_PRESS;
                     btnStates[BTN_X] = BUTTON_PRESS;
                     
-                    gp2x_pad_status |= GP2X_X | GP2X_B;
-                    newtouches[i] = GP2X_X | GP2X_B;
+                    gp2x_pad_status11 |= GP2X_X | GP2X_B;
                 }
                 //NSLog(@"GP2X_X | GP2X_B");
             } 
             else if (MyCGRectContainsPoint(Select, point)) {
                 //NSLog(@"GP2X_SELECT");			
                 btnStates[BTN_SELECT] = BUTTON_PRESS;
+                gp2x_pad_status11 |= GP2X_SELECT;
             }
             else if (MyCGRectContainsPoint(Start, point)) {
                 //NSLog(@"GP2X_START");
                 btnStates[BTN_START] = BUTTON_PRESS;
-            }						
+                gp2x_pad_status11 |= GP2X_START;
+            }
             else if (MyCGRectContainsPoint(LPad, point)) {
                 //NSLog(@"GP2X_L");
                 btnStates[BTN_L1] = BUTTON_PRESS;
                 
-                gp2x_pad_status |= GP2X_L;
-				newtouches[i] = GP2X_L;
+                gp2x_pad_status11 |= GP2X_L;
             }
             else if (MyCGRectContainsPoint(RPad, point)) {
                 //NSLog(@"GP2X_R");
                 btnStates[BTN_R1] = BUTTON_PRESS;
                 
-                gp2x_pad_status |= GP2X_R;
-				newtouches[i] = GP2X_R;
+                gp2x_pad_status11 |= GP2X_R;
             }			
             else if (MyCGRectContainsPoint(LPad2, point)) {
                 //NSLog(@"GP2X_VOL_DOWN");
-                //gp2x_pad_status |= GP2X_VOL_DOWN;
+                //gp2x_pad_status11 |= GP2X_VOL_DOWN;
                 btnStates[BTN_L2] = BUTTON_PRESS;
-                gp2x_pad_status |= GP2X_VOL_DOWN;
-				newtouches[i] = GP2X_VOL_DOWN;
+                gp2x_pad_status11 |= GP2X_VOL_DOWN;
             }
             else if (MyCGRectContainsPoint(RPad2, point)) {
                 //NSLog(@"GP2X_VOL_UP");
-                //gp2x_pad_status |= GP2X_VOL_UP;
+                //gp2x_pad_status11 |= GP2X_VOL_UP;
                 btnStates[BTN_R2] = BUTTON_PRESS;
                 
-                gp2x_pad_status |= GP2X_VOL_UP;
-				newtouches[i] = GP2X_VOL_UP;
+                gp2x_pad_status11 |= GP2X_VOL_UP;
             }else if (MyCGRectContainsPoint(Select, point))
 			{
-				gp2x_pad_status |= GP2X_SELECT;
-				newtouches[i] = GP2X_SELECT;
+				gp2x_pad_status11 |= GP2X_SELECT;
 			}
 			else if (MyCGRectContainsPoint(Start, point))
 			{
-				gp2x_pad_status |= GP2X_START;
-				newtouches[i] = GP2X_START;
+				gp2x_pad_status11 |= GP2X_START;
 			}
 			else if (MyCGRectContainsPoint(Menu, point))
 			{

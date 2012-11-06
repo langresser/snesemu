@@ -14,8 +14,27 @@
 #define MAX_CONNECTIONS 4
 #define SESSION_ID @"com.snes-hd.controller"
 
+#define INP_BUTTON_UP				(0)
+#define INP_BUTTON_LEFT				(2)
+#define INP_BUTTON_DOWN				(4)
+#define INP_BUTTON_RIGHT			(6)
+#define INP_BUTTON_START			(8)
+#define INP_BUTTON_SELECT			(9)
+#define INP_BUTTON_L				(10)
+#define INP_BUTTON_R				(11)
+#define INP_BUTTON_HARDLEFT			(12)
+#define INP_BUTTON_HARDRIGHT		(13)
+#define INP_BUTTON_HARDDOWN			(14)
+#define INP_BUTTON_HARDUP			(15)
+#define INP_BUTTON_L2				(22)
+#define INP_BUTTON_R2				(23)
+#define INP_BUTTON_STICK_PUSH		(27)
+#define INP_BUTTON_MENU				(31)
+
+extern unsigned long gp2x_pad_status11;
 unsigned long padStatusForPadNumber(int which)
 {
+    return gp2x_pad_status11;
 	if (which < MAX_CONTROL_PADS)
 		return [AppDelegate().controlPadManager statusForPadNumber:which];
 

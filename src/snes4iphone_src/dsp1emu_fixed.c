@@ -25,6 +25,7 @@
 #include <string.h>
 #include <stdlib.h>
 #endif
+#include "port.h"
 //#define DebugDSP1
 
 #define funcSADDMULT1616(a,b,c,d) (((int64)a*(int64)b+(int64)c*(int64)d)>>16);

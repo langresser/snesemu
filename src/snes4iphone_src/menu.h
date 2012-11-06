@@ -1,6 +1,6 @@
 #ifndef _MENU_H_
 #define _MENU_H_
-
+#define __IPHONE__ 1
 #ifdef __cplusplus
 extern "C" {
 #endif

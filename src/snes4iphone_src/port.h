@@ -92,9 +92,15 @@ typedef signed char		int8_32;
 typedef short			int16_32;
 
 //Defines for Extern C
+#ifdef __cplusplus
 #define EXTERN_C extern "C" 
 #define START_EXTERN_C extern "C" {
 #define END_EXTERN_C }
+#else
+#define EXTERN_C
+#define START_EXTERN_C
+#define END_EXTERN_C 
+#endif
 
 #define VOID void
 

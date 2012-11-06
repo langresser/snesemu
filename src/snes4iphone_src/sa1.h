@@ -43,7 +43,6 @@
 
 #include "memmap.h"
 
-START_EXTERN_C
 struct SSA1Registers {
     uint8   PB;
     uint8   DB;
@@ -114,7 +113,7 @@ extern struct SSA1 SA1;
 #define SA1SetFlags(f)   (SA1Registers.P.W |=  (f))
 #define SA1CheckFlag(f)  (SA1Registers.PL & (f))
 
-
+START_EXTERN_C
 uint8 S9xSA1GetByte (uint32);
 uint16 S9xSA1GetWord (uint32);
 void S9xSA1SetByte (uint8, uint32);
