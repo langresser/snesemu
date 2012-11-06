@@ -15,6 +15,8 @@
 #import "ControlPadConnectViewController.h"
 #import "ControlPadManager.h"
 #import "WebBrowserViewController.h"
+#import "UMFeedback.h"
+#import "MobClick.h"
 
 SNES4iOSAppDelegate *AppDelegate()
 {
@@ -28,7 +30,7 @@ SNES4iOSAppDelegate *AppDelegate()
 @synthesize romDirectoryPath, saveDirectoryPath, snapshotDirectoryPath;
 @synthesize emulationViewController, webViewController, webNavController;
 @synthesize tabBarController;
-@synthesize snesControllerAppDelegate, snesControllerViewController;
+@synthesize snesControllerAppDelegate;
 @synthesize sramDirectoryPath;
 
 
@@ -59,7 +61,6 @@ SNES4iOSAppDelegate *AppDelegate()
     
 	// Make the main emulator view controller
 	emulationViewController = [[EmulationViewController alloc] init];
-	emulationViewController.view.hidden = YES;
     emulationViewController.view.userInteractionEnabled = NO;
 	
 	// Make the web browser view controller
@@ -68,37 +69,47 @@ SNES4iOSAppDelegate *AppDelegate()
 	webNavController = [[UINavigationController alloc] initWithRootViewController:webViewController];
 	webNavController.navigationBar.barStyle = UIBarStyleBlack;
     
-    snesControllerViewController = [[SNESControllerViewController alloc] initWithNibName:@"SNESControllerViewController" bundle:nil];
-    snesControllerViewController.wantsFullScreenLayout = YES;
-    
-    snesControllerAppDelegate = [[SNESControllerAppDelegate alloc] init];
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        
-        self.romSelectionViewController = [[RomSelectionViewController alloc] initWithNibName:@"RomSelectionViewController" bundle:nil];
-        self.romSelectionViewController.title = @"ROMs";
-        UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
-        UIBarButtonItem *controllerButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"Controller"] style:UIBarButtonItemStylePlain target:self.romSelectionViewController action:@selector(loadSNESController)];
-        UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settings"] style:UIBarButtonItemStylePlain target:self.settingsViewController action:@selector(showSettings)];
-        self.romSelectionViewController.toolbarItems = [NSArray arrayWithObjects:controllerButton, flexibleSpace, settingsButton, nil];
-        
-        UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:self.romSelectionViewController];
-        masterNavigationController.toolbarHidden = NO;
-        self.window.rootViewController = masterNavigationController;
-    } else {
-        self.window.rootViewController = self.splitViewController;
-        emulationViewController.view.userInteractionEnabled = YES;
-    }
+//    snesControllerAppDelegate = [[SNESControllerAppDelegate alloc] init];
+
+    [MobClick startWithAppkey:@"504b6946527015169e00004f"];
+    [[DianJinOfferPlatform defaultPlatform] setAppId:10036 andSetAppKey:@"0f3294fd5e50445ca4d28a259409ffd0"];
+	[[DianJinOfferPlatform defaultPlatform] setOfferViewColor:kDJBrownColor];
+    [UMFeedback checkWithAppkey:@"504b6946527015169e00004f"];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRecNewMsg:) name:UMFBCheckFinishedNotification object:nil];
+
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.rootViewController = emulationViewController;
+//    [self.window addSubview:emulationViewController.view];
+//    emulationViewController.view.hidden = YES;
+    // 注意顺序 window不为key则presendViewController等函数无效
     [self.window makeKeyAndVisible];
+    [emulationViewController showGameList];
     
-    emulationViewController.view.hidden = NO;
-	
-    [window makeKeyAndVisible];
     
     return YES;
 }
 
+-(void)onRecNewMsg:(NSNotification*)notification
+{
+    NSArray * newReplies = [notification.userInfo objectForKey:@"newReplies"];
+    if (!newReplies) {
+        return;
+    }
+    
+    UIAlertView *alertView;
+    NSString *title = [NSString stringWithFormat:@"有%d条新回复", [newReplies count]];
+    NSMutableString *content = [NSMutableString string];
+    for (int i = 0; i < [newReplies count]; i++) {
+        NSString * dateTime = [[newReplies objectAtIndex:i] objectForKey:@"datetime"];
+        NSString *_content = [[newReplies objectAtIndex:i] objectForKey:@"content"];
+        [content appendString:[NSString stringWithFormat:@"%d: %@---%@\n", i+1, _content, dateTime]];
+    }
+    
+    alertView = [[UIAlertView alloc] initWithTitle:title message:content delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+    ((UILabel *) [[alertView subviews] objectAtIndex:1]).textAlignment = NSTextAlignmentLeft ;
+    [alertView show];
+    
+}
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Save data if appropriate
@@ -107,26 +118,9 @@ SNES4iOSAppDelegate *AppDelegate()
 - (void) showEmulator:(BOOL)showOrHide
 {
 	if (showOrHide) {
-        [self.snesControllerViewController.view insertSubview:self.emulationViewController.view atIndex:0];
         self.splitViewController.view.hidden = YES;
-        self.emulationViewController.view.hidden = NO;
-        [self.emulationViewController setLandscapeRight];
 		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
 	} else {
-        UIViewController *presentedViewController = AppDelegate().snesControllerViewController;
-        if (ControllerAppDelegate().controllerType == SNESControllerTypeWireless) {
-            presentedViewController = AppDelegate().emulationViewController;
-        }
-        UIViewController *parentViewController = [presentedViewController parentViewController];
-        if ([presentedViewController respondsToSelector:@selector(presentingViewController)]) {
-            parentViewController = [presentedViewController presentingViewController];//Fixes iOS 5 bug
-        }
-        [parentViewController dismissModalViewControllerAnimated:NO];
-        
-        self.emulationViewController.view.hidden = YES;
-        if (self.emulationViewController.view.superview != nil) {
-            [self.emulationViewController.view removeFromSuperview];
-        }
         self.splitViewController.view.hidden = NO;
         
 		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];

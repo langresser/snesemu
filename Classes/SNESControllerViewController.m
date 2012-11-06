@@ -426,7 +426,6 @@ void rt_dispatch_sync_on_main_thread(dispatch_block_t block) {
 			else if (MyCGRectContainsPoint(Menu, point)) 
 			{
                 CGRect rect = CGRectMake(Menu.origin.x + Menu.size.width/2, Menu.size.height, 60, 60);
-				[AppDelegate().emulationViewController showPauseDialogFromRect:rect];
 			}
 			
 			if(oldtouches[i] != newtouches[i])

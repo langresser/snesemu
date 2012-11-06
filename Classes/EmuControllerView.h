@@ -4,6 +4,7 @@
 #import <QuartzCore/CALayer.h>
 #import "DView.h"
 #import "AnalogStick.h"
+#import "ScreenView.h"
 
 #import <pthread.h>
 #import <sched.h>
@@ -14,8 +15,7 @@
 
 @interface EmuControllerView : UIView
 {
-
-  UIView			* screenView;
+  ScreenView		* screenView;
   UIImageView	    * imageBack;
   UIImageView	    * imageOverlay;
   DView             * dview;
@@ -60,28 +60,20 @@
   NSString *nameImgButton_NotPress[NUM_BUTTONS];
 }
 
-
+@property(nonatomic, retain) ScreenView* screenView;
 
 - (void)getControllerCoords:(int)orientation;
 
 - (void)getConf;
 - (void)filldrectsController;
 
-- (void)startEmulation;
-
 - (void)removeDPadView;
 - (void)buildDPadView;
 
-- (void)changeUI;
+- (void)changeUI : (UIInterfaceOrientation)interfaceOrientation;
 
-- (void)buildPortraitImageBack;
-- (void)buildPortraitImageOverlay;
 - (void)buildPortrait;
-- (void)buildLandscapeImageOverlay;
-- (void)buildLandscapeImageBack;
 - (void)buildLandscape;
 
 - (void)handle_DPAD;
-
-- (void)touchesController:(NSSet *)touches withEvent:(UIEvent *)event;
 @end

@@ -18,7 +18,6 @@ extern int iphone_controller_opacity;
 extern int iOS_full_screen_land;
 extern int iOS_full_screen_port;
 extern int iOS_inGame;
-extern int iOS_animated_DPad;
 extern int iOS_skin_data;
 extern int iOS_waysStick;
 extern int iOS_analogDeadZoneValue;
@@ -300,7 +299,7 @@ int iOS_stick_radio = 60;
         
     [self updateAnalog];
     
-    if((fabs(oldRx - rx) >= 0.03 || fabs(oldRy - ry) >= 0.03) && iOS_animated_DPad)
+    if((fabs(oldRx - rx) >= 0.03 || fabs(oldRy - ry) >= 0.03))
     {
       oldRx = rx;
       oldRy = ry;

@@ -13,6 +13,19 @@
 		2804200B108E984D000629CD /* RomSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28042008108E984D000629CD /* RomSelectionViewController.m */; };
 		2804200C108E984D000629CD /* RomDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2804200A108E984D000629CD /* RomDetailViewController.m */; };
 		2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */; };
+		3B49962D1647191B00C07B01 /* libAdsMogo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49962C1647191B00C07B01 /* libAdsMogo.a */; };
+		3B499637164719D300C07B01 /* IOSurface.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B499636164719D300C07B01 /* IOSurface.framework */; };
+		3B49963916471A3100C07B01 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49963816471A3100C07B01 /* Zip.framework */; };
+		3B49964216471CF200C07B01 /* libpocketsnes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49964116471CF200C07B01 /* libpocketsnes.a */; };
+		3B49965816471F6000C07B01 /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964516471F6000C07B01 /* MKAnnotationView+WebCache.m */; };
+		3B49965916471F6000C07B01 /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964716471F6000C07B01 /* SDImageCache.m */; };
+		3B49965A16471F6000C07B01 /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964B16471F6000C07B01 /* SDWebImageDecoder.m */; };
+		3B49965B16471F6000C07B01 /* SDWebImageDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49964D16471F6000C07B01 /* SDWebImageDownloader.m */; };
+		3B49965C16471F6000C07B01 /* SDWebImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49965016471F6000C07B01 /* SDWebImageManager.m */; };
+		3B49965D16471F6000C07B01 /* SDWebImagePrefetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49965316471F6000C07B01 /* SDWebImagePrefetcher.m */; };
+		3B49965E16471F6000C07B01 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49965516471F6000C07B01 /* UIButton+WebCache.m */; };
+		3B49965F16471F6000C07B01 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B49965716471F6000C07B01 /* UIImageView+WebCache.m */; };
+		3B49966416471FE000C07B01 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B49966316471FE000C07B01 /* ImageIO.framework */; };
 		3B6F1DEA1645923400330662 /* AnalogStick.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DE91645923400330662 /* AnalogStick.m */; };
 		3B6F1E1E1645A8D300330662 /* CPPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF21645A8CA00330662 /* CPPickerView.m */; };
 		3B6F1E1F1645A8D300330662 /* CPPickerViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1DF41645A8CA00330662 /* CPPickerViewCell.m */; };
@@ -29,12 +42,12 @@
 		3B6F1E2A1645A8D300330662 /* star_highlighted.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E041645A8CB00330662 /* star_highlighted.png */; };
 		3B6F1E2B1645A8D300330662 /* star_highlighted@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1E051645A8CB00330662 /* star_highlighted@2x.png */; };
 		3B6F1E2C1645A8D300330662 /* UIView+Subviews.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E071645A8CB00330662 /* UIView+Subviews.m */; };
-		3B6F1E2D1645A8D300330662 /* GameListViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E091645A8CC00330662 /* GameListViewController.mm */; };
-		3B6F1E2E1645A8D300330662 /* iosUtil.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0B1645A8CD00330662 /* iosUtil.mm */; };
+		3B6F1E2D1645A8D300330662 /* GameListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E091645A8CC00330662 /* GameListViewController.m */; };
+		3B6F1E2E1645A8D300330662 /* iosUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0B1645A8CD00330662 /* iosUtil.m */; };
 		3B6F1E2F1645A8D300330662 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0D1645A8CD00330662 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3B6F1E301645A8D300330662 /* NSString+MD5Addition.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E0F1645A8CD00330662 /* NSString+MD5Addition.m */; };
 		3B6F1E311645A8D300330662 /* platform_util.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E101645A8CF00330662 /* platform_util.cpp */; };
-		3B6F1E321645A8D300330662 /* SettingViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E131645A8CF00330662 /* SettingViewController.mm */; };
+		3B6F1E321645A8D300330662 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E131645A8CF00330662 /* SettingViewController.m */; };
 		3B6F1E331645A8D300330662 /* TDBadgedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E151645A8D000330662 /* TDBadgedCell.m */; };
 		3B6F1E341645A8D300330662 /* UIDevice+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E171645A8D200330662 /* UIDevice+Util.m */; };
 		3B6F1E351645A8D300330662 /* UIGlossyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1E191645A8D200330662 /* UIGlossyButton.m */; };
@@ -68,42 +81,7 @@
 		3B6F1EE91645B4FC00330662 /* libAdsMogo_i386.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1EA51645B4FC00330662 /* libAdsMogo_i386.a */; };
 		3B6F1EEA1645B4FC00330662 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1EA61645B4FC00330662 /* libMobClickLibrary.a */; };
 		3B6F1EEB1645B4FC00330662 /* libUMFeedback.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1EA71645B4FC00330662 /* libUMFeedback.a */; };
-		3B6F1EEC1645B4FC00330662 /* DianJinOfferPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1EAB1645B4FC00330662 /* DianJinOfferPlatform.framework */; };
-		3B6F1EED1645B4FC00330662 /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1EAC1645B4FC00330662 /* Log.framework */; };
-		3B6F1EEE1645B4FC00330662 /* Zip.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1EAD1645B4FC00330662 /* Zip.framework */; };
-		3B6F1EEF1645B4FD00330662 /* dianjin_back_button_normal0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EAF1645B4FC00330662 /* dianjin_back_button_normal0.png */; };
-		3B6F1EF01645B4FD00330662 /* dianjin_back_button_normal1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB01645B4FC00330662 /* dianjin_back_button_normal1.png */; };
-		3B6F1EF11645B4FD00330662 /* dianjin_back_button_normal2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB11645B4FC00330662 /* dianjin_back_button_normal2.png */; };
-		3B6F1EF21645B4FD00330662 /* dianjin_back_button_normal3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB21645B4FC00330662 /* dianjin_back_button_normal3.png */; };
-		3B6F1EF31645B4FD00330662 /* dianjin_back_button_normal4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB31645B4FC00330662 /* dianjin_back_button_normal4.png */; };
-		3B6F1EF41645B4FD00330662 /* dianjin_back_button_normal5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB41645B4FC00330662 /* dianjin_back_button_normal5.png */; };
-		3B6F1EF51645B4FD00330662 /* dianjin_back_button_press0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB51645B4FC00330662 /* dianjin_back_button_press0.png */; };
-		3B6F1EF61645B4FD00330662 /* dianjin_back_button_press1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB61645B4FC00330662 /* dianjin_back_button_press1.png */; };
-		3B6F1EF71645B4FD00330662 /* dianjin_back_button_press2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB71645B4FC00330662 /* dianjin_back_button_press2.png */; };
-		3B6F1EF81645B4FD00330662 /* dianjin_back_button_press3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB81645B4FC00330662 /* dianjin_back_button_press3.png */; };
-		3B6F1EF91645B4FD00330662 /* dianjin_back_button_press4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EB91645B4FC00330662 /* dianjin_back_button_press4.png */; };
-		3B6F1EFA1645B4FD00330662 /* dianjin_back_button_press5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EBA1645B4FC00330662 /* dianjin_back_button_press5.png */; };
-		3B6F1EFB1645B4FD00330662 /* dianjin_headerArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EBB1645B4FC00330662 /* dianjin_headerArrow.png */; };
-		3B6F1EFC1645B4FD00330662 /* dianjin_headerArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EBC1645B4FC00330662 /* dianjin_headerArrow@2x.png */; };
-		3B6F1EFD1645B4FD00330662 /* dianjin_installed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EBD1645B4FC00330662 /* dianjin_installed.png */; };
-		3B6F1EFE1645B4FD00330662 /* dianjin_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EBE1645B4FC00330662 /* dianjin_logo.png */; };
-		3B6F1EFF1645B4FD00330662 /* dianjin_navigation_bar_background0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EBF1645B4FC00330662 /* dianjin_navigation_bar_background0.png */; };
-		3B6F1F001645B4FD00330662 /* dianjin_navigation_bar_background0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC01645B4FC00330662 /* dianjin_navigation_bar_background0@2x.png */; };
-		3B6F1F011645B4FD00330662 /* dianjin_navigation_bar_background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC11645B4FC00330662 /* dianjin_navigation_bar_background1.png */; };
-		3B6F1F021645B4FD00330662 /* dianjin_navigation_bar_background1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC21645B4FC00330662 /* dianjin_navigation_bar_background1@2x.png */; };
-		3B6F1F031645B4FD00330662 /* dianjin_navigation_bar_background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC31645B4FC00330662 /* dianjin_navigation_bar_background2.png */; };
-		3B6F1F041645B4FD00330662 /* dianjin_navigation_bar_background2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC41645B4FC00330662 /* dianjin_navigation_bar_background2@2x.png */; };
-		3B6F1F051645B4FD00330662 /* dianjin_navigation_bar_background3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC51645B4FC00330662 /* dianjin_navigation_bar_background3.png */; };
-		3B6F1F061645B4FD00330662 /* dianjin_navigation_bar_background3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC61645B4FC00330662 /* dianjin_navigation_bar_background3@2x.png */; };
-		3B6F1F071645B4FD00330662 /* dianjin_navigation_bar_background4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC71645B4FC00330662 /* dianjin_navigation_bar_background4.png */; };
-		3B6F1F081645B4FD00330662 /* dianjin_navigation_bar_background4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC81645B4FC00330662 /* dianjin_navigation_bar_background4@2x.png */; };
-		3B6F1F091645B4FD00330662 /* dianjin_navigation_bar_background5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1EC91645B4FC00330662 /* dianjin_navigation_bar_background5.png */; };
-		3B6F1F0A1645B4FD00330662 /* dianjin_navigation_bar_background5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1ECA1645B4FC00330662 /* dianjin_navigation_bar_background5@2x.png */; };
-		3B6F1F0B1645B4FD00330662 /* dianjin_offer_cell_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1ECB1645B4FC00330662 /* dianjin_offer_cell_background.png */; };
-		3B6F1F0C1645B4FD00330662 /* dianjin_uninstalled_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1ECC1645B4FC00330662 /* dianjin_uninstalled_normal.png */; };
-		3B6F1F0D1645B4FD00330662 /* dianjin_uninstalled_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1ECD1645B4FC00330662 /* dianjin_uninstalled_press.png */; };
 		3B6F1F0E1645B4FD00330662 /* umFeedback.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B6F1ECE1645B4FC00330662 /* umFeedback.bundle */; };
-		3B6F1F221645B5ED00330662 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6F1F211645B5ED00330662 /* GameViewController.m */; };
 		3B6F1F281645B97B00330662 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1F271645B97B00330662 /* EventKit.framework */; };
 		3B6F1F2A1645B98100330662 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1F291645B98000330662 /* CoreTelephony.framework */; };
 		3B6F1F2C1645B98600330662 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1F2B1645B98500330662 /* CoreLocation.framework */; };
@@ -114,6 +92,116 @@
 		3B6F1F471645BA3D00330662 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1F461645BA3D00330662 /* libsqlite3.dylib */; };
 		3B6F1F491645BAAD00330662 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B6F1F481645BAAD00330662 /* SystemConfiguration.framework */; };
 		3B6F207F1645C89700330662 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
+		3B9B1C0E1646BA9400E0471E /* romlist.json in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C0C1646BA9400E0471E /* romlist.json */; };
+		3B9B1C0F1646BA9400E0471E /* 圣战系谱.smc in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C0D1646BA9400E0471E /* 圣战系谱.smc */; };
+		3B9B1C291646BDCC00E0471E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C221646BDCC00E0471E /* Default.png */; };
+		3B9B1C2A1646BDCC00E0471E /* gui_lock.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C231646BDCC00E0471E /* gui_lock.png */; };
+		3B9B1C2B1646BDCC00E0471E /* pause.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C241646BDCC00E0471E /* pause.png */; };
+		3B9B1C2C1646BDCC00E0471E /* star_empty.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C251646BDCC00E0471E /* star_empty.png */; };
+		3B9B1C2D1646BDCC00E0471E /* star_empty@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C261646BDCC00E0471E /* star_empty@2x.png */; };
+		3B9B1C2E1646BDCC00E0471E /* star_full.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C271646BDCC00E0471E /* star_full.png */; };
+		3B9B1C2F1646BDCC00E0471E /* star_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C281646BDCC00E0471E /* star_full@2x.png */; };
+		3B9B1C711646BE4000E0471E /* 七龙珠超武斗会完结篇.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C311646BE3F00E0471E /* 七龙珠超武斗会完结篇.jpg */; };
+		3B9B1C721646BE4000E0471E /* 三国志5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C321646BE3F00E0471E /* 三国志5.png */; };
+		3B9B1C731646BE4000E0471E /* 信长野望霸王传.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C331646BE3F00E0471E /* 信长野望霸王传.jpg */; };
+		3B9B1C741646BE4000E0471E /* 光之继承者中文版.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C341646BE3F00E0471E /* 光之继承者中文版.png */; };
+		3B9B1C751646BE4000E0471E /* 光明与黑暗众神的遗产.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C351646BE3F00E0471E /* 光明与黑暗众神的遗产.jpg */; };
+		3B9B1C761646BE4000E0471E /* 光明力量2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C361646BE3F00E0471E /* 光明力量2.png */; };
+		3B9B1C771646BE4000E0471E /* 双截龙.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C371646BE3F00E0471E /* 双截龙.png */; };
+		3B9B1C781646BE4000E0471E /* 双截龙2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C381646BE3F00E0471E /* 双截龙2.png */; };
+		3B9B1C791646BE4000E0471E /* 双截龙3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C391646BE3F00E0471E /* 双截龙3.png */; };
+		3B9B1C7A1646BE4000E0471E /* 吞食天地3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C3A1646BE3F00E0471E /* 吞食天地3.png */; };
+		3B9B1C7B1646BE4000E0471E /* 外星战士.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C3B1646BE3F00E0471E /* 外星战士.png */; };
+		3B9B1C7C1646BE4000E0471E /* 大战略.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C3C1646BE3F00E0471E /* 大战略.png */; };
+		3B9B1C7D1646BE4000E0471E /* 大航海时代2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C3D1646BE3F00E0471E /* 大航海时代2.png */; };
+		3B9B1C7E1646BE4000E0471E /* 天使之翼.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C3E1646BE3F00E0471E /* 天使之翼.png */; };
+		3B9B1C7F1646BE4000E0471E /* 太空战士.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C3F1646BE3F00E0471E /* 太空战士.png */; };
+		3B9B1C801646BE4000E0471E /* 太阁立志传1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C401646BE3F00E0471E /* 太阁立志传1.jpg */; };
+		3B9B1C811646BE4000E0471E /* 威虎战机.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C411646BE3F00E0471E /* 威虎战机.png */; };
+		3B9B1C821646BE4000E0471E /* 帝国皇朝亚瑟传说.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C421646BE3F00E0471E /* 帝国皇朝亚瑟传说.jpg */; };
+		3B9B1C831646BE4000E0471E /* 幽游白书.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C431646BE3F00E0471E /* 幽游白书.png */; };
+		3B9B1C841646BE4000E0471E /* 忍者神龟.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C441646BE3F00E0471E /* 忍者神龟.jpg */; };
+		3B9B1C851646BE4000E0471E /* 怒之铁拳2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C451646BE3F00E0471E /* 怒之铁拳2.png */; };
+		3B9B1C861646BE4000E0471E /* 怒之铁拳3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C461646BE3F00E0471E /* 怒之铁拳3.png */; };
+		3B9B1C871646BE4000E0471E /* 恐龙兄弟2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C471646BE3F00E0471E /* 恐龙兄弟2.png */; };
+		3B9B1C881646BE4000E0471E /* 战斗蛙与双截龙.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C481646BE3F00E0471E /* 战斗蛙与双截龙.png */; };
+		3B9B1C891646BE4000E0471E /* 战斧3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C491646BE4000E0471E /* 战斧3.png */; };
+		3B9B1C8A1646BE4000E0471E /* 新创世纪中文版.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C4A1646BE4000E0471E /* 新创世纪中文版.png */; };
+		3B9B1C8B1646BE4000E0471E /* 暴力克星.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C4B1646BE4000E0471E /* 暴力克星.png */; };
+		3B9B1C8C1646BE4000E0471E /* 机动战神.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C4C1646BE4000E0471E /* 机动战神.png */; };
+		3B9B1C8D1646BE4000E0471E /* 机甲神兵中文版.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C4D1646BE4000E0471E /* 机甲神兵中文版.png */; };
+		3B9B1C8E1646BE4000E0471E /* 梦幻之星4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C4E1646BE4000E0471E /* 梦幻之星4.png */; };
+		3B9B1C8F1646BE4000E0471E /* 梦幻模拟战2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C4F1646BE4000E0471E /* 梦幻模拟战2.png */; };
+		3B9B1C901646BE4000E0471E /* 武者Aleste.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C501646BE4000E0471E /* 武者Aleste.png */; };
+		3B9B1C911646BE4000E0471E /* 毁灭公爵.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C511646BE4000E0471E /* 毁灭公爵.png */; };
+		3B9B1C921646BE4000E0471E /* 水浒传.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C521646BE4000E0471E /* 水浒传.jpg */; };
+		3B9B1C931646BE4000E0471E /* 洛克人.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C531646BE4000E0471E /* 洛克人.png */; };
+		3B9B1C941646BE4000E0471E /* 海豚2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C541646BE4000E0471E /* 海豚2.png */; };
+		3B9B1C951646BE4000E0471E /* 漫画地带.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C551646BE4000E0471E /* 漫画地带.png */; };
+		3B9B1C961646BE4000E0471E /* 灌篮高手.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C561646BE4000E0471E /* 灌篮高手.png */; };
+		3B9B1C971646BE4000E0471E /* 火枪英雄.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C571646BE4000E0471E /* 火枪英雄.jpg */; };
+		3B9B1C981646BE4000E0471E /* 火箭骑士.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C581646BE4000E0471E /* 火箭骑士.png */; };
+		3B9B1C991646BE4000E0471E /* 炮灰.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C591646BE4000E0471E /* 炮灰.png */; };
+		3B9B1C9A1646BE4000E0471E /* 炸弹人.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C5A1646BE4000E0471E /* 炸弹人.jpg */; };
+		3B9B1C9B1646BE4000E0471E /* 热血足球.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C5B1646BE4000E0471E /* 热血足球.jpg */; };
+		3B9B1C9C1646BE4000E0471E /* 秘境魔宝中文版.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C5C1646BE4000E0471E /* 秘境魔宝中文版.png */; };
+		3B9B1C9D1646BE4000E0471E /* 究极七龙珠.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C5D1646BE4000E0471E /* 究极七龙珠.png */; };
+		3B9B1C9E1646BE4000E0471E /* 空牙.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C5E1646BE4000E0471E /* 空牙.png */; };
+		3B9B1C9F1646BE4000E0471E /* 粒子斗士2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C5F1646BE4000E0471E /* 粒子斗士2.png */; };
+		3B9B1CA01646BE4000E0471E /* 终结者2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C601646BE4000E0471E /* 终结者2.png */; };
+		3B9B1CA11646BE4000E0471E /* 联合前线汉化版.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C611646BE4000E0471E /* 联合前线汉化版.png */; };
+		3B9B1CA21646BE4000E0471E /* 致命杀手2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C621646BE4000E0471E /* 致命杀手2.png */; };
+		3B9B1CA31646BE4000E0471E /* 蚯蚓吉姆2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C631646BE4000E0471E /* 蚯蚓吉姆2.png */; };
+		3B9B1CA41646BE4000E0471E /* 蜘蛛人VS匪首.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C641646BE4000E0471E /* 蜘蛛人VS匪首.png */; };
+		3B9B1CA51646BE4000E0471E /* 蝙蝠侠与罗宾的冒险.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C651646BE4000E0471E /* 蝙蝠侠与罗宾的冒险.png */; };
+		3B9B1CA61646BE4000E0471E /* 街霸2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C661646BE4000E0471E /* 街霸2.png */; };
+		3B9B1CA71646BE4000E0471E /* 超级忍.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C671646BE4000E0471E /* 超级忍.png */; };
+		3B9B1CA81646BE4000E0471E /* 超级忍3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C681646BE4000E0471E /* 超级忍3.png */; };
+		3B9B1CA91646BE4000E0471E /* 雪人兄弟.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C691646BE4000E0471E /* 雪人兄弟.png */; };
+		3B9B1CAA1646BE4000E0471E /* 雷电.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C6A1646BE4000E0471E /* 雷电.png */; };
+		3B9B1CAB1646BE4000E0471E /* 霸王三国志中文版.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C6B1646BE4000E0471E /* 霸王三国志中文版.jpg */; };
+		3B9B1CAC1646BE4000E0471E /* 音速小子3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C6C1646BE4000E0471E /* 音速小子3.png */; };
+		3B9B1CAD1646BE4000E0471E /* 饿狼传说.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C6D1646BE4000E0471E /* 饿狼传说.png */; };
+		3B9B1CAE1646BE4000E0471E /* 魂斗罗4铁血兵团.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C6E1646BE4000E0471E /* 魂斗罗4铁血兵团.png */; };
+		3B9B1CAF1646BE4000E0471E /* 魔法气泡外传.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C6F1646BE4000E0471E /* 魔法气泡外传.png */; };
+		3B9B1CB01646BE4000E0471E /* 鲛鲛鲛.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1C701646BE4000E0471E /* 鲛鲛鲛.png */; };
+		3B9B1CF81646C19100E0471E /* DianJinOfferPlatform.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9B1CD51646C19100E0471E /* DianJinOfferPlatform.framework */; };
+		3B9B1CF91646C19100E0471E /* Log.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B9B1CD61646C19100E0471E /* Log.framework */; };
+		3B9B1CFB1646C19100E0471E /* dianjin_back_button_normal0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CD91646C19100E0471E /* dianjin_back_button_normal0.png */; };
+		3B9B1CFC1646C19200E0471E /* dianjin_back_button_normal1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CDA1646C19100E0471E /* dianjin_back_button_normal1.png */; };
+		3B9B1CFD1646C19200E0471E /* dianjin_back_button_normal2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CDB1646C19100E0471E /* dianjin_back_button_normal2.png */; };
+		3B9B1CFE1646C19200E0471E /* dianjin_back_button_normal3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CDC1646C19100E0471E /* dianjin_back_button_normal3.png */; };
+		3B9B1CFF1646C19200E0471E /* dianjin_back_button_normal4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CDD1646C19100E0471E /* dianjin_back_button_normal4.png */; };
+		3B9B1D001646C19200E0471E /* dianjin_back_button_normal5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CDE1646C19100E0471E /* dianjin_back_button_normal5.png */; };
+		3B9B1D011646C19200E0471E /* dianjin_back_button_press0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CDF1646C19100E0471E /* dianjin_back_button_press0.png */; };
+		3B9B1D021646C19200E0471E /* dianjin_back_button_press1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE01646C19100E0471E /* dianjin_back_button_press1.png */; };
+		3B9B1D031646C19200E0471E /* dianjin_back_button_press2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE11646C19100E0471E /* dianjin_back_button_press2.png */; };
+		3B9B1D041646C19200E0471E /* dianjin_back_button_press3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE21646C19100E0471E /* dianjin_back_button_press3.png */; };
+		3B9B1D051646C19200E0471E /* dianjin_back_button_press4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE31646C19100E0471E /* dianjin_back_button_press4.png */; };
+		3B9B1D061646C19200E0471E /* dianjin_back_button_press5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE41646C19100E0471E /* dianjin_back_button_press5.png */; };
+		3B9B1D071646C19200E0471E /* dianjin_headerArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE51646C19100E0471E /* dianjin_headerArrow.png */; };
+		3B9B1D081646C19200E0471E /* dianjin_headerArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE61646C19100E0471E /* dianjin_headerArrow@2x.png */; };
+		3B9B1D091646C19200E0471E /* dianjin_installed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE71646C19100E0471E /* dianjin_installed.png */; };
+		3B9B1D0A1646C19200E0471E /* dianjin_logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE81646C19100E0471E /* dianjin_logo.png */; };
+		3B9B1D0B1646C19200E0471E /* dianjin_navigation_bar_background0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CE91646C19100E0471E /* dianjin_navigation_bar_background0.png */; };
+		3B9B1D0C1646C19200E0471E /* dianjin_navigation_bar_background0@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CEA1646C19100E0471E /* dianjin_navigation_bar_background0@2x.png */; };
+		3B9B1D0D1646C19200E0471E /* dianjin_navigation_bar_background1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CEB1646C19100E0471E /* dianjin_navigation_bar_background1.png */; };
+		3B9B1D0E1646C19200E0471E /* dianjin_navigation_bar_background1@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CEC1646C19100E0471E /* dianjin_navigation_bar_background1@2x.png */; };
+		3B9B1D0F1646C19200E0471E /* dianjin_navigation_bar_background2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CED1646C19100E0471E /* dianjin_navigation_bar_background2.png */; };
+		3B9B1D101646C19200E0471E /* dianjin_navigation_bar_background2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CEE1646C19100E0471E /* dianjin_navigation_bar_background2@2x.png */; };
+		3B9B1D111646C19200E0471E /* dianjin_navigation_bar_background3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CEF1646C19100E0471E /* dianjin_navigation_bar_background3.png */; };
+		3B9B1D121646C19200E0471E /* dianjin_navigation_bar_background3@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF01646C19100E0471E /* dianjin_navigation_bar_background3@2x.png */; };
+		3B9B1D131646C19200E0471E /* dianjin_navigation_bar_background4.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF11646C19100E0471E /* dianjin_navigation_bar_background4.png */; };
+		3B9B1D141646C19200E0471E /* dianjin_navigation_bar_background4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF21646C19100E0471E /* dianjin_navigation_bar_background4@2x.png */; };
+		3B9B1D151646C19200E0471E /* dianjin_navigation_bar_background5.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF31646C19100E0471E /* dianjin_navigation_bar_background5.png */; };
+		3B9B1D161646C19200E0471E /* dianjin_navigation_bar_background5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF41646C19100E0471E /* dianjin_navigation_bar_background5@2x.png */; };
+		3B9B1D171646C19200E0471E /* dianjin_offer_cell_background.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF51646C19100E0471E /* dianjin_offer_cell_background.png */; };
+		3B9B1D181646C19200E0471E /* dianjin_uninstalled_normal.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF61646C19100E0471E /* dianjin_uninstalled_normal.png */; };
+		3B9B1D191646C19200E0471E /* dianjin_uninstalled_press.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1CF71646C19100E0471E /* dianjin_uninstalled_press.png */; };
+		3B9B1D341646D34500E0471E /* config_iPad.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1D311646D34400E0471E /* config_iPad.txt */; };
+		3B9B1D351646D34500E0471E /* config_iPhone.txt in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1D321646D34400E0471E /* config_iPhone.txt */; };
+		3B9B1D361646D34500E0471E /* SKIN_1 in Resources */ = {isa = PBXBuildFile; fileRef = 3B9B1D331646D34400E0471E /* SKIN_1 */; };
+		3BDE510C1647162100CF4719 /* libIOKit.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BDE510B1647162100CF4719 /* libIOKit.dylib */; };
 		5508024B156E141C004D365C /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 55080249156E141C004D365C /* settings.png */; };
 		5508024C156E141C004D365C /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5508024A156E141C004D365C /* settings@2x.png */; };
 		5570B47F156F8C62001C3F11 /* ScreenLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = CEEA77D0119F3F6100440258 /* ScreenLayer.m */; };
@@ -201,6 +289,31 @@
 		2892E40F0DC94CBA00A64D0F /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28A0AAE50D9B0CCF005BE974 /* SNES4iOS_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SNES4iOS_Prefix.pch; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3B49962C1647191B00C07B01 /* libAdsMogo.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdsMogo.a; sourceTree = "<group>"; };
+		3B499636164719D300C07B01 /* IOSurface.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOSurface.framework; path = System/Library/PrivateFrameworks/IOSurface.framework; sourceTree = SDKROOT; };
+		3B49963816471A3100C07B01 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
+		3B49964116471CF200C07B01 /* libpocketsnes.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpocketsnes.a; path = lib/libpocketsnes.a; sourceTree = "<group>"; };
+		3B49964416471F6000C07B01 /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
+		3B49964516471F6000C07B01 /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
+		3B49964616471F6000C07B01 /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
+		3B49964716471F6000C07B01 /* SDImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDImageCache.m; sourceTree = "<group>"; };
+		3B49964816471F6000C07B01 /* SDImageCacheDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCacheDelegate.h; sourceTree = "<group>"; };
+		3B49964916471F6000C07B01 /* SDWebImageCompat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageCompat.h; sourceTree = "<group>"; };
+		3B49964A16471F6000C07B01 /* SDWebImageDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDecoder.h; sourceTree = "<group>"; };
+		3B49964B16471F6000C07B01 /* SDWebImageDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDecoder.m; sourceTree = "<group>"; };
+		3B49964C16471F6000C07B01 /* SDWebImageDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloader.h; sourceTree = "<group>"; };
+		3B49964D16471F6000C07B01 /* SDWebImageDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageDownloader.m; sourceTree = "<group>"; };
+		3B49964E16471F6000C07B01 /* SDWebImageDownloaderDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageDownloaderDelegate.h; sourceTree = "<group>"; };
+		3B49964F16471F6000C07B01 /* SDWebImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageManager.h; sourceTree = "<group>"; };
+		3B49965016471F6000C07B01 /* SDWebImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageManager.m; sourceTree = "<group>"; };
+		3B49965116471F6000C07B01 /* SDWebImageManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImageManagerDelegate.h; sourceTree = "<group>"; };
+		3B49965216471F6000C07B01 /* SDWebImagePrefetcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDWebImagePrefetcher.h; sourceTree = "<group>"; };
+		3B49965316471F6000C07B01 /* SDWebImagePrefetcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImagePrefetcher.m; sourceTree = "<group>"; };
+		3B49965416471F6000C07B01 /* UIButton+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+WebCache.h"; sourceTree = "<group>"; };
+		3B49965516471F6000C07B01 /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
+		3B49965616471F6000C07B01 /* UIImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+WebCache.h"; sourceTree = "<group>"; };
+		3B49965716471F6000C07B01 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
+		3B49966316471FE000C07B01 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		3B6F1DE81645923400330662 /* AnalogStick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnalogStick.h; sourceTree = "<group>"; };
 		3B6F1DE91645923400330662 /* AnalogStick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnalogStick.m; sourceTree = "<group>"; };
 		3B6F1DF11645A8CA00330662 /* CPPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPPickerView.h; sourceTree = "<group>"; };
@@ -224,9 +337,9 @@
 		3B6F1E061645A8CB00330662 /* UIView+Subviews.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Subviews.h"; sourceTree = "<group>"; };
 		3B6F1E071645A8CB00330662 /* UIView+Subviews.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Subviews.m"; sourceTree = "<group>"; };
 		3B6F1E081645A8CB00330662 /* GameListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameListViewController.h; sourceTree = "<group>"; };
-		3B6F1E091645A8CC00330662 /* GameListViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameListViewController.mm; sourceTree = "<group>"; };
+		3B6F1E091645A8CC00330662 /* GameListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameListViewController.m; sourceTree = "<group>"; };
 		3B6F1E0A1645A8CC00330662 /* iosUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iosUtil.h; sourceTree = "<group>"; };
-		3B6F1E0B1645A8CD00330662 /* iosUtil.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = iosUtil.mm; sourceTree = "<group>"; };
+		3B6F1E0B1645A8CD00330662 /* iosUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iosUtil.m; sourceTree = "<group>"; };
 		3B6F1E0C1645A8CD00330662 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		3B6F1E0D1645A8CD00330662 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		3B6F1E0E1645A8CD00330662 /* NSString+MD5Addition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+MD5Addition.h"; sourceTree = "<group>"; };
@@ -234,7 +347,7 @@
 		3B6F1E101645A8CF00330662 /* platform_util.cpp */ = {isa = PBXFileReference; fileEncoding = 2147484705; lastKnownFileType = sourcecode.cpp.cpp; path = platform_util.cpp; sourceTree = "<group>"; };
 		3B6F1E111645A8CF00330662 /* platform_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = platform_util.h; sourceTree = "<group>"; };
 		3B6F1E121645A8CF00330662 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
-		3B6F1E131645A8CF00330662 /* SettingViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SettingViewController.mm; sourceTree = "<group>"; };
+		3B6F1E131645A8CF00330662 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		3B6F1E141645A8D000330662 /* TDBadgedCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDBadgedCell.h; sourceTree = "<group>"; };
 		3B6F1E151645A8D000330662 /* TDBadgedCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDBadgedCell.m; sourceTree = "<group>"; };
 		3B6F1E161645A8D000330662 /* UIDevice+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Util.h"; sourceTree = "<group>"; };
@@ -317,44 +430,8 @@
 		3B6F1EA61645B4FC00330662 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		3B6F1EA71645B4FC00330662 /* libUMFeedback.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMFeedback.a; sourceTree = "<group>"; };
 		3B6F1EA81645B4FC00330662 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
-		3B6F1EAB1645B4FC00330662 /* DianJinOfferPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DianJinOfferPlatform.framework; sourceTree = "<group>"; };
-		3B6F1EAC1645B4FC00330662 /* Log.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Log.framework; sourceTree = "<group>"; };
-		3B6F1EAD1645B4FC00330662 /* Zip.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Zip.framework; sourceTree = "<group>"; };
-		3B6F1EAF1645B4FC00330662 /* dianjin_back_button_normal0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal0.png; sourceTree = "<group>"; };
-		3B6F1EB01645B4FC00330662 /* dianjin_back_button_normal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal1.png; sourceTree = "<group>"; };
-		3B6F1EB11645B4FC00330662 /* dianjin_back_button_normal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal2.png; sourceTree = "<group>"; };
-		3B6F1EB21645B4FC00330662 /* dianjin_back_button_normal3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal3.png; sourceTree = "<group>"; };
-		3B6F1EB31645B4FC00330662 /* dianjin_back_button_normal4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal4.png; sourceTree = "<group>"; };
-		3B6F1EB41645B4FC00330662 /* dianjin_back_button_normal5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal5.png; sourceTree = "<group>"; };
-		3B6F1EB51645B4FC00330662 /* dianjin_back_button_press0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press0.png; sourceTree = "<group>"; };
-		3B6F1EB61645B4FC00330662 /* dianjin_back_button_press1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press1.png; sourceTree = "<group>"; };
-		3B6F1EB71645B4FC00330662 /* dianjin_back_button_press2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press2.png; sourceTree = "<group>"; };
-		3B6F1EB81645B4FC00330662 /* dianjin_back_button_press3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press3.png; sourceTree = "<group>"; };
-		3B6F1EB91645B4FC00330662 /* dianjin_back_button_press4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press4.png; sourceTree = "<group>"; };
-		3B6F1EBA1645B4FC00330662 /* dianjin_back_button_press5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press5.png; sourceTree = "<group>"; };
-		3B6F1EBB1645B4FC00330662 /* dianjin_headerArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_headerArrow.png; sourceTree = "<group>"; };
-		3B6F1EBC1645B4FC00330662 /* dianjin_headerArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_headerArrow@2x.png"; sourceTree = "<group>"; };
-		3B6F1EBD1645B4FC00330662 /* dianjin_installed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_installed.png; sourceTree = "<group>"; };
-		3B6F1EBE1645B4FC00330662 /* dianjin_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_logo.png; sourceTree = "<group>"; };
-		3B6F1EBF1645B4FC00330662 /* dianjin_navigation_bar_background0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background0.png; sourceTree = "<group>"; };
-		3B6F1EC01645B4FC00330662 /* dianjin_navigation_bar_background0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background0@2x.png"; sourceTree = "<group>"; };
-		3B6F1EC11645B4FC00330662 /* dianjin_navigation_bar_background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background1.png; sourceTree = "<group>"; };
-		3B6F1EC21645B4FC00330662 /* dianjin_navigation_bar_background1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background1@2x.png"; sourceTree = "<group>"; };
-		3B6F1EC31645B4FC00330662 /* dianjin_navigation_bar_background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background2.png; sourceTree = "<group>"; };
-		3B6F1EC41645B4FC00330662 /* dianjin_navigation_bar_background2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background2@2x.png"; sourceTree = "<group>"; };
-		3B6F1EC51645B4FC00330662 /* dianjin_navigation_bar_background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background3.png; sourceTree = "<group>"; };
-		3B6F1EC61645B4FC00330662 /* dianjin_navigation_bar_background3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background3@2x.png"; sourceTree = "<group>"; };
-		3B6F1EC71645B4FC00330662 /* dianjin_navigation_bar_background4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background4.png; sourceTree = "<group>"; };
-		3B6F1EC81645B4FC00330662 /* dianjin_navigation_bar_background4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background4@2x.png"; sourceTree = "<group>"; };
-		3B6F1EC91645B4FC00330662 /* dianjin_navigation_bar_background5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background5.png; sourceTree = "<group>"; };
-		3B6F1ECA1645B4FC00330662 /* dianjin_navigation_bar_background5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background5@2x.png"; sourceTree = "<group>"; };
-		3B6F1ECB1645B4FC00330662 /* dianjin_offer_cell_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_offer_cell_background.png; sourceTree = "<group>"; };
-		3B6F1ECC1645B4FC00330662 /* dianjin_uninstalled_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_uninstalled_normal.png; sourceTree = "<group>"; };
-		3B6F1ECD1645B4FC00330662 /* dianjin_uninstalled_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_uninstalled_press.png; sourceTree = "<group>"; };
 		3B6F1ECE1645B4FC00330662 /* umFeedback.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = umFeedback.bundle; sourceTree = "<group>"; };
 		3B6F1ECF1645B4FC00330662 /* UMFeedback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMFeedback.h; sourceTree = "<group>"; };
-		3B6F1F201645B5EC00330662 /* GameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
-		3B6F1F211645B5ED00330662 /* GameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
 		3B6F1F271645B97B00330662 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		3B6F1F291645B98000330662 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		3B6F1F2B1645B98500330662 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -364,6 +441,116 @@
 		3B6F1F441645BA0100330662 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		3B6F1F461645BA3D00330662 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		3B6F1F481645BAAD00330662 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3B9B1C0C1646BA9400E0471E /* romlist.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = romlist.json; sourceTree = "<group>"; };
+		3B9B1C0D1646BA9400E0471E /* 圣战系谱.smc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "圣战系谱.smc"; sourceTree = "<group>"; };
+		3B9B1C221646BDCC00E0471E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		3B9B1C231646BDCC00E0471E /* gui_lock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gui_lock.png; sourceTree = "<group>"; };
+		3B9B1C241646BDCC00E0471E /* pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pause.png; sourceTree = "<group>"; };
+		3B9B1C251646BDCC00E0471E /* star_empty.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_empty.png; sourceTree = "<group>"; };
+		3B9B1C261646BDCC00E0471E /* star_empty@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_empty@2x.png"; sourceTree = "<group>"; };
+		3B9B1C271646BDCC00E0471E /* star_full.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = star_full.png; sourceTree = "<group>"; };
+		3B9B1C281646BDCC00E0471E /* star_full@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "star_full@2x.png"; sourceTree = "<group>"; };
+		3B9B1C311646BE3F00E0471E /* 七龙珠超武斗会完结篇.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "七龙珠超武斗会完结篇.jpg"; sourceTree = "<group>"; };
+		3B9B1C321646BE3F00E0471E /* 三国志5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "三国志5.png"; sourceTree = "<group>"; };
+		3B9B1C331646BE3F00E0471E /* 信长野望霸王传.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "信长野望霸王传.jpg"; sourceTree = "<group>"; };
+		3B9B1C341646BE3F00E0471E /* 光之继承者中文版.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "光之继承者中文版.png"; sourceTree = "<group>"; };
+		3B9B1C351646BE3F00E0471E /* 光明与黑暗众神的遗产.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "光明与黑暗众神的遗产.jpg"; sourceTree = "<group>"; };
+		3B9B1C361646BE3F00E0471E /* 光明力量2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "光明力量2.png"; sourceTree = "<group>"; };
+		3B9B1C371646BE3F00E0471E /* 双截龙.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "双截龙.png"; sourceTree = "<group>"; };
+		3B9B1C381646BE3F00E0471E /* 双截龙2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "双截龙2.png"; sourceTree = "<group>"; };
+		3B9B1C391646BE3F00E0471E /* 双截龙3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "双截龙3.png"; sourceTree = "<group>"; };
+		3B9B1C3A1646BE3F00E0471E /* 吞食天地3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "吞食天地3.png"; sourceTree = "<group>"; };
+		3B9B1C3B1646BE3F00E0471E /* 外星战士.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "外星战士.png"; sourceTree = "<group>"; };
+		3B9B1C3C1646BE3F00E0471E /* 大战略.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "大战略.png"; sourceTree = "<group>"; };
+		3B9B1C3D1646BE3F00E0471E /* 大航海时代2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "大航海时代2.png"; sourceTree = "<group>"; };
+		3B9B1C3E1646BE3F00E0471E /* 天使之翼.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "天使之翼.png"; sourceTree = "<group>"; };
+		3B9B1C3F1646BE3F00E0471E /* 太空战士.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "太空战士.png"; sourceTree = "<group>"; };
+		3B9B1C401646BE3F00E0471E /* 太阁立志传1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "太阁立志传1.jpg"; sourceTree = "<group>"; };
+		3B9B1C411646BE3F00E0471E /* 威虎战机.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "威虎战机.png"; sourceTree = "<group>"; };
+		3B9B1C421646BE3F00E0471E /* 帝国皇朝亚瑟传说.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "帝国皇朝亚瑟传说.jpg"; sourceTree = "<group>"; };
+		3B9B1C431646BE3F00E0471E /* 幽游白书.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "幽游白书.png"; sourceTree = "<group>"; };
+		3B9B1C441646BE3F00E0471E /* 忍者神龟.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "忍者神龟.jpg"; sourceTree = "<group>"; };
+		3B9B1C451646BE3F00E0471E /* 怒之铁拳2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "怒之铁拳2.png"; sourceTree = "<group>"; };
+		3B9B1C461646BE3F00E0471E /* 怒之铁拳3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "怒之铁拳3.png"; sourceTree = "<group>"; };
+		3B9B1C471646BE3F00E0471E /* 恐龙兄弟2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "恐龙兄弟2.png"; sourceTree = "<group>"; };
+		3B9B1C481646BE3F00E0471E /* 战斗蛙与双截龙.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "战斗蛙与双截龙.png"; sourceTree = "<group>"; };
+		3B9B1C491646BE4000E0471E /* 战斧3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "战斧3.png"; sourceTree = "<group>"; };
+		3B9B1C4A1646BE4000E0471E /* 新创世纪中文版.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "新创世纪中文版.png"; sourceTree = "<group>"; };
+		3B9B1C4B1646BE4000E0471E /* 暴力克星.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "暴力克星.png"; sourceTree = "<group>"; };
+		3B9B1C4C1646BE4000E0471E /* 机动战神.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "机动战神.png"; sourceTree = "<group>"; };
+		3B9B1C4D1646BE4000E0471E /* 机甲神兵中文版.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "机甲神兵中文版.png"; sourceTree = "<group>"; };
+		3B9B1C4E1646BE4000E0471E /* 梦幻之星4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "梦幻之星4.png"; sourceTree = "<group>"; };
+		3B9B1C4F1646BE4000E0471E /* 梦幻模拟战2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "梦幻模拟战2.png"; sourceTree = "<group>"; };
+		3B9B1C501646BE4000E0471E /* 武者Aleste.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "武者Aleste.png"; sourceTree = "<group>"; };
+		3B9B1C511646BE4000E0471E /* 毁灭公爵.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "毁灭公爵.png"; sourceTree = "<group>"; };
+		3B9B1C521646BE4000E0471E /* 水浒传.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "水浒传.jpg"; sourceTree = "<group>"; };
+		3B9B1C531646BE4000E0471E /* 洛克人.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "洛克人.png"; sourceTree = "<group>"; };
+		3B9B1C541646BE4000E0471E /* 海豚2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "海豚2.png"; sourceTree = "<group>"; };
+		3B9B1C551646BE4000E0471E /* 漫画地带.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "漫画地带.png"; sourceTree = "<group>"; };
+		3B9B1C561646BE4000E0471E /* 灌篮高手.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "灌篮高手.png"; sourceTree = "<group>"; };
+		3B9B1C571646BE4000E0471E /* 火枪英雄.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "火枪英雄.jpg"; sourceTree = "<group>"; };
+		3B9B1C581646BE4000E0471E /* 火箭骑士.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "火箭骑士.png"; sourceTree = "<group>"; };
+		3B9B1C591646BE4000E0471E /* 炮灰.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "炮灰.png"; sourceTree = "<group>"; };
+		3B9B1C5A1646BE4000E0471E /* 炸弹人.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "炸弹人.jpg"; sourceTree = "<group>"; };
+		3B9B1C5B1646BE4000E0471E /* 热血足球.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "热血足球.jpg"; sourceTree = "<group>"; };
+		3B9B1C5C1646BE4000E0471E /* 秘境魔宝中文版.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "秘境魔宝中文版.png"; sourceTree = "<group>"; };
+		3B9B1C5D1646BE4000E0471E /* 究极七龙珠.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "究极七龙珠.png"; sourceTree = "<group>"; };
+		3B9B1C5E1646BE4000E0471E /* 空牙.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "空牙.png"; sourceTree = "<group>"; };
+		3B9B1C5F1646BE4000E0471E /* 粒子斗士2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "粒子斗士2.png"; sourceTree = "<group>"; };
+		3B9B1C601646BE4000E0471E /* 终结者2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "终结者2.png"; sourceTree = "<group>"; };
+		3B9B1C611646BE4000E0471E /* 联合前线汉化版.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "联合前线汉化版.png"; sourceTree = "<group>"; };
+		3B9B1C621646BE4000E0471E /* 致命杀手2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "致命杀手2.png"; sourceTree = "<group>"; };
+		3B9B1C631646BE4000E0471E /* 蚯蚓吉姆2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "蚯蚓吉姆2.png"; sourceTree = "<group>"; };
+		3B9B1C641646BE4000E0471E /* 蜘蛛人VS匪首.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "蜘蛛人VS匪首.png"; sourceTree = "<group>"; };
+		3B9B1C651646BE4000E0471E /* 蝙蝠侠与罗宾的冒险.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "蝙蝠侠与罗宾的冒险.png"; sourceTree = "<group>"; };
+		3B9B1C661646BE4000E0471E /* 街霸2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "街霸2.png"; sourceTree = "<group>"; };
+		3B9B1C671646BE4000E0471E /* 超级忍.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "超级忍.png"; sourceTree = "<group>"; };
+		3B9B1C681646BE4000E0471E /* 超级忍3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "超级忍3.png"; sourceTree = "<group>"; };
+		3B9B1C691646BE4000E0471E /* 雪人兄弟.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "雪人兄弟.png"; sourceTree = "<group>"; };
+		3B9B1C6A1646BE4000E0471E /* 雷电.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "雷电.png"; sourceTree = "<group>"; };
+		3B9B1C6B1646BE4000E0471E /* 霸王三国志中文版.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "霸王三国志中文版.jpg"; sourceTree = "<group>"; };
+		3B9B1C6C1646BE4000E0471E /* 音速小子3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "音速小子3.png"; sourceTree = "<group>"; };
+		3B9B1C6D1646BE4000E0471E /* 饿狼传说.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "饿狼传说.png"; sourceTree = "<group>"; };
+		3B9B1C6E1646BE4000E0471E /* 魂斗罗4铁血兵团.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "魂斗罗4铁血兵团.png"; sourceTree = "<group>"; };
+		3B9B1C6F1646BE4000E0471E /* 魔法气泡外传.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "魔法气泡外传.png"; sourceTree = "<group>"; };
+		3B9B1C701646BE4000E0471E /* 鲛鲛鲛.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "鲛鲛鲛.png"; sourceTree = "<group>"; };
+		3B9B1CD51646C19100E0471E /* DianJinOfferPlatform.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = DianJinOfferPlatform.framework; sourceTree = "<group>"; };
+		3B9B1CD61646C19100E0471E /* Log.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Log.framework; sourceTree = "<group>"; };
+		3B9B1CD91646C19100E0471E /* dianjin_back_button_normal0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal0.png; sourceTree = "<group>"; };
+		3B9B1CDA1646C19100E0471E /* dianjin_back_button_normal1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal1.png; sourceTree = "<group>"; };
+		3B9B1CDB1646C19100E0471E /* dianjin_back_button_normal2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal2.png; sourceTree = "<group>"; };
+		3B9B1CDC1646C19100E0471E /* dianjin_back_button_normal3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal3.png; sourceTree = "<group>"; };
+		3B9B1CDD1646C19100E0471E /* dianjin_back_button_normal4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal4.png; sourceTree = "<group>"; };
+		3B9B1CDE1646C19100E0471E /* dianjin_back_button_normal5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_normal5.png; sourceTree = "<group>"; };
+		3B9B1CDF1646C19100E0471E /* dianjin_back_button_press0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press0.png; sourceTree = "<group>"; };
+		3B9B1CE01646C19100E0471E /* dianjin_back_button_press1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press1.png; sourceTree = "<group>"; };
+		3B9B1CE11646C19100E0471E /* dianjin_back_button_press2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press2.png; sourceTree = "<group>"; };
+		3B9B1CE21646C19100E0471E /* dianjin_back_button_press3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press3.png; sourceTree = "<group>"; };
+		3B9B1CE31646C19100E0471E /* dianjin_back_button_press4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press4.png; sourceTree = "<group>"; };
+		3B9B1CE41646C19100E0471E /* dianjin_back_button_press5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_back_button_press5.png; sourceTree = "<group>"; };
+		3B9B1CE51646C19100E0471E /* dianjin_headerArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_headerArrow.png; sourceTree = "<group>"; };
+		3B9B1CE61646C19100E0471E /* dianjin_headerArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_headerArrow@2x.png"; sourceTree = "<group>"; };
+		3B9B1CE71646C19100E0471E /* dianjin_installed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_installed.png; sourceTree = "<group>"; };
+		3B9B1CE81646C19100E0471E /* dianjin_logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_logo.png; sourceTree = "<group>"; };
+		3B9B1CE91646C19100E0471E /* dianjin_navigation_bar_background0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background0.png; sourceTree = "<group>"; };
+		3B9B1CEA1646C19100E0471E /* dianjin_navigation_bar_background0@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background0@2x.png"; sourceTree = "<group>"; };
+		3B9B1CEB1646C19100E0471E /* dianjin_navigation_bar_background1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background1.png; sourceTree = "<group>"; };
+		3B9B1CEC1646C19100E0471E /* dianjin_navigation_bar_background1@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background1@2x.png"; sourceTree = "<group>"; };
+		3B9B1CED1646C19100E0471E /* dianjin_navigation_bar_background2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background2.png; sourceTree = "<group>"; };
+		3B9B1CEE1646C19100E0471E /* dianjin_navigation_bar_background2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background2@2x.png"; sourceTree = "<group>"; };
+		3B9B1CEF1646C19100E0471E /* dianjin_navigation_bar_background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background3.png; sourceTree = "<group>"; };
+		3B9B1CF01646C19100E0471E /* dianjin_navigation_bar_background3@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background3@2x.png"; sourceTree = "<group>"; };
+		3B9B1CF11646C19100E0471E /* dianjin_navigation_bar_background4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background4.png; sourceTree = "<group>"; };
+		3B9B1CF21646C19100E0471E /* dianjin_navigation_bar_background4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background4@2x.png"; sourceTree = "<group>"; };
+		3B9B1CF31646C19100E0471E /* dianjin_navigation_bar_background5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_navigation_bar_background5.png; sourceTree = "<group>"; };
+		3B9B1CF41646C19100E0471E /* dianjin_navigation_bar_background5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dianjin_navigation_bar_background5@2x.png"; sourceTree = "<group>"; };
+		3B9B1CF51646C19100E0471E /* dianjin_offer_cell_background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_offer_cell_background.png; sourceTree = "<group>"; };
+		3B9B1CF61646C19100E0471E /* dianjin_uninstalled_normal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_uninstalled_normal.png; sourceTree = "<group>"; };
+		3B9B1CF71646C19100E0471E /* dianjin_uninstalled_press.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dianjin_uninstalled_press.png; sourceTree = "<group>"; };
+		3B9B1D311646D34400E0471E /* config_iPad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config_iPad.txt; sourceTree = "<group>"; };
+		3B9B1D321646D34400E0471E /* config_iPhone.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = config_iPhone.txt; sourceTree = "<group>"; };
+		3B9B1D331646D34400E0471E /* SKIN_1 */ = {isa = PBXFileReference; lastKnownFileType = folder; path = SKIN_1; sourceTree = "<group>"; };
+		3BDE510B1647162100CF4719 /* libIOKit.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libIOKit.dylib; path = usr/lib/libIOKit.dylib; sourceTree = SDKROOT; };
 		55080249156E141C004D365C /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
 		5508024A156E141C004D365C /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
 		55724B48156B8C3300FF5BA6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -466,6 +653,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B49966416471FE000C07B01 /* ImageIO.framework in Frameworks */,
+				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
+				3B49964216471CF200C07B01 /* libpocketsnes.a in Frameworks */,
+				3BDE510C1647162100CF4719 /* libIOKit.dylib in Frameworks */,
 				3B6F1F491645BAAD00330662 /* SystemConfiguration.framework in Frameworks */,
 				3B6F1F471645BA3D00330662 /* libsqlite3.dylib in Frameworks */,
 				3B6F1F451645BA0100330662 /* MapKit.framework in Frameworks */,
@@ -479,7 +670,6 @@
 				BF7B7A1014A64C5600014E61 /* MediaPlayer.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
-				2892E4100DC94CBA00A64D0F /* CoreGraphics.framework in Frameworks */,
 				CEA57F0B1198E6F8004DCD60 /* GameKit.framework in Frameworks */,
 				CE43A4B4119DF2B00007E399 /* QuartzCore.framework in Frameworks */,
 				6CD00F60135FEE9C003E789A /* AudioToolbox.framework in Frameworks */,
@@ -492,9 +682,11 @@
 				3B6F1EE91645B4FC00330662 /* libAdsMogo_i386.a in Frameworks */,
 				3B6F1EEA1645B4FC00330662 /* libMobClickLibrary.a in Frameworks */,
 				3B6F1EEB1645B4FC00330662 /* libUMFeedback.a in Frameworks */,
-				3B6F1EEC1645B4FC00330662 /* DianJinOfferPlatform.framework in Frameworks */,
-				3B6F1EED1645B4FC00330662 /* Log.framework in Frameworks */,
-				3B6F1EEE1645B4FC00330662 /* Zip.framework in Frameworks */,
+				3B9B1CF81646C19100E0471E /* DianJinOfferPlatform.framework in Frameworks */,
+				3B9B1CF91646C19100E0471E /* Log.framework in Frameworks */,
+				3B49962D1647191B00C07B01 /* libAdsMogo.a in Frameworks */,
+				3B499637164719D300C07B01 /* IOSurface.framework in Frameworks */,
+				3B49963916471A3100C07B01 /* Zip.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,34 +696,15 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3B9B1C211646BC1D00E0471E /* Util */,
 				3B6F1E3B1645AF0600330662 /* EmuControllerView.h */,
 				3B6F1E3C1645AF0600330662 /* EmuControllerView.m */,
 				3B6F1E381645AB6A00330662 /* DView.h */,
 				3B6F1E391645AB6B00330662 /* DView.m */,
-				3B6F1DF01645A8CA00330662 /* CPPickerView */,
-				3B6F1DFA1645A8CA00330662 /* DLStarRating */,
 				3B6F1E081645A8CB00330662 /* GameListViewController.h */,
-				3B6F1E091645A8CC00330662 /* GameListViewController.mm */,
-				3B6F1E0A1645A8CC00330662 /* iosUtil.h */,
-				3B6F1E0B1645A8CD00330662 /* iosUtil.mm */,
-				3B6F1E0C1645A8CD00330662 /* JSONKit.h */,
-				3B6F1E0D1645A8CD00330662 /* JSONKit.m */,
-				3B6F1E0E1645A8CD00330662 /* NSString+MD5Addition.h */,
-				3B6F1E0F1645A8CD00330662 /* NSString+MD5Addition.m */,
-				3B6F1E101645A8CF00330662 /* platform_util.cpp */,
-				3B6F1E111645A8CF00330662 /* platform_util.h */,
+				3B6F1E091645A8CC00330662 /* GameListViewController.m */,
 				3B6F1E121645A8CF00330662 /* SettingViewController.h */,
-				3B6F1E131645A8CF00330662 /* SettingViewController.mm */,
-				3B6F1E141645A8D000330662 /* TDBadgedCell.h */,
-				3B6F1E151645A8D000330662 /* TDBadgedCell.m */,
-				3B6F1E161645A8D000330662 /* UIDevice+Util.h */,
-				3B6F1E171645A8D200330662 /* UIDevice+Util.m */,
-				3B6F1E181645A8D200330662 /* UIGlossyButton.h */,
-				3B6F1E191645A8D200330662 /* UIGlossyButton.m */,
-				3B6F1E1A1645A8D200330662 /* UIImageView+Reflected.h */,
-				3B6F1E1B1645A8D200330662 /* UIImageView+Reflected.m */,
-				3B6F1E1C1645A8D300330662 /* UIView+LayerEffects.h */,
-				3B6F1E1D1645A8D300330662 /* UIView+LayerEffects.m */,
+				3B6F1E131645A8CF00330662 /* SettingViewController.m */,
 				3B6F1DE81645923400330662 /* AnalogStick.h */,
 				3B6F1DE91645923400330662 /* AnalogStick.m */,
 				1D3623240D0F684500981E51 /* SNES4iOSAppDelegate.h */,
@@ -557,8 +730,6 @@
 				CEE8574211AAA81100784F8D /* WebBrowserViewController.h */,
 				CEE8574311AAA81100784F8D /* WebBrowserViewController.m */,
 				BF7B7A0C14A64BEE00014E61 /* SNES Controller */,
-				3B6F1F201645B5EC00330662 /* GameViewController.h */,
-				3B6F1F211645B5ED00330662 /* GameViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -574,15 +745,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				3B6F1F481645BAAD00330662 /* SystemConfiguration.framework */,
-				3B6F1F461645BA3D00330662 /* libsqlite3.dylib */,
-				3B6F1F441645BA0100330662 /* MapKit.framework */,
-				3B6F1F421645B9F900330662 /* MobileCoreServices.framework */,
-				3B6F1F2F1645B9A400330662 /* MessageUI.framework */,
-				3B6F1F2D1645B98F00330662 /* CFNetwork.framework */,
-				3B6F1F2B1645B98500330662 /* CoreLocation.framework */,
-				3B6F1F291645B98000330662 /* CoreTelephony.framework */,
-				3B6F1F271645B97B00330662 /* EventKit.framework */,
+				3B49966316471FE000C07B01 /* ImageIO.framework */,
+				3B49964116471CF200C07B01 /* libpocketsnes.a */,
+				3BDE510B1647162100CF4719 /* libIOKit.dylib */,
 				3B6F1E4F1645B4FB00330662 /* lib */,
 				55724B4F156B940500FF5BA6 /* Icon72@2x.png */,
 				55724B4D156B940100FF5BA6 /* Icon72.png */,
@@ -611,6 +776,16 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B499636164719D300C07B01 /* IOSurface.framework */,
+				3B6F1F481645BAAD00330662 /* SystemConfiguration.framework */,
+				3B6F1F461645BA3D00330662 /* libsqlite3.dylib */,
+				3B6F1F441645BA0100330662 /* MapKit.framework */,
+				3B6F1F421645B9F900330662 /* MobileCoreServices.framework */,
+				3B6F1F2F1645B9A400330662 /* MessageUI.framework */,
+				3B6F1F2D1645B98F00330662 /* CFNetwork.framework */,
+				3B6F1F2B1645B98500330662 /* CoreLocation.framework */,
+				3B6F1F291645B98000330662 /* CoreTelephony.framework */,
+				3B6F1F271645B97B00330662 /* EventKit.framework */,
 				BF7B7A2814A64D3400014E61 /* IOSurface */,
 				BF7B7A2614A64D2100014E61 /* libkern */,
 				BF7B7A1314A64D0A00014E61 /* IOKit */,
@@ -625,6 +800,33 @@
 				6CD00F63135FEEBA003E789A /* libz.dylib */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3B49964316471F6000C07B01 /* SDWebImage */ = {
+			isa = PBXGroup;
+			children = (
+				3B49964416471F6000C07B01 /* MKAnnotationView+WebCache.h */,
+				3B49964516471F6000C07B01 /* MKAnnotationView+WebCache.m */,
+				3B49964616471F6000C07B01 /* SDImageCache.h */,
+				3B49964716471F6000C07B01 /* SDImageCache.m */,
+				3B49964816471F6000C07B01 /* SDImageCacheDelegate.h */,
+				3B49964916471F6000C07B01 /* SDWebImageCompat.h */,
+				3B49964A16471F6000C07B01 /* SDWebImageDecoder.h */,
+				3B49964B16471F6000C07B01 /* SDWebImageDecoder.m */,
+				3B49964C16471F6000C07B01 /* SDWebImageDownloader.h */,
+				3B49964D16471F6000C07B01 /* SDWebImageDownloader.m */,
+				3B49964E16471F6000C07B01 /* SDWebImageDownloaderDelegate.h */,
+				3B49964F16471F6000C07B01 /* SDWebImageManager.h */,
+				3B49965016471F6000C07B01 /* SDWebImageManager.m */,
+				3B49965116471F6000C07B01 /* SDWebImageManagerDelegate.h */,
+				3B49965216471F6000C07B01 /* SDWebImagePrefetcher.h */,
+				3B49965316471F6000C07B01 /* SDWebImagePrefetcher.m */,
+				3B49965416471F6000C07B01 /* UIButton+WebCache.h */,
+				3B49965516471F6000C07B01 /* UIButton+WebCache.m */,
+				3B49965616471F6000C07B01 /* UIImageView+WebCache.h */,
+				3B49965716471F6000C07B01 /* UIImageView+WebCache.m */,
+			);
+			path = SDWebImage;
 			sourceTree = "<group>";
 		};
 		3B6F1DF01645A8CA00330662 /* CPPickerView */ = {
@@ -680,11 +882,12 @@
 		3B6F1E4F1645B4FB00330662 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				3B49964316471F6000C07B01 /* SDWebImage */,
+				3B9B1CD31646C19100E0471E /* SDK */,
 				3B6F1E501645B4FC00330662 /* AdsMoGoLib */,
 				3B6F1EA61645B4FC00330662 /* libMobClickLibrary.a */,
 				3B6F1EA71645B4FC00330662 /* libUMFeedback.a */,
 				3B6F1EA81645B4FC00330662 /* MobClick.h */,
-				3B6F1EA91645B4FC00330662 /* SDK */,
 				3B6F1ECE1645B4FC00330662 /* umFeedback.bundle */,
 				3B6F1ECF1645B4FC00330662 /* UMFeedback.h */,
 			);
@@ -868,6 +1071,7 @@
 		3B6F1E911645B4FC00330662 /* AdsMoGoSDK */ = {
 			isa = PBXGroup;
 			children = (
+				3B49962C1647191B00C07B01 /* libAdsMogo.a */,
 				3B6F1E921645B4FC00330662 /* AdMoGoAdNetworkAdapter+Helpers.h */,
 				3B6F1E931645B4FC00330662 /* AdMoGoAdNetworkAdapter.h */,
 				3B6F1E941645B4FC00330662 /* AdMoGoAdNetworkConfig.h */,
@@ -891,59 +1095,167 @@
 			path = AdsMoGoSDK;
 			sourceTree = "<group>";
 		};
-		3B6F1EA91645B4FC00330662 /* SDK */ = {
+		3B9B1C0B1646BA9400E0471E /* Roms */ = {
 			isa = PBXGroup;
 			children = (
-				3B6F1EAA1645B4FC00330662 /* DianJinFramework */,
-				3B6F1EAE1645B4FC00330662 /* DianJinOfferPlatformResources */,
+				3B9B1C301646BE3F00E0471E /* rom */,
+				3B9B1C0C1646BA9400E0471E /* romlist.json */,
+				3B9B1C0D1646BA9400E0471E /* 圣战系谱.smc */,
+			);
+			path = Roms;
+			sourceTree = SOURCE_ROOT;
+		};
+		3B9B1C211646BC1D00E0471E /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				3B6F1E141645A8D000330662 /* TDBadgedCell.h */,
+				3B6F1E151645A8D000330662 /* TDBadgedCell.m */,
+				3B6F1E161645A8D000330662 /* UIDevice+Util.h */,
+				3B6F1E171645A8D200330662 /* UIDevice+Util.m */,
+				3B6F1E181645A8D200330662 /* UIGlossyButton.h */,
+				3B6F1E191645A8D200330662 /* UIGlossyButton.m */,
+				3B6F1E1A1645A8D200330662 /* UIImageView+Reflected.h */,
+				3B6F1E1B1645A8D200330662 /* UIImageView+Reflected.m */,
+				3B6F1E1C1645A8D300330662 /* UIView+LayerEffects.h */,
+				3B6F1E1D1645A8D300330662 /* UIView+LayerEffects.m */,
+				3B6F1E0A1645A8CC00330662 /* iosUtil.h */,
+				3B6F1E0B1645A8CD00330662 /* iosUtil.m */,
+				3B6F1E0C1645A8CD00330662 /* JSONKit.h */,
+				3B6F1E0D1645A8CD00330662 /* JSONKit.m */,
+				3B6F1E0E1645A8CD00330662 /* NSString+MD5Addition.h */,
+				3B6F1E0F1645A8CD00330662 /* NSString+MD5Addition.m */,
+				3B6F1E101645A8CF00330662 /* platform_util.cpp */,
+				3B6F1E111645A8CF00330662 /* platform_util.h */,
+				3B6F1DF01645A8CA00330662 /* CPPickerView */,
+				3B6F1DFA1645A8CA00330662 /* DLStarRating */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		3B9B1C301646BE3F00E0471E /* rom */ = {
+			isa = PBXGroup;
+			children = (
+				3B9B1C311646BE3F00E0471E /* 七龙珠超武斗会完结篇.jpg */,
+				3B9B1C321646BE3F00E0471E /* 三国志5.png */,
+				3B9B1C331646BE3F00E0471E /* 信长野望霸王传.jpg */,
+				3B9B1C341646BE3F00E0471E /* 光之继承者中文版.png */,
+				3B9B1C351646BE3F00E0471E /* 光明与黑暗众神的遗产.jpg */,
+				3B9B1C361646BE3F00E0471E /* 光明力量2.png */,
+				3B9B1C371646BE3F00E0471E /* 双截龙.png */,
+				3B9B1C381646BE3F00E0471E /* 双截龙2.png */,
+				3B9B1C391646BE3F00E0471E /* 双截龙3.png */,
+				3B9B1C3A1646BE3F00E0471E /* 吞食天地3.png */,
+				3B9B1C3B1646BE3F00E0471E /* 外星战士.png */,
+				3B9B1C3C1646BE3F00E0471E /* 大战略.png */,
+				3B9B1C3D1646BE3F00E0471E /* 大航海时代2.png */,
+				3B9B1C3E1646BE3F00E0471E /* 天使之翼.png */,
+				3B9B1C3F1646BE3F00E0471E /* 太空战士.png */,
+				3B9B1C401646BE3F00E0471E /* 太阁立志传1.jpg */,
+				3B9B1C411646BE3F00E0471E /* 威虎战机.png */,
+				3B9B1C421646BE3F00E0471E /* 帝国皇朝亚瑟传说.jpg */,
+				3B9B1C431646BE3F00E0471E /* 幽游白书.png */,
+				3B9B1C441646BE3F00E0471E /* 忍者神龟.jpg */,
+				3B9B1C451646BE3F00E0471E /* 怒之铁拳2.png */,
+				3B9B1C461646BE3F00E0471E /* 怒之铁拳3.png */,
+				3B9B1C471646BE3F00E0471E /* 恐龙兄弟2.png */,
+				3B9B1C481646BE3F00E0471E /* 战斗蛙与双截龙.png */,
+				3B9B1C491646BE4000E0471E /* 战斧3.png */,
+				3B9B1C4A1646BE4000E0471E /* 新创世纪中文版.png */,
+				3B9B1C4B1646BE4000E0471E /* 暴力克星.png */,
+				3B9B1C4C1646BE4000E0471E /* 机动战神.png */,
+				3B9B1C4D1646BE4000E0471E /* 机甲神兵中文版.png */,
+				3B9B1C4E1646BE4000E0471E /* 梦幻之星4.png */,
+				3B9B1C4F1646BE4000E0471E /* 梦幻模拟战2.png */,
+				3B9B1C501646BE4000E0471E /* 武者Aleste.png */,
+				3B9B1C511646BE4000E0471E /* 毁灭公爵.png */,
+				3B9B1C521646BE4000E0471E /* 水浒传.jpg */,
+				3B9B1C531646BE4000E0471E /* 洛克人.png */,
+				3B9B1C541646BE4000E0471E /* 海豚2.png */,
+				3B9B1C551646BE4000E0471E /* 漫画地带.png */,
+				3B9B1C561646BE4000E0471E /* 灌篮高手.png */,
+				3B9B1C571646BE4000E0471E /* 火枪英雄.jpg */,
+				3B9B1C581646BE4000E0471E /* 火箭骑士.png */,
+				3B9B1C591646BE4000E0471E /* 炮灰.png */,
+				3B9B1C5A1646BE4000E0471E /* 炸弹人.jpg */,
+				3B9B1C5B1646BE4000E0471E /* 热血足球.jpg */,
+				3B9B1C5C1646BE4000E0471E /* 秘境魔宝中文版.png */,
+				3B9B1C5D1646BE4000E0471E /* 究极七龙珠.png */,
+				3B9B1C5E1646BE4000E0471E /* 空牙.png */,
+				3B9B1C5F1646BE4000E0471E /* 粒子斗士2.png */,
+				3B9B1C601646BE4000E0471E /* 终结者2.png */,
+				3B9B1C611646BE4000E0471E /* 联合前线汉化版.png */,
+				3B9B1C621646BE4000E0471E /* 致命杀手2.png */,
+				3B9B1C631646BE4000E0471E /* 蚯蚓吉姆2.png */,
+				3B9B1C641646BE4000E0471E /* 蜘蛛人VS匪首.png */,
+				3B9B1C651646BE4000E0471E /* 蝙蝠侠与罗宾的冒险.png */,
+				3B9B1C661646BE4000E0471E /* 街霸2.png */,
+				3B9B1C671646BE4000E0471E /* 超级忍.png */,
+				3B9B1C681646BE4000E0471E /* 超级忍3.png */,
+				3B9B1C691646BE4000E0471E /* 雪人兄弟.png */,
+				3B9B1C6A1646BE4000E0471E /* 雷电.png */,
+				3B9B1C6B1646BE4000E0471E /* 霸王三国志中文版.jpg */,
+				3B9B1C6C1646BE4000E0471E /* 音速小子3.png */,
+				3B9B1C6D1646BE4000E0471E /* 饿狼传说.png */,
+				3B9B1C6E1646BE4000E0471E /* 魂斗罗4铁血兵团.png */,
+				3B9B1C6F1646BE4000E0471E /* 魔法气泡外传.png */,
+				3B9B1C701646BE4000E0471E /* 鲛鲛鲛.png */,
+			);
+			path = rom;
+			sourceTree = "<group>";
+		};
+		3B9B1CD31646C19100E0471E /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				3B9B1CD41646C19100E0471E /* DianJinFramework */,
+				3B9B1CD81646C19100E0471E /* DianJinOfferPlatformResources */,
 			);
 			path = SDK;
 			sourceTree = "<group>";
 		};
-		3B6F1EAA1645B4FC00330662 /* DianJinFramework */ = {
+		3B9B1CD41646C19100E0471E /* DianJinFramework */ = {
 			isa = PBXGroup;
 			children = (
-				3B6F1EAB1645B4FC00330662 /* DianJinOfferPlatform.framework */,
-				3B6F1EAC1645B4FC00330662 /* Log.framework */,
-				3B6F1EAD1645B4FC00330662 /* Zip.framework */,
+				3B49963816471A3100C07B01 /* Zip.framework */,
+				3B9B1CD51646C19100E0471E /* DianJinOfferPlatform.framework */,
+				3B9B1CD61646C19100E0471E /* Log.framework */,
 			);
 			path = DianJinFramework;
 			sourceTree = "<group>";
 		};
-		3B6F1EAE1645B4FC00330662 /* DianJinOfferPlatformResources */ = {
+		3B9B1CD81646C19100E0471E /* DianJinOfferPlatformResources */ = {
 			isa = PBXGroup;
 			children = (
-				3B6F1EAF1645B4FC00330662 /* dianjin_back_button_normal0.png */,
-				3B6F1EB01645B4FC00330662 /* dianjin_back_button_normal1.png */,
-				3B6F1EB11645B4FC00330662 /* dianjin_back_button_normal2.png */,
-				3B6F1EB21645B4FC00330662 /* dianjin_back_button_normal3.png */,
-				3B6F1EB31645B4FC00330662 /* dianjin_back_button_normal4.png */,
-				3B6F1EB41645B4FC00330662 /* dianjin_back_button_normal5.png */,
-				3B6F1EB51645B4FC00330662 /* dianjin_back_button_press0.png */,
-				3B6F1EB61645B4FC00330662 /* dianjin_back_button_press1.png */,
-				3B6F1EB71645B4FC00330662 /* dianjin_back_button_press2.png */,
-				3B6F1EB81645B4FC00330662 /* dianjin_back_button_press3.png */,
-				3B6F1EB91645B4FC00330662 /* dianjin_back_button_press4.png */,
-				3B6F1EBA1645B4FC00330662 /* dianjin_back_button_press5.png */,
-				3B6F1EBB1645B4FC00330662 /* dianjin_headerArrow.png */,
-				3B6F1EBC1645B4FC00330662 /* dianjin_headerArrow@2x.png */,
-				3B6F1EBD1645B4FC00330662 /* dianjin_installed.png */,
-				3B6F1EBE1645B4FC00330662 /* dianjin_logo.png */,
-				3B6F1EBF1645B4FC00330662 /* dianjin_navigation_bar_background0.png */,
-				3B6F1EC01645B4FC00330662 /* dianjin_navigation_bar_background0@2x.png */,
-				3B6F1EC11645B4FC00330662 /* dianjin_navigation_bar_background1.png */,
-				3B6F1EC21645B4FC00330662 /* dianjin_navigation_bar_background1@2x.png */,
-				3B6F1EC31645B4FC00330662 /* dianjin_navigation_bar_background2.png */,
-				3B6F1EC41645B4FC00330662 /* dianjin_navigation_bar_background2@2x.png */,
-				3B6F1EC51645B4FC00330662 /* dianjin_navigation_bar_background3.png */,
-				3B6F1EC61645B4FC00330662 /* dianjin_navigation_bar_background3@2x.png */,
-				3B6F1EC71645B4FC00330662 /* dianjin_navigation_bar_background4.png */,
-				3B6F1EC81645B4FC00330662 /* dianjin_navigation_bar_background4@2x.png */,
-				3B6F1EC91645B4FC00330662 /* dianjin_navigation_bar_background5.png */,
-				3B6F1ECA1645B4FC00330662 /* dianjin_navigation_bar_background5@2x.png */,
-				3B6F1ECB1645B4FC00330662 /* dianjin_offer_cell_background.png */,
-				3B6F1ECC1645B4FC00330662 /* dianjin_uninstalled_normal.png */,
-				3B6F1ECD1645B4FC00330662 /* dianjin_uninstalled_press.png */,
+				3B9B1CD91646C19100E0471E /* dianjin_back_button_normal0.png */,
+				3B9B1CDA1646C19100E0471E /* dianjin_back_button_normal1.png */,
+				3B9B1CDB1646C19100E0471E /* dianjin_back_button_normal2.png */,
+				3B9B1CDC1646C19100E0471E /* dianjin_back_button_normal3.png */,
+				3B9B1CDD1646C19100E0471E /* dianjin_back_button_normal4.png */,
+				3B9B1CDE1646C19100E0471E /* dianjin_back_button_normal5.png */,
+				3B9B1CDF1646C19100E0471E /* dianjin_back_button_press0.png */,
+				3B9B1CE01646C19100E0471E /* dianjin_back_button_press1.png */,
+				3B9B1CE11646C19100E0471E /* dianjin_back_button_press2.png */,
+				3B9B1CE21646C19100E0471E /* dianjin_back_button_press3.png */,
+				3B9B1CE31646C19100E0471E /* dianjin_back_button_press4.png */,
+				3B9B1CE41646C19100E0471E /* dianjin_back_button_press5.png */,
+				3B9B1CE51646C19100E0471E /* dianjin_headerArrow.png */,
+				3B9B1CE61646C19100E0471E /* dianjin_headerArrow@2x.png */,
+				3B9B1CE71646C19100E0471E /* dianjin_installed.png */,
+				3B9B1CE81646C19100E0471E /* dianjin_logo.png */,
+				3B9B1CE91646C19100E0471E /* dianjin_navigation_bar_background0.png */,
+				3B9B1CEA1646C19100E0471E /* dianjin_navigation_bar_background0@2x.png */,
+				3B9B1CEB1646C19100E0471E /* dianjin_navigation_bar_background1.png */,
+				3B9B1CEC1646C19100E0471E /* dianjin_navigation_bar_background1@2x.png */,
+				3B9B1CED1646C19100E0471E /* dianjin_navigation_bar_background2.png */,
+				3B9B1CEE1646C19100E0471E /* dianjin_navigation_bar_background2@2x.png */,
+				3B9B1CEF1646C19100E0471E /* dianjin_navigation_bar_background3.png */,
+				3B9B1CF01646C19100E0471E /* dianjin_navigation_bar_background3@2x.png */,
+				3B9B1CF11646C19100E0471E /* dianjin_navigation_bar_background4.png */,
+				3B9B1CF21646C19100E0471E /* dianjin_navigation_bar_background4@2x.png */,
+				3B9B1CF31646C19100E0471E /* dianjin_navigation_bar_background5.png */,
+				3B9B1CF41646C19100E0471E /* dianjin_navigation_bar_background5@2x.png */,
+				3B9B1CF51646C19100E0471E /* dianjin_offer_cell_background.png */,
+				3B9B1CF61646C19100E0471E /* dianjin_uninstalled_normal.png */,
+				3B9B1CF71646C19100E0471E /* dianjin_uninstalled_press.png */,
 			);
 			path = DianJinOfferPlatformResources;
 			sourceTree = "<group>";
@@ -1043,6 +1355,17 @@
 		CE43A4CC119DFEF70007E399 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				3B9B1D311646D34400E0471E /* config_iPad.txt */,
+				3B9B1D321646D34400E0471E /* config_iPhone.txt */,
+				3B9B1D331646D34400E0471E /* SKIN_1 */,
+				3B9B1C221646BDCC00E0471E /* Default.png */,
+				3B9B1C231646BDCC00E0471E /* gui_lock.png */,
+				3B9B1C241646BDCC00E0471E /* pause.png */,
+				3B9B1C251646BDCC00E0471E /* star_empty.png */,
+				3B9B1C261646BDCC00E0471E /* star_empty@2x.png */,
+				3B9B1C271646BDCC00E0471E /* star_full.png */,
+				3B9B1C281646BDCC00E0471E /* star_full@2x.png */,
+				3B9B1C0B1646BA9400E0471E /* Roms */,
 				BFD71BAD14A5AC3700850EEE /* iPhone */,
 				CEE8575A11AADBE100784F8D /* ArrowBack.png */,
 				CEE8575B11AADBE100784F8D /* ArrowForward.png */,
@@ -1187,38 +1510,114 @@
 				3B6F1EE51645B4FC00330662 /* adsmogo_corner.png in Resources */,
 				3B6F1EE61645B4FC00330662 /* adsmogo_picrollbg.png in Resources */,
 				3B6F1EE71645B4FC00330662 /* AdMoGoWebBrowser.xib in Resources */,
-				3B6F1EEF1645B4FD00330662 /* dianjin_back_button_normal0.png in Resources */,
-				3B6F1EF01645B4FD00330662 /* dianjin_back_button_normal1.png in Resources */,
-				3B6F1EF11645B4FD00330662 /* dianjin_back_button_normal2.png in Resources */,
-				3B6F1EF21645B4FD00330662 /* dianjin_back_button_normal3.png in Resources */,
-				3B6F1EF31645B4FD00330662 /* dianjin_back_button_normal4.png in Resources */,
-				3B6F1EF41645B4FD00330662 /* dianjin_back_button_normal5.png in Resources */,
-				3B6F1EF51645B4FD00330662 /* dianjin_back_button_press0.png in Resources */,
-				3B6F1EF61645B4FD00330662 /* dianjin_back_button_press1.png in Resources */,
-				3B6F1EF71645B4FD00330662 /* dianjin_back_button_press2.png in Resources */,
-				3B6F1EF81645B4FD00330662 /* dianjin_back_button_press3.png in Resources */,
-				3B6F1EF91645B4FD00330662 /* dianjin_back_button_press4.png in Resources */,
-				3B6F1EFA1645B4FD00330662 /* dianjin_back_button_press5.png in Resources */,
-				3B6F1EFB1645B4FD00330662 /* dianjin_headerArrow.png in Resources */,
-				3B6F1EFC1645B4FD00330662 /* dianjin_headerArrow@2x.png in Resources */,
-				3B6F1EFD1645B4FD00330662 /* dianjin_installed.png in Resources */,
-				3B6F1EFE1645B4FD00330662 /* dianjin_logo.png in Resources */,
-				3B6F1EFF1645B4FD00330662 /* dianjin_navigation_bar_background0.png in Resources */,
-				3B6F1F001645B4FD00330662 /* dianjin_navigation_bar_background0@2x.png in Resources */,
-				3B6F1F011645B4FD00330662 /* dianjin_navigation_bar_background1.png in Resources */,
-				3B6F1F021645B4FD00330662 /* dianjin_navigation_bar_background1@2x.png in Resources */,
-				3B6F1F031645B4FD00330662 /* dianjin_navigation_bar_background2.png in Resources */,
-				3B6F1F041645B4FD00330662 /* dianjin_navigation_bar_background2@2x.png in Resources */,
-				3B6F1F051645B4FD00330662 /* dianjin_navigation_bar_background3.png in Resources */,
-				3B6F1F061645B4FD00330662 /* dianjin_navigation_bar_background3@2x.png in Resources */,
-				3B6F1F071645B4FD00330662 /* dianjin_navigation_bar_background4.png in Resources */,
-				3B6F1F081645B4FD00330662 /* dianjin_navigation_bar_background4@2x.png in Resources */,
-				3B6F1F091645B4FD00330662 /* dianjin_navigation_bar_background5.png in Resources */,
-				3B6F1F0A1645B4FD00330662 /* dianjin_navigation_bar_background5@2x.png in Resources */,
-				3B6F1F0B1645B4FD00330662 /* dianjin_offer_cell_background.png in Resources */,
-				3B6F1F0C1645B4FD00330662 /* dianjin_uninstalled_normal.png in Resources */,
-				3B6F1F0D1645B4FD00330662 /* dianjin_uninstalled_press.png in Resources */,
 				3B6F1F0E1645B4FD00330662 /* umFeedback.bundle in Resources */,
+				3B9B1C0E1646BA9400E0471E /* romlist.json in Resources */,
+				3B9B1C0F1646BA9400E0471E /* 圣战系谱.smc in Resources */,
+				3B9B1C291646BDCC00E0471E /* Default.png in Resources */,
+				3B9B1C2A1646BDCC00E0471E /* gui_lock.png in Resources */,
+				3B9B1C2B1646BDCC00E0471E /* pause.png in Resources */,
+				3B9B1C2C1646BDCC00E0471E /* star_empty.png in Resources */,
+				3B9B1C2D1646BDCC00E0471E /* star_empty@2x.png in Resources */,
+				3B9B1C2E1646BDCC00E0471E /* star_full.png in Resources */,
+				3B9B1C2F1646BDCC00E0471E /* star_full@2x.png in Resources */,
+				3B9B1C711646BE4000E0471E /* 七龙珠超武斗会完结篇.jpg in Resources */,
+				3B9B1C721646BE4000E0471E /* 三国志5.png in Resources */,
+				3B9B1C731646BE4000E0471E /* 信长野望霸王传.jpg in Resources */,
+				3B9B1C741646BE4000E0471E /* 光之继承者中文版.png in Resources */,
+				3B9B1C751646BE4000E0471E /* 光明与黑暗众神的遗产.jpg in Resources */,
+				3B9B1C761646BE4000E0471E /* 光明力量2.png in Resources */,
+				3B9B1C771646BE4000E0471E /* 双截龙.png in Resources */,
+				3B9B1C781646BE4000E0471E /* 双截龙2.png in Resources */,
+				3B9B1C791646BE4000E0471E /* 双截龙3.png in Resources */,
+				3B9B1C7A1646BE4000E0471E /* 吞食天地3.png in Resources */,
+				3B9B1C7B1646BE4000E0471E /* 外星战士.png in Resources */,
+				3B9B1C7C1646BE4000E0471E /* 大战略.png in Resources */,
+				3B9B1C7D1646BE4000E0471E /* 大航海时代2.png in Resources */,
+				3B9B1C7E1646BE4000E0471E /* 天使之翼.png in Resources */,
+				3B9B1C7F1646BE4000E0471E /* 太空战士.png in Resources */,
+				3B9B1C801646BE4000E0471E /* 太阁立志传1.jpg in Resources */,
+				3B9B1C811646BE4000E0471E /* 威虎战机.png in Resources */,
+				3B9B1C821646BE4000E0471E /* 帝国皇朝亚瑟传说.jpg in Resources */,
+				3B9B1C831646BE4000E0471E /* 幽游白书.png in Resources */,
+				3B9B1C841646BE4000E0471E /* 忍者神龟.jpg in Resources */,
+				3B9B1C851646BE4000E0471E /* 怒之铁拳2.png in Resources */,
+				3B9B1C861646BE4000E0471E /* 怒之铁拳3.png in Resources */,
+				3B9B1C871646BE4000E0471E /* 恐龙兄弟2.png in Resources */,
+				3B9B1C881646BE4000E0471E /* 战斗蛙与双截龙.png in Resources */,
+				3B9B1C891646BE4000E0471E /* 战斧3.png in Resources */,
+				3B9B1C8A1646BE4000E0471E /* 新创世纪中文版.png in Resources */,
+				3B9B1C8B1646BE4000E0471E /* 暴力克星.png in Resources */,
+				3B9B1C8C1646BE4000E0471E /* 机动战神.png in Resources */,
+				3B9B1C8D1646BE4000E0471E /* 机甲神兵中文版.png in Resources */,
+				3B9B1C8E1646BE4000E0471E /* 梦幻之星4.png in Resources */,
+				3B9B1C8F1646BE4000E0471E /* 梦幻模拟战2.png in Resources */,
+				3B9B1C901646BE4000E0471E /* 武者Aleste.png in Resources */,
+				3B9B1C911646BE4000E0471E /* 毁灭公爵.png in Resources */,
+				3B9B1C921646BE4000E0471E /* 水浒传.jpg in Resources */,
+				3B9B1C931646BE4000E0471E /* 洛克人.png in Resources */,
+				3B9B1C941646BE4000E0471E /* 海豚2.png in Resources */,
+				3B9B1C951646BE4000E0471E /* 漫画地带.png in Resources */,
+				3B9B1C961646BE4000E0471E /* 灌篮高手.png in Resources */,
+				3B9B1C971646BE4000E0471E /* 火枪英雄.jpg in Resources */,
+				3B9B1C981646BE4000E0471E /* 火箭骑士.png in Resources */,
+				3B9B1C991646BE4000E0471E /* 炮灰.png in Resources */,
+				3B9B1C9A1646BE4000E0471E /* 炸弹人.jpg in Resources */,
+				3B9B1C9B1646BE4000E0471E /* 热血足球.jpg in Resources */,
+				3B9B1C9C1646BE4000E0471E /* 秘境魔宝中文版.png in Resources */,
+				3B9B1C9D1646BE4000E0471E /* 究极七龙珠.png in Resources */,
+				3B9B1C9E1646BE4000E0471E /* 空牙.png in Resources */,
+				3B9B1C9F1646BE4000E0471E /* 粒子斗士2.png in Resources */,
+				3B9B1CA01646BE4000E0471E /* 终结者2.png in Resources */,
+				3B9B1CA11646BE4000E0471E /* 联合前线汉化版.png in Resources */,
+				3B9B1CA21646BE4000E0471E /* 致命杀手2.png in Resources */,
+				3B9B1CA31646BE4000E0471E /* 蚯蚓吉姆2.png in Resources */,
+				3B9B1CA41646BE4000E0471E /* 蜘蛛人VS匪首.png in Resources */,
+				3B9B1CA51646BE4000E0471E /* 蝙蝠侠与罗宾的冒险.png in Resources */,
+				3B9B1CA61646BE4000E0471E /* 街霸2.png in Resources */,
+				3B9B1CA71646BE4000E0471E /* 超级忍.png in Resources */,
+				3B9B1CA81646BE4000E0471E /* 超级忍3.png in Resources */,
+				3B9B1CA91646BE4000E0471E /* 雪人兄弟.png in Resources */,
+				3B9B1CAA1646BE4000E0471E /* 雷电.png in Resources */,
+				3B9B1CAB1646BE4000E0471E /* 霸王三国志中文版.jpg in Resources */,
+				3B9B1CAC1646BE4000E0471E /* 音速小子3.png in Resources */,
+				3B9B1CAD1646BE4000E0471E /* 饿狼传说.png in Resources */,
+				3B9B1CAE1646BE4000E0471E /* 魂斗罗4铁血兵团.png in Resources */,
+				3B9B1CAF1646BE4000E0471E /* 魔法气泡外传.png in Resources */,
+				3B9B1CB01646BE4000E0471E /* 鲛鲛鲛.png in Resources */,
+				3B9B1CFB1646C19100E0471E /* dianjin_back_button_normal0.png in Resources */,
+				3B9B1CFC1646C19200E0471E /* dianjin_back_button_normal1.png in Resources */,
+				3B9B1CFD1646C19200E0471E /* dianjin_back_button_normal2.png in Resources */,
+				3B9B1CFE1646C19200E0471E /* dianjin_back_button_normal3.png in Resources */,
+				3B9B1CFF1646C19200E0471E /* dianjin_back_button_normal4.png in Resources */,
+				3B9B1D001646C19200E0471E /* dianjin_back_button_normal5.png in Resources */,
+				3B9B1D011646C19200E0471E /* dianjin_back_button_press0.png in Resources */,
+				3B9B1D021646C19200E0471E /* dianjin_back_button_press1.png in Resources */,
+				3B9B1D031646C19200E0471E /* dianjin_back_button_press2.png in Resources */,
+				3B9B1D041646C19200E0471E /* dianjin_back_button_press3.png in Resources */,
+				3B9B1D051646C19200E0471E /* dianjin_back_button_press4.png in Resources */,
+				3B9B1D061646C19200E0471E /* dianjin_back_button_press5.png in Resources */,
+				3B9B1D071646C19200E0471E /* dianjin_headerArrow.png in Resources */,
+				3B9B1D081646C19200E0471E /* dianjin_headerArrow@2x.png in Resources */,
+				3B9B1D091646C19200E0471E /* dianjin_installed.png in Resources */,
+				3B9B1D0A1646C19200E0471E /* dianjin_logo.png in Resources */,
+				3B9B1D0B1646C19200E0471E /* dianjin_navigation_bar_background0.png in Resources */,
+				3B9B1D0C1646C19200E0471E /* dianjin_navigation_bar_background0@2x.png in Resources */,
+				3B9B1D0D1646C19200E0471E /* dianjin_navigation_bar_background1.png in Resources */,
+				3B9B1D0E1646C19200E0471E /* dianjin_navigation_bar_background1@2x.png in Resources */,
+				3B9B1D0F1646C19200E0471E /* dianjin_navigation_bar_background2.png in Resources */,
+				3B9B1D101646C19200E0471E /* dianjin_navigation_bar_background2@2x.png in Resources */,
+				3B9B1D111646C19200E0471E /* dianjin_navigation_bar_background3.png in Resources */,
+				3B9B1D121646C19200E0471E /* dianjin_navigation_bar_background3@2x.png in Resources */,
+				3B9B1D131646C19200E0471E /* dianjin_navigation_bar_background4.png in Resources */,
+				3B9B1D141646C19200E0471E /* dianjin_navigation_bar_background4@2x.png in Resources */,
+				3B9B1D151646C19200E0471E /* dianjin_navigation_bar_background5.png in Resources */,
+				3B9B1D161646C19200E0471E /* dianjin_navigation_bar_background5@2x.png in Resources */,
+				3B9B1D171646C19200E0471E /* dianjin_offer_cell_background.png in Resources */,
+				3B9B1D181646C19200E0471E /* dianjin_uninstalled_normal.png in Resources */,
+				3B9B1D191646C19200E0471E /* dianjin_uninstalled_press.png in Resources */,
+				3B9B1D341646D34500E0471E /* config_iPad.txt in Resources */,
+				3B9B1D351646D34500E0471E /* config_iPhone.txt in Resources */,
+				3B9B1D361646D34500E0471E /* SKIN_1 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1250,12 +1649,12 @@
 				3B6F1E241645A8D300330662 /* DLStarRatingControl.m in Sources */,
 				3B6F1E251645A8D300330662 /* DLStarView.m in Sources */,
 				3B6F1E2C1645A8D300330662 /* UIView+Subviews.m in Sources */,
-				3B6F1E2D1645A8D300330662 /* GameListViewController.mm in Sources */,
-				3B6F1E2E1645A8D300330662 /* iosUtil.mm in Sources */,
+				3B6F1E2D1645A8D300330662 /* GameListViewController.m in Sources */,
+				3B6F1E2E1645A8D300330662 /* iosUtil.m in Sources */,
 				3B6F1E2F1645A8D300330662 /* JSONKit.m in Sources */,
 				3B6F1E301645A8D300330662 /* NSString+MD5Addition.m in Sources */,
 				3B6F1E311645A8D300330662 /* platform_util.cpp in Sources */,
-				3B6F1E321645A8D300330662 /* SettingViewController.mm in Sources */,
+				3B6F1E321645A8D300330662 /* SettingViewController.m in Sources */,
 				3B6F1E331645A8D300330662 /* TDBadgedCell.m in Sources */,
 				3B6F1E341645A8D300330662 /* UIDevice+Util.m in Sources */,
 				3B6F1E351645A8D300330662 /* UIGlossyButton.m in Sources */,
@@ -1267,7 +1666,14 @@
 				3B6F1ED21645B4FC00330662 /* AdMoGoAdapterGoogleAdMobAds.m in Sources */,
 				3B6F1ED41645B4FC00330662 /* AdMoGoAdapterDoMob.m in Sources */,
 				3B6F1ED71645B4FC00330662 /* AdMoGoAdapterMobWinAd.m in Sources */,
-				3B6F1F221645B5ED00330662 /* GameViewController.m in Sources */,
+				3B49965816471F6000C07B01 /* MKAnnotationView+WebCache.m in Sources */,
+				3B49965916471F6000C07B01 /* SDImageCache.m in Sources */,
+				3B49965A16471F6000C07B01 /* SDWebImageDecoder.m in Sources */,
+				3B49965B16471F6000C07B01 /* SDWebImageDownloader.m in Sources */,
+				3B49965C16471F6000C07B01 /* SDWebImageManager.m in Sources */,
+				3B49965D16471F6000C07B01 /* SDWebImagePrefetcher.m in Sources */,
+				3B49965E16471F6000C07B01 /* UIButton+WebCache.m in Sources */,
+				3B49965F16471F6000C07B01 /* UIImageView+WebCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1307,8 +1713,10 @@
 					"\"$(SRCROOT)/lib/AdsMoGoLib/AdNetworkLibs/MobWin\"",
 					"\"$(SRCROOT)/lib/AdsMoGoLib/AdsMoGoSDK\"",
 					"\"$(SRCROOT)/lib\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks/CoreSurface.framework\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = SNES4iOS;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
@@ -1350,8 +1758,10 @@
 					"\"$(SRCROOT)/lib/AdsMoGoLib/AdNetworkLibs/MobWin\"",
 					"\"$(SRCROOT)/lib/AdsMoGoLib/AdsMoGoSDK\"",
 					"\"$(SRCROOT)/lib\"",
+					"\"$(SDKROOT)$(SYSTEM_LIBRARY_DIR)/PrivateFrameworks/CoreSurface.framework\"",
 				);
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = SNES4iOS;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;

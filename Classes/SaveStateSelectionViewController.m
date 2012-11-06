@@ -335,10 +335,8 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         AppDelegate().snesControllerAppDelegate.controllerType = SNESControllerTypeLocal;
-        [self presentViewController:AppDelegate().snesControllerViewController animated:NO completion:^{
-            [AppDelegate().emulationViewController startWithRom:savePath];
-            [AppDelegate() showEmulator:YES];
-        }];
+        [AppDelegate().emulationViewController startWithRom:savePath];
+        [AppDelegate() showEmulator:YES];
     }
 }
 

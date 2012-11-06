@@ -111,28 +111,29 @@ void saveScreenshotToFile(char *filepath)
 
 @implementation EmulationViewController
 
-@synthesize pauseAlert;
+@synthesize pauseAlert, popoverVC;
 - (void)loadView {
-	self.view = (UIView *)[[ScreenView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
-    if (ControllerAppDelegate().controllerType == SNESControllerTypeLocal) {
-        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotate:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-    }
+    CGRect rect = [UIScreen mainScreen].bounds;
+    UIView* view = [[UIView alloc]initWithFrame:rect];
+//    view.backgroundColor = [UIColor redColor];
+    self.view = view;
+    controllerView = [[EmuControllerView alloc]initWithFrame:rect];
+    [self.view addSubview:controllerView];
+   
+    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotateOrientation:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-    [self didRotate:[NSNotification notificationWithName:@"RotateNotification" object:nil]];
 }
 
 - (void) refreshScreen
 {
-    [self.view setNeedsDisplay];
+    [controllerView.screenView setNeedsDisplay];
 }
 
 - (void) startWithRom:(NSString *)romFile
 {
-   
     dispatch_queue_t dispatchQueue = dispatch_queue_create("EmulationThread", DISPATCH_QUEUE_CONCURRENT);
     dispatch_async(dispatchQueue, ^{
         NSLog(@"RomFile Path:%@", romFile);
@@ -141,90 +142,39 @@ void saveScreenshotToFile(char *filepath)
     dispatch_release(dispatchQueue);
 }
 
-
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        return (interfaceOrientation == UIInterfaceOrientationLandscapeLeft ||
-                interfaceOrientation == UIInterfaceOrientationLandscapeRight);
-    }
-    else {
-        return (interfaceOrientation == UIInterfaceOrientationPortrait);
-    }
+    return YES;
+//    return interfaceOrientation != UIDeviceOrientationPortraitUpsideDown;
 }
 
-- (void) setLandscapeRight {
-    AppDelegate().snesControllerViewController.view.backgroundColor = [UIColor blackColor];
-    AppDelegate().snesControllerViewController.view.transform = CGAffineTransformIdentity;
-    AppDelegate().snesControllerViewController.view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(180.0));
-    
-    ScreenLayer *layer = (ScreenLayer *)self.view.layer;
-    layer.anchorPoint = CGPointMake(0.0, 0.0);
-    layer.rotateTransform = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(90.0));
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.view.bounds = CGRectMake(0, 0, 360, 317);
-        self.view.frame = CGRectMake(319, 60, 317, 360);//320, 480
-    } else {
-        AppDelegate().snesControllerViewController.imageView.hidden = YES;
-        self.view.bounds = CGRectMake(0, 0, 872, 763);
-        self.view.frame = CGRectMake(766, 76, 763, 872);//768, 1024
-    }
-    
-    //AppDelegate().snesControllerViewController.sustainButton.center = CGPointMake(24, 456);
-}
-
-- (void) setLandscapeLeft {
-    AppDelegate().snesControllerViewController.view.backgroundColor = [UIColor blackColor];
-    AppDelegate().snesControllerViewController.view.transform = CGAffineTransformIdentity;
-    AppDelegate().snesControllerViewController.view.transform = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(0.0));
-    
-    ScreenLayer *layer = (ScreenLayer *)self.view.layer;
-    layer.anchorPoint = CGPointMake(0.0, 0.0);
-    layer.rotateTransform = CGAffineTransformRotate(CGAffineTransformIdentity, RADIANS(90.0));
-    
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        self.view.bounds = CGRectMake(0, 0, 256, 224);
-        self.view.frame = CGRectMake(272, 112, 224, 256);//320, 480
-    } else {
-        AppDelegate().snesControllerViewController.imageView.hidden = YES;
-        self.view.bounds = CGRectMake(0, 0, 512, 448);
-        self.view.frame = CGRectMake(608, 256, 448, 512);//768, 1024
-    }
-    
-    //AppDelegate().snesControllerViewController.sustainButton.center = CGPointMake(24, 456);
-}
-
-- (void) didRotate:(NSNotification *)notification {
+// TODO this is ios5 need ios6
+- (void) didRotateOrientation:(NSNotification *)notification {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    
-    if ((orientation == UIDeviceOrientationPortrait ||
-         orientation == UIDeviceOrientationLandscapeLeft ||
-         orientation == UIDeviceOrientationLandscapeRight) &&
-        ![(UIAlertView *)self.pauseAlert isVisible] &&
-        self.view.superview != nil) { // &&
-        //[[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
-        //These coordinates take into considerationt the fact that the UIWindow is in portrait mode
-        if (orientation == UIDeviceOrientationPortrait) {
-            //
-        }
-        else if (orientation == UIDeviceOrientationLandscapeLeft) {
-            [self setLandscapeLeft];
-        }
-        else if (orientation == UIDeviceOrientationLandscapeRight) {
-            [self setLandscapeRight];
-        }
+    if (orientation == UIDeviceOrientationPortrait) {
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        int width = size.width < size.height ? size.width : size.height;
+        int height = size.width < size.height ? size.height : size.width;
+        controllerView.frame = CGRectMake(0, 0, width, height);
+        [controllerView changeUI:UIInterfaceOrientationPortrait];
+    } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        int width = size.width < size.height ? size.width : size.height;
+        int height = size.width < size.height ? size.height : size.width;
+        controllerView.frame = CGRectMake(0, 0, width, height);
+        [controllerView changeUI:UIInterfaceOrientationPortraitUpsideDown];
+    } else if (orientation == UIDeviceOrientationLandscapeLeft) {
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        int width = size.width > size.height ? size.width : size.height;
+        int height = size.width > size.height ? size.height : size.width;
+        controllerView.frame = CGRectMake(0, 0, width, height);
+        [controllerView changeUI:UIInterfaceOrientationLandscapeRight];
+    } else if (orientation == UIDeviceOrientationLandscapeRight) {
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        int width = size.width > size.height ? size.width : size.height;
+        int height = size.width > size.height ? size.height : size.width;
+        controllerView.frame = CGRectMake(0, 0, width, height);
+        [controllerView changeUI:UIInterfaceOrientationLandscapeLeft];
     }
-}
-
-- (void) touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-	UITouch *touch = [touches anyObject];
-	if (touch.tapCount == 2) {
-        CGPoint touchPoint = [(UITouch *)touch locationInView:self.view];
-        CGRect rect = CGRectMake(touchPoint.x, touchPoint.y, 60, 60);
-		[self showPauseDialogFromRect:rect];
-	}
 }
 
 - (void) showPauseDialogFromRect:(CGRect)rect {
@@ -250,17 +200,6 @@ void saveScreenshotToFile(char *filepath)
                                                        delegate:self 
                                               cancelButtonTitle:destructiveButtonTitle 
                                               otherButtonTitles:button1Title, button2Title, button3Title, @"Cancel", nil];
-        /*CGFloat rotation = DEGREES(atan2(self.view.superview.transform.b, self.view.superview.transform.a));
-        CGFloat rotationAngle = 0.0;
-        if (rotation >= -5 && rotation <= 5) {//Gives us a margin of error of 10, even though we shouldn't need it
-            if (AppDelegate().snesControllerViewController.imageView.frame.size.height > 321) {
-                rotationAngle = 90.0;
-            }
-        }
-        else if (rotation >= 175 && rotation <= 185) {
-            rotationAngle = 270.0;
-        }
-        alert.transform = CGAffineTransformRotate(CGAffineTransformIdentity, rotationAngle);*/
         [(UIAlertView *)self.pauseAlert show];
     }
 }
@@ -311,6 +250,73 @@ void saveScreenshotToFile(char *filepath)
     // e.g. self.myOutlet = nil;
 }
 
+
+
+
+
+#pragma mark gamelist
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+}
+
+
+
+
+-(void)showSettingPopup
+{
+    if (isPad()) {
+        if (popoverVC == nil) {
+            settingVC = [[SettingViewController alloc]initWithNibName:nil bundle:nil];
+            popoverVC = [[UIPopoverController alloc] initWithContentViewController:settingVC];
+            popoverVC.delegate = self;
+        }
+        
+        CGRect rect;
+        int x = 0;
+        switch (x) {
+            case 0:
+                rect = CGRectMake(750, 60, 10, 10);
+                break;
+            case 270:
+                rect = CGRectMake(0, 60, 10, 10);
+                break;
+            case 90:
+                rect = CGRectMake(750, 960, 10, 10);
+                break;
+            default:
+                rect = CGRectMake(750, 60, 10, 10);
+                break;
+        }
+        [popoverVC presentPopoverFromRect:rect inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
+    } else {
+        if (settingVC == nil) {
+            settingVC = [[SettingViewController alloc]initWithNibName:nil bundle:nil];
+        }
+        
+        [self presentModalViewController:settingVC animated:YES];
+    }
+}
+
+-(void)showGameList
+{
+    if (gameListVC == nil) {
+        gameListVC = [[GameListViewController alloc]init];
+//        rsVC = [[RomSelectionViewController alloc]init];
+    }
+    
+    if ([[UIDevice currentDevice].systemVersion floatValue] > 5.0) {
+        [self presentViewController:gameListVC animated:NO completion:nil];
+    } else {
+        [self presentModalViewController:gameListVC animated:NO];
+    }
+//    self.view addSubview:rsVC.view
+//    [self.view addSubview:gameListVC.view];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
+}
 @end
 
 

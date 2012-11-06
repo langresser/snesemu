@@ -2,6 +2,7 @@
 #import "EmuControllerView.h"
 #import <pthread.h>
 #import "iosUtil.h"
+#import "ScreenLayer.h"
 
 #define MyCGRectContainsPoint(rect, point)						\
 	(((point.x >= rect.origin.x) &&								\
@@ -9,15 +10,16 @@
 		(point.x <= rect.origin.x + rect.size.width) &&			\
 		(point.y <= rect.origin.y + rect.size.height)) ? 1 : 0)  
 		
+#define RADIANS(degrees) ((degrees * M_PI) / 180.0)
+#define DEGREES(radians) (radians * 180.0/M_PI)
 
-unsigned long gp2x_pad_status;
+extern unsigned long gp2x_pad_status;
 int num_of_joys;
 
 extern CGRect drects[100];
 extern int ndrects;
-//extern btUsed;
+
 unsigned long btUsed = 0;
-unsigned long iCadeUsed = 0;
 
 CGRect rEmulatorFrame;
 static CGRect rPortraitViewFrame;
@@ -29,10 +31,8 @@ static CGRect rPortraitImageOverlayFrame;
 static CGRect rLandscapeViewFrame;
 static CGRect rLandscapeViewFrameFull;
 static CGRect rLandscapeViewFrameNotFull;
-static CGRect rLandscapeImageOverlayFrame;
 static CGRect rLandscapeImageBackFrame;
 
-static CGRect rLoopImageMask;
 static CGRect rShowKeyboard;
 
 CGRect rExternal;
@@ -47,44 +47,31 @@ extern int overscanTVOUT;
 
 int iphone_controller_opacity = 50;
 int iphone_is_landscape = 0;
-int iphone_smooth_land = 0;
-int iphone_smooth_port = 0;
 int iphone_keep_aspect_ratio_land = 0;
 int iphone_keep_aspect_ratio_port = 0;
 
 int safe_render_path = 1;
 int enable_dview = 0;
-
-int tv_filter_land = 0;
-int tv_filter_port = 0;
-
-int scanline_filter_land = 0;
-int scanline_filter_port = 0;
      
 /////
-int global_fps = 0;
-int global_showinfo = 1;
-int global_sound = 0;
-int iOS_animated_DPad = 0;
 int iOS_4buttonsLand = 0;
-int iOS_full_screen_land = 1;
-int iOS_full_screen_port = 1;
+int iOS_full_screen_land = 0;
+int iOS_full_screen_port = 0;
 int emulated_width = 320;
 int emulated_height = 240;
 
 extern int iOS_landscape_buttons;
 int iOS_hide_LR=0;
 int iOS_BplusX=0;
-int iOS_landscape_buttons=2;
+int iOS_landscape_buttons=4;
 int iOS_skin_data = 1;
 
 #define TOUCH_INPUT_DIGITAL 0
-#define TOUCH_INPUT_ANALOG 1
 
-int iOS_inputTouchType = 1;
+int iOS_inputTouchType = 0;
 int iOS_analogDeadZoneValue = 2;
 int iOS_iCadeLayout = 1;
-int iOS_waysStick;
+int iOS_waysStick = 4;
 
 int global_manufacturer=0;
 int global_category=0;
@@ -96,6 +83,8 @@ int menu_exit_option = 0;
 
 int game_list_num = 0;
 
+static unsigned long newtouches[10];
+static unsigned long oldtouches[10];
 
 #define STICK4WAY (iOS_waysStick == 4 && iOS_inGame)
 #define STICK2WAY (iOS_waysStick == 2 && iOS_inGame)
@@ -103,6 +92,11 @@ int game_list_num = 0;
 enum { DPAD_NONE=0,DPAD_UP=1,DPAD_DOWN=2,DPAD_LEFT=3,DPAD_RIGHT=4,DPAD_UP_LEFT=5,DPAD_UP_RIGHT=6,DPAD_DOWN_LEFT=7,DPAD_DOWN_RIGHT=8};    
 
 enum { BTN_B=0,BTN_X=1,BTN_A=2,BTN_Y=3,BTN_SELECT=4,BTN_START=5,BTN_L1=6,BTN_R1=7,BTN_L2=8,BTN_R2=9};
+
+enum  { GP2X_UP=0x1,       GP2X_LEFT=0x4,       GP2X_DOWN=0x10,  GP2X_RIGHT=0x40,
+	GP2X_START=1<<8,   GP2X_SELECT=1<<9,    GP2X_L=1<<10,    GP2X_R=1<<11,
+	GP2X_A=1<<12,      GP2X_B=1<<13,        GP2X_X=1<<14,    GP2X_Y=1<<15,
+	GP2X_VOL_UP=1<<23, GP2X_VOL_DOWN=1<<22, GP2X_PUSH=1<<27 };
 
 enum { BUTTON_PRESS=0,BUTTON_NO_PRESS=1};
 
@@ -115,20 +109,20 @@ static int old_btnStates[NUM_BUTTONS];
 
 int iOS_inGame;
 int iOS_exitGame;
-int iOS_exitPause;
 
 int actionPending=0;
 int wantExit = 0;
 
-int __emulation_paused = 0;
 int __emulation_run=0;
 
 @implementation EmuControllerView
+@synthesize screenView;
+
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blackColor];
+//        self.backgroundColor = [UIColor yellowColor];
         
         nameImgButton_NotPress[BTN_B] = @"button_NotPress_B.png";
         nameImgButton_NotPress[BTN_X] = @"button_NotPress_X.png";
@@ -175,7 +169,6 @@ int __emulation_run=0;
         
         [self getConf];
         
-        
         self.opaque = YES;
         self.clearsContextBeforeDrawing = NO; //Performance?
         
@@ -183,8 +176,6 @@ int __emulation_run=0;
         
         self.multipleTouchEnabled = YES;
         self.exclusiveTouch = NO;
-        
-        [self changeUI];
     }
     
     return self;
@@ -198,29 +189,13 @@ int __emulation_run=0;
 
 - (void)drawRect:(CGRect)rect
 {
-            
-}
-
--(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [self changeUI : fromInterfaceOrientation];
+    
 }
 
 - (void)changeUI : (UIInterfaceOrientation)interfaceOrientation {
-  int prev_emulation_paused = __emulation_paused;
-   
-  __emulation_paused = 1;
-  
   [self getConf];
   
-  //reset_video(); 
-  
-  //if(!safe_render_path)
-      usleep(150000);//ensure some frames displayed
-  
-  //[self removeDPadView];
-        
-  [screenView removeFromSuperview];
-
+  [self removeDPadView];
   if(imageBack!=nil)
   {
      [imageBack removeFromSuperview];
@@ -233,20 +208,22 @@ int __emulation_run=0;
      [imageOverlay removeFromSuperview];
      imageOverlay = nil;
    }
-   
-   if((interfaceOrientation ==  UIDeviceOrientationLandscapeLeft) || (interfaceOrientation == UIDeviceOrientationLandscapeRight)){
-	   [self buildLandscape];	        	
-   } else	if((interfaceOrientation == UIDeviceOrientationPortrait) || (interfaceOrientation == UIDeviceOrientationPortraitUpsideDown)){	
-       [self buildPortrait];
-   }
+    
+    if (screenView && screenView.superview) {
+        [screenView removeFromSuperview];
+    }
+    
+    if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
+        [self buildLandscape : YES];
+    } else if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
+        [self buildLandscape : NO];
+    } else if (interfaceOrientation == UIInterfaceOrientationPortrait) {
+        [self buildPortrait : NO];
+    } else if (interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        [self buildPortrait : YES];
+    }
 
-   //self.view.backgroundColor = [UIColor blackColor];
    [self setNeedsDisplay];
-   	
-   iOS_exitPause = 1;
-	
-   if(prev_emulation_paused!=1)
-	   __emulation_paused = 0;
 }
 
 - (void)removeDPadView{
@@ -273,19 +250,17 @@ int __emulation_run=0;
          buttonViews[i] = nil; 
       }
    }
-      
 }
 
 - (void)buildDPadView {
 
    int i;
    
-   
    [self removeDPadView];
     
    btUsed = num_of_joys!=0; 
    
-   if((btUsed || iCadeUsed) && ((!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land)))
+   if(btUsed && ((!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land)))
      return;
    
    NSString *name;    
@@ -335,134 +310,26 @@ int __emulation_run=0;
        
 }
 
-- (void)buildPortraitImageBack {
-  /*
-   [UIView beginAnimations:@"foo2" context:nil];
-   [UIView setAnimationCurve:UIViewAnimationCurveEaseOut];
-   [UIView setAnimationDuration:0.50];
-   */
-   if(!iOS_full_screen_port)
-   {
-	   if(isPad())
-	     imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPad.png",iOS_skin_data]]];
-	   else
-	     imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPhone.png",iOS_skin_data]]];
-	   
-	   imageBack.frame = rPortraitImageBackFrame; // Set the frame in which the UIImage should be drawn in.
-	   
-	   imageBack.userInteractionEnabled = NO;
-	   imageBack.multipleTouchEnabled = NO;
-	   imageBack.clearsContextBeforeDrawing = NO;
-	   //[imageBack setOpaque:YES];
-	
-	   [self addSubview: imageBack]; // Draw the image in self.view.
-   }
-   //[UIView commitAnimations];
-   
-}
-
-- (void)buildPortraitImageOverlay {
-   
-   if((safe_render_path || scanline_filter_port || tv_filter_port))
-   {
-                                                                                                                                                       
-       CGRect r = iOS_full_screen_port ? rView : rPortraitImageOverlayFrame;
-       
-       UIGraphicsBeginImageContext(r.size);  
-       
-       //[image1 drawInRect: rPortraitImageOverlayFrame];
-       
-       CGContextRef uiContext = UIGraphicsGetCurrentContext();
-             
-       CGContextTranslateCTM(uiContext, 0, r.size.height);
-	
-       CGContextScaleCTM(uiContext, 1.0, -1.0);
-
-       if(scanline_filter_port)
-       {       
-            
-          UIImage *image2 = [UIImage imageNamed:[NSString stringWithFormat: @"scanline-1.png"]];
-                        
-          CGImageRef tile = CGImageRetain(image2.CGImage);
-                   
-          CGContextSetAlpha(uiContext,((float)22 / 100.0f));   
-              
-          CGContextDrawTiledImage(uiContext, CGRectMake(0, 0, image2.size.width, image2.size.height), tile);
-       
-          CGImageRelease(tile);       
-       }
-
-       if(tv_filter_port)
-       {              
-          
-          UIImage *image3 = [UIImage imageNamed:[NSString stringWithFormat: @"crt-1.png"]];              
-          
-          CGImageRef tile = CGImageRetain(image3.CGImage);
-              
-          CGContextSetAlpha(uiContext,((float)19 / 100.0f));     
-          
-          CGContextDrawTiledImage(uiContext, CGRectMake(0, 0, image3.size.width, image3.size.height), tile);
-       
-          CGImageRelease(tile);       
-       }
-     
-       if(!iOS_full_screen_port)
-       {
-          UIImage *image1;
-          if(isPad())          
-            image1 = [UIImage imageNamed:[NSString stringWithFormat:@"border-iPad.png"]];
-          else
-            image1 = [UIImage imageNamed:[NSString stringWithFormat:@"border-iPhone.png"]];
-         
-          CGImageRef img = CGImageRetain(image1.CGImage);
-       
-          CGContextSetAlpha(uiContext,((float)100 / 100.0f));  
-   
-          CGContextDrawImage(uiContext,rPortraitImageOverlayFrame , img);
-   
-          CGImageRelease(img);  
-       }
-             
-       UIImage *finishedImage = UIGraphicsGetImageFromCurrentImageContext();
-                                                            
-       UIGraphicsEndImageContext();
-       
-       imageOverlay = [ [ UIImageView alloc ] initWithImage: finishedImage];
-         
-       imageOverlay.frame = r;
-                 		    			
-       [self addSubview: imageOverlay];                                    
-   }  
-
-  //DPAD---   
-  [self buildDPadView];   
-  /////
-   
-  /////////////////
-  if(enable_dview)
-  {
-	  if(dview!=nil)
-	  {
-	    [dview removeFromSuperview];
-	  }  	 
-	
-	  dview = [[DView alloc] initWithFrame:self.bounds];
-	  
-	  [self addSubview:dview];   
-	
-	  [self filldrectsController];
-	  
-	  [dview setNeedsDisplay];
-  }
-  ////////////////
-}
-
-- (void)buildPortrait {
+- (void)buildPortrait : (BOOL)isUpsidedown {
 
    iphone_is_landscape = 0;
    [ self getControllerCoords:0 ];
    
-   [self buildPortraitImageBack];
+    if(!iOS_full_screen_port)
+    {
+        if(isPad())
+            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPad.png",iOS_skin_data]]];
+        else
+            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPhone.png",iOS_skin_data]]];
+        
+        imageBack.frame = rPortraitImageBackFrame; // Set the frame in which the UIImage should be drawn in.
+        
+        imageBack.userInteractionEnabled = NO;
+        imageBack.multipleTouchEnabled = NO;
+        imageBack.clearsContextBeforeDrawing = NO;
+        
+        [self addSubview: imageBack]; // Draw the image in self.view.
+    }
    
    CGRect r;
    
@@ -489,7 +356,7 @@ int __emulation_run=0;
        
        r.origin.x = r.origin.x + ((r.size.width - tmp_width) / 2);      
        
-       if(!iOS_full_screen_port || btUsed || iCadeUsed)
+       if(!iOS_full_screen_port || btUsed)
        {
           r.origin.y = r.origin.y + ((r.size.height - tmp_height) / 2);
        }
@@ -511,147 +378,63 @@ int __emulation_run=0;
    }  
    
    rView = r;
-       
-//   screenView = [ [ScreenView alloc] initWithFrame: rView];
-//                  
-//   if(externalView==nil)
-//   {             		    			
-//      [self.view addSubview: screenView];
-//   }  
-//   else
-//   {   
-//      [externalView addSubview: screenView];
-//   }  
+
+    screenView = [[ScreenView alloc] initWithFrame:rView];
+    [self addSubview: screenView];
     
-   [self buildPortraitImageOverlay];
-     
-}
-
-- (void)buildLandscapeImageBack {
-   if(!iOS_full_screen_land)
-   {
-	   if(isPad())
-	     imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPad.png",iOS_skin_data]]];
-	   else
-	     imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPhone.png",iOS_skin_data]]];
-	   
-	   imageBack.frame = rLandscapeImageBackFrame; // Set the frame in which the UIImage should be drawn in.
-	   
-	   imageBack.userInteractionEnabled = NO;
-	   imageBack.multipleTouchEnabled = NO;
-	   imageBack.clearsContextBeforeDrawing = NO;
-	   //[imageBack setOpaque:YES];
-	
-	   [self addSubview: imageBack]; // Draw the image in self.view.
-   }
-   //[UIView commitAnimations];
-   
-}
-
-- (void)buildLandscapeImageOverlay{
-   if((scanline_filter_land || tv_filter_land))
-   {                                                                                                                                              
-	   CGRect r;
-       if(iOS_full_screen_land)
-          r = rView;//rLandscapeViewFrame;
-       else
-          r = rLandscapeImageOverlayFrame;
-	
-	   UIGraphicsBeginImageContext(r.size);
-	
-	   CGContextRef uiContext = UIGraphicsGetCurrentContext();  
-	   
-	   CGContextTranslateCTM(uiContext, 0, r.size.height);
-		
-	   CGContextScaleCTM(uiContext, 1.0, -1.0);
-	   
-	   if(scanline_filter_land)
-	   {       	       
-	      UIImage *image2;
-	      
-	      if(isPad())
-	        image2 =  [UIImage imageNamed:[NSString stringWithFormat: @"scanline-2.png"]];
-	      else
-	        image2 =  [UIImage imageNamed:[NSString stringWithFormat: @"scanline-1.png"]];
-	                        
-	      CGImageRef tile = CGImageRetain(image2.CGImage);
-	      
-	      if(isPad())             
-	         CGContextSetAlpha(uiContext,((float)10 / 100.0f));
-	      else
-	         CGContextSetAlpha(uiContext,((float)22 / 100.0f));
-	              
-	      CGContextDrawTiledImage(uiContext, CGRectMake(0, 0, image2.size.width, image2.size.height), tile);
-	       
-	      CGImageRelease(tile);       
-	    }
-	
-	    if(tv_filter_land)
-	    {              
-	       UIImage *image3 = [UIImage imageNamed:[NSString stringWithFormat: @"crt-1.png"]];              
-	          
-	       CGImageRef tile = CGImageRetain(image3.CGImage);
-	              
-	       CGContextSetAlpha(uiContext,((float)20 / 100.0f));     
-	          
-	       CGContextDrawTiledImage(uiContext, CGRectMake(0, 0, image3.size.width, image3.size.height), tile);
-	       
-	       CGImageRelease(tile);       
-	    }
-
-	       
-	    UIImage *finishedImage = UIGraphicsGetImageFromCurrentImageContext();
-	                  
-	    UIGraphicsEndImageContext();
-	    
-	    imageOverlay = [ [ UIImageView alloc ] initWithImage: finishedImage];
-	    
-	    imageOverlay.frame = r; // Set the frame in which the UIImage should be drawn in.
-      
-        imageOverlay.userInteractionEnabled = NO;
-        imageOverlay.multipleTouchEnabled = NO;
-        imageOverlay.clearsContextBeforeDrawing = NO;
-        [self addSubview: imageOverlay];
+    ScreenLayer *layer = (ScreenLayer *)screenView.layer;
+    int width = r.size.width > r.size.height ? r.size.width : r.size.height;
+    int height = r.size.width > r.size.height ? r.size.height : r.size.width;
+    layer.bounds = CGRectMake(0, 0, width, height);
+    
+    //DPAD---
+    [self buildDPadView];
+    
+    if(enable_dview)
+    {
+        if(dview!=nil)
+        {
+            [dview removeFromSuperview];
+        }
+        
+        dview = [[DView alloc] initWithFrame:self.bounds];
+        
+        [self addSubview:dview];
+        
+        [self filldrectsController];
+        
+        [dview setNeedsDisplay];
     }
-   
-    //DPAD---   
-    [self buildDPadView];   
-
-   if(enable_dview)
-   {
-	  if(dview!=nil)
-	  {
-        [dview removeFromSuperview];
-      }	 	  
-	  
-	  dview = [[DView alloc] initWithFrame:self.bounds];
-		 	  
-	  [self filldrectsController];
-	  
-	  [self addSubview:dview];   
-	  [dview setNeedsDisplay];
-	  
-	 
-  }
-  /////////////////	
 }
 
-- (void)buildLandscape{
+- (void)buildLandscape : (BOOL)isLeft{
 	
    iphone_is_landscape = 1;
       
    [self getControllerCoords:1 ];
    
-   [self buildLandscapeImageBack];
+    if(!iOS_full_screen_land)
+    {
+        if(isPad())
+            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPad.png",iOS_skin_data]]];
+        else
+            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPhone.png",iOS_skin_data]]];
+        
+        imageBack.frame = rLandscapeImageBackFrame; // Set the frame in which the UIImage should be drawn in.
+        
+        imageBack.userInteractionEnabled = NO;
+        imageBack.multipleTouchEnabled = NO;
+        imageBack.clearsContextBeforeDrawing = NO;
+        //[imageBack setOpaque:YES];
+        
+        [self addSubview: imageBack]; // Draw the image in self.view.
+    }
         
    CGRect r;
    
-   if(!iOS_full_screen_land)
-   {
+   if(!iOS_full_screen_land) {
         r = rLandscapeViewFrameNotFull;
-   }     
-   else
-   {
+   } else {
         r = rLandscapeViewFrameFull;
    }     
    
@@ -679,29 +462,36 @@ int __emulation_run=0;
    }
    
    rView = r;
-   
-//   screenView = [ [ScreenView alloc] initWithFrame: rView];
-//          
-//   if(externalView==nil)
-//   {             		    			      
-//      [self.view addSubview: screenView];
-//   }  
-//   else
-//   {               
-//      [externalView addSubview: screenView];
-//   }   
+    screenView = [[ScreenView alloc] initWithFrame:rView];
+    [self addSubview: screenView];
     
-   [self buildLandscapeImageOverlay];
-	
+    ScreenLayer *layer = (ScreenLayer *)screenView.layer;
+    int width = r.size.width > r.size.height ? r.size.width : r.size.height;
+    int height = r.size.width > r.size.height ? r.size.height : r.size.width;
+    layer.bounds = CGRectMake(0, 0, width, height);
+    
+    [self buildDPadView];
+    
+    if(enable_dview)
+    {
+        if(dview!=nil)
+        {
+            [dview removeFromSuperview];
+        }
+        
+        dview = [[DView alloc] initWithFrame:self.bounds];
+        
+        [self filldrectsController];
+        
+        [self addSubview:dview];
+        [dview setNeedsDisplay];	 
+    }
 }
 
 ////////////////
 
 
 - (void)handle_DPAD{
-
-    if(!iOS_animated_DPad /*|| !show_controls*/)return;
-
     if(dpad_state!=old_dpad_state)
     {
         
@@ -743,219 +533,268 @@ int __emulation_run=0;
            old_btnStates[i] = btnStates[i]; 
         }
     }
-    
 }
 
 ////////////////
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{	       
-   
-    if(((btUsed || iCadeUsed) && ((!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land)))) 
-    {
-        NSSet *allTouches = [event allTouches];
-        UITouch *touch = [[allTouches allObjects] objectAtIndex:0];
-        
-        if(touch.phase == UITouchPhaseBegan)
-		{
-	    }
-    }
-    else
-    {
-        [self touchesController:touches withEvent:event];
-    }  
-}
-  
-		
-- (void)touchesController:(NSSet *)touches withEvent:(UIEvent *)event {	
+{
+    int i;
+    static UITouch *stickTouch = nil;
+    //Get all the touches.
+    NSSet *allTouches = [event allTouches];
+    int touchcount = [allTouches count];
     
-	int i;
-	static UITouch *stickTouch = nil;
-	//Get all the touches.
-	NSSet *allTouches = [event allTouches];
-	int touchcount = [allTouches count];
-		
-	for(i=0; i<NUM_BUTTONS;i++)
+    for(i=0; i<NUM_BUTTONS;i++)
     {
-       btnStates[i] = BUTTON_NO_PRESS; 
+        btnStates[i] = BUTTON_NO_PRESS;
     }
-						
-	for (i = 0; i < touchcount; i++) 
-	{
-		UITouch *touch = [[allTouches allObjects] objectAtIndex:i];
-		
-		if(touch == nil)
-		{
-			return;
-		}
-		
-		if( touch.phase == UITouchPhaseBegan		||
-			touch.phase == UITouchPhaseMoved		||
-			touch.phase == UITouchPhaseStationary	)
-		{
-			struct CGPoint point;
-			point = [touch locationInView:self];
-			
-			if(!iOS_inputTouchType)
-			{
-				if (MyCGRectContainsPoint(Up, point) && !STICK2WAY) {
-					dpad_state = DPAD_UP;
-				    stickTouch = touch;		    				
-				}			
-				else if (MyCGRectContainsPoint(Down, point) && !STICK2WAY) {						
-					dpad_state = DPAD_DOWN; 
-				    stickTouch = touch;
-				}			
-				else if (MyCGRectContainsPoint(Left, point)) {
-					dpad_state = DPAD_LEFT;		    
-				    
-				    stickTouch = touch;
-				}			
-				else if (MyCGRectContainsPoint(Right, point)) {					dpad_state = DPAD_RIGHT;
-				    
-				    stickTouch = touch;
-				}			
-				else if (MyCGRectContainsPoint(UpLeft, point)) {
-					//NSLog(@"GP2X_UP | GP2X_LEFT");
-					if(!STICK2WAY && !STICK4WAY)
-					{
-						dpad_state = DPAD_UP_LEFT;
-				    }
-				    else
-				    {
-						dpad_state = DPAD_LEFT;			    
-				    }				    
-				    stickTouch = touch;				
-				}			
-				else if (MyCGRectContainsPoint(UpRight, point)) {
-					//NSLog(@"GP2X_UP | GP2X_RIGHT");
-					
-					if(!STICK2WAY && !STICK4WAY) {
-					   dpad_state = DPAD_UP_RIGHT;
-				    }
-				    else
-				    {
-					   dpad_state = DPAD_RIGHT;			    
-				    }   				    
-				    stickTouch = touch;
-				}			
-				else if (MyCGRectContainsPoint(DownLeft, point)) {
-					//NSLog(@"GP2X_DOWN | GP2X_LEFT");
-
-					if(!STICK2WAY && !STICK4WAY)
-					{
-						dpad_state = DPAD_DOWN_LEFT;
-				    }
-				    else
-				    {
-						dpad_state = DPAD_LEFT;			    
-				    }
-				    stickTouch = touch;				
-				}			
-				else if (MyCGRectContainsPoint(DownRight, point)) {
-					if(!STICK2WAY && !STICK4WAY)
-					{
-					    dpad_state = DPAD_DOWN_RIGHT;
-				    }
-				    else
-				    {
-					    dpad_state = DPAD_RIGHT;			    
-				    }
-				    stickTouch = touch;
-				}			
-			}
-			
-			if(touch == stickTouch) continue;
-			
-			if (MyCGRectContainsPoint(ButtonUp, point)) {
-				btnStates[BTN_Y] = BUTTON_PRESS; 
-				//NSLog(@"GP2X_Y");
-			}
-			else if (MyCGRectContainsPoint(ButtonDown, point)) {
-				btnStates[BTN_X] = BUTTON_PRESS;
-				//NSLog(@"GP2X_X");
-			}
-			else if (MyCGRectContainsPoint(ButtonLeft, point)) {
-			    if(iOS_BplusX)
-			    {
-	                btnStates[BTN_B] = BUTTON_PRESS;
-	                btnStates[BTN_X] = BUTTON_PRESS;
-	                btnStates[BTN_A] = BUTTON_PRESS;
+    
+    for (i = 0; i < touchcount; i++)
+    {
+        UITouch *touch = [[allTouches allObjects] objectAtIndex:i];
+        
+        if(touch == nil)
+        {
+            return;
+        }
+        
+        if( touch.phase == UITouchPhaseBegan		||
+           touch.phase == UITouchPhaseMoved		||
+           touch.phase == UITouchPhaseStationary	)
+        {
+            struct CGPoint point;
+            point = [touch locationInView:self];
+            
+            if(!iOS_inputTouchType)
+            {
+                if (MyCGRectContainsPoint(Up, point) && !STICK2WAY) {
+                    dpad_state = DPAD_UP;
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_UP;
+                    newtouches[i] = GP2X_UP;
+                }
+                else if (MyCGRectContainsPoint(Down, point) && !STICK2WAY) {
+                    dpad_state = DPAD_DOWN;
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_DOWN;
+                    newtouches[i] = GP2X_DOWN;
+                }
+                else if (MyCGRectContainsPoint(Left, point)) {
+                    dpad_state = DPAD_LEFT;
+                    
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_LEFT;
+                    newtouches[i] = GP2X_LEFT;
+                }
+                else if (MyCGRectContainsPoint(Right, point)) {
+                    dpad_state = DPAD_RIGHT;
+                    
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_RIGHT;
+                    newtouches[i] = GP2X_RIGHT;
+                }
+                else if (MyCGRectContainsPoint(UpLeft, point)) {
+                    //NSLog(@"GP2X_UP | GP2X_LEFT");
+                    if(!STICK2WAY && !STICK4WAY)
+                    {
+                        dpad_state = DPAD_UP_LEFT;
+                    }
+                    else
+                    {
+                        dpad_state = DPAD_LEFT;
+                    }
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_UP | GP2X_LEFT;
+                    newtouches[i] = GP2X_UP | GP2X_LEFT;
+                }
+                else if (MyCGRectContainsPoint(UpRight, point)) {
+                    //NSLog(@"GP2X_UP | GP2X_RIGHT");
+                    
+                    if(!STICK2WAY && !STICK4WAY) {
+                        dpad_state = DPAD_UP_RIGHT;
+                    }
+                    else
+                    {
+                        dpad_state = DPAD_RIGHT;
+                    }
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_UP | GP2X_RIGHT;
+                    newtouches[i] = GP2X_UP | GP2X_RIGHT;
+                }
+                else if (MyCGRectContainsPoint(DownLeft, point)) {
+                    //NSLog(@"GP2X_DOWN | GP2X_LEFT");
+                    
+                    if(!STICK2WAY && !STICK4WAY)
+                    {
+                        dpad_state = DPAD_DOWN_LEFT;
+                    }
+                    else
+                    {
+                        dpad_state = DPAD_LEFT;
+                    }
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_DOWN | GP2X_LEFT;
+                    newtouches[i] = GP2X_DOWN | GP2X_LEFT;
+                }
+                else if (MyCGRectContainsPoint(DownRight, point)) {
+                    if(!STICK2WAY && !STICK4WAY)
+                    {
+                        dpad_state = DPAD_DOWN_RIGHT;
+                    }
+                    else
+                    {
+                        dpad_state = DPAD_RIGHT;
+                    }
+                    stickTouch = touch;
+                    
+                    gp2x_pad_status |= GP2X_DOWN | GP2X_RIGHT;
+                    newtouches[i] = GP2X_DOWN | GP2X_RIGHT;
+                }
+            }
+            
+            if(touch == stickTouch) continue;
+            
+            if (MyCGRectContainsPoint(ButtonUp, point)) {
+                btnStates[BTN_Y] = BUTTON_PRESS;
+                //NSLog(@"GP2X_Y");
+                gp2x_pad_status |= GP2X_Y;
+				newtouches[i] = GP2X_Y;
+            }
+            else if (MyCGRectContainsPoint(ButtonDown, point)) {
+                btnStates[BTN_X] = BUTTON_PRESS;
+                //NSLog(@"GP2X_X");
+                gp2x_pad_status |= GP2X_X;
+				newtouches[i] = GP2X_X;
+            }
+            else if (MyCGRectContainsPoint(ButtonLeft, point)) {
+                if(iOS_BplusX)
+                {
+                    btnStates[BTN_B] = BUTTON_PRESS;
+                    btnStates[BTN_X] = BUTTON_PRESS;
+                    btnStates[BTN_A] = BUTTON_PRESS;
                 }
                 else
                 {
-					btnStates[BTN_A] = BUTTON_PRESS;
-				}
-				//NSLog(@"GP2X_A");
-			}
-			else if (MyCGRectContainsPoint(ButtonRight, point)) {
-				btnStates[BTN_B] = BUTTON_PRESS;
-				//NSLog(@"GP2X_B");
-			}
-			else if (MyCGRectContainsPoint(ButtonUpLeft, point)) {
-				btnStates[BTN_Y] = BUTTON_PRESS;
-				btnStates[BTN_A] = BUTTON_PRESS;
-				//NSLog(@"GP2X_Y | GP2X_A");
-			}
-			else if (MyCGRectContainsPoint(ButtonDownLeft, point)) {
-
+                    btnStates[BTN_A] = BUTTON_PRESS;
+                    
+                    gp2x_pad_status |= GP2X_A;
+                    newtouches[i] = GP2X_A;
+                }
+                //NSLog(@"GP2X_A");
+            }
+            else if (MyCGRectContainsPoint(ButtonRight, point)) {
+                btnStates[BTN_B] = BUTTON_PRESS;
+                //NSLog(@"GP2X_B");
+                
+                gp2x_pad_status |= GP2X_B;
+				newtouches[i] = GP2X_B;
+            }
+            else if (MyCGRectContainsPoint(ButtonUpLeft, point)) {
+                btnStates[BTN_Y] = BUTTON_PRESS;
+                btnStates[BTN_A] = BUTTON_PRESS;
+                //NSLog(@"GP2X_Y | GP2X_A");
+                
+                gp2x_pad_status |= GP2X_A | GP2X_Y;
+				newtouches[i] = GP2X_A | GP2X_Y;
+            }
+            else if (MyCGRectContainsPoint(ButtonDownLeft, point)) {
+                
                 btnStates[BTN_A] = BUTTON_PRESS;
                 btnStates[BTN_X] = BUTTON_PRESS;							
-				//NSLog(@"GP2X_X | GP2X_A");
-			}
-			else if (MyCGRectContainsPoint(ButtonUpRight, point)) {                btnStates[BTN_B] = BUTTON_PRESS;
+                //NSLog(@"GP2X_X | GP2X_A");
+                
+                gp2x_pad_status |= GP2X_X | GP2X_A;
+				newtouches[i] = GP2X_X | GP2X_A;
+            }
+            else if (MyCGRectContainsPoint(ButtonUpRight, point)) {                btnStates[BTN_B] = BUTTON_PRESS;
                 btnStates[BTN_Y] = BUTTON_PRESS;				
-				//NSLog(@"GP2X_Y | GP2X_B");
-			}			
-			else if (MyCGRectContainsPoint(ButtonDownRight, point)) {
-			    if(!iOS_BplusX && iOS_landscape_buttons>=3)
-			    {
-	                btnStates[BTN_B] = BUTTON_PRESS;
-	                btnStates[BTN_X] = BUTTON_PRESS;
+                //NSLog(@"GP2X_Y | GP2X_B");
+                
+                gp2x_pad_status |= GP2X_B | GP2X_Y;
+				newtouches[i] = GP2X_B | GP2X_Y;
+            }			
+            else if (MyCGRectContainsPoint(ButtonDownRight, point)) {
+                if(!iOS_BplusX && iOS_landscape_buttons>=3)
+                {
+                    btnStates[BTN_B] = BUTTON_PRESS;
+                    btnStates[BTN_X] = BUTTON_PRESS;
+                    
+                    gp2x_pad_status |= GP2X_X | GP2X_B;
+                    newtouches[i] = GP2X_X | GP2X_B;
                 }
-				//NSLog(@"GP2X_X | GP2X_B");
-			} 
-			else if (MyCGRectContainsPoint(Select, point)) {
-			    //NSLog(@"GP2X_SELECT");			
+                //NSLog(@"GP2X_X | GP2X_B");
+            } 
+            else if (MyCGRectContainsPoint(Select, point)) {
+                //NSLog(@"GP2X_SELECT");			
                 btnStates[BTN_SELECT] = BUTTON_PRESS;
-			}
-			else if (MyCGRectContainsPoint(Start, point)) {
-				//NSLog(@"GP2X_START");
-			    btnStates[BTN_START] = BUTTON_PRESS;
-			}						
-			else if (MyCGRectContainsPoint(LPad, point)) {
-				//NSLog(@"GP2X_L");
-			    btnStates[BTN_L1] = BUTTON_PRESS;
-			}
-			else if (MyCGRectContainsPoint(RPad, point)) {
-				//NSLog(@"GP2X_R");
-				btnStates[BTN_R1] = BUTTON_PRESS;
-			}			
-			else if (MyCGRectContainsPoint(LPad2, point)) {
-				//NSLog(@"GP2X_VOL_DOWN");
-				//gp2x_pad_status |= GP2X_VOL_DOWN;
-				btnStates[BTN_L2] = BUTTON_PRESS;
-			}
-			else if (MyCGRectContainsPoint(RPad2, point)) {
-				//NSLog(@"GP2X_VOL_UP");
-				//gp2x_pad_status |= GP2X_VOL_UP;
-				btnStates[BTN_R2] = BUTTON_PRESS;
-			}			
-			else if (MyCGRectContainsPoint(Menu, point)) {	
-                btnStates[BTN_SELECT] = BUTTON_PRESS;
-			    btnStates[BTN_START] = BUTTON_PRESS;
-			}			
-	        			
-		}
-	    else
-	    {
-	        if(!iOS_inputTouchType && touch == stickTouch)
+            }
+            else if (MyCGRectContainsPoint(Start, point)) {
+                //NSLog(@"GP2X_START");
+                btnStates[BTN_START] = BUTTON_PRESS;
+            }						
+            else if (MyCGRectContainsPoint(LPad, point)) {
+                //NSLog(@"GP2X_L");
+                btnStates[BTN_L1] = BUTTON_PRESS;
+                
+                gp2x_pad_status |= GP2X_L;
+				newtouches[i] = GP2X_L;
+            }
+            else if (MyCGRectContainsPoint(RPad, point)) {
+                //NSLog(@"GP2X_R");
+                btnStates[BTN_R1] = BUTTON_PRESS;
+                
+                gp2x_pad_status |= GP2X_R;
+				newtouches[i] = GP2X_R;
+            }			
+            else if (MyCGRectContainsPoint(LPad2, point)) {
+                //NSLog(@"GP2X_VOL_DOWN");
+                //gp2x_pad_status |= GP2X_VOL_DOWN;
+                btnStates[BTN_L2] = BUTTON_PRESS;
+                gp2x_pad_status |= GP2X_VOL_DOWN;
+				newtouches[i] = GP2X_VOL_DOWN;
+            }
+            else if (MyCGRectContainsPoint(RPad2, point)) {
+                //NSLog(@"GP2X_VOL_UP");
+                //gp2x_pad_status |= GP2X_VOL_UP;
+                btnStates[BTN_R2] = BUTTON_PRESS;
+                
+                gp2x_pad_status |= GP2X_VOL_UP;
+				newtouches[i] = GP2X_VOL_UP;
+            }else if (MyCGRectContainsPoint(Select, point))
 			{
-				 dpad_state = DPAD_NONE;
-				 stickTouch = nil;
-		    }
-	    }
+				gp2x_pad_status |= GP2X_SELECT;
+				newtouches[i] = GP2X_SELECT;
+			}
+			else if (MyCGRectContainsPoint(Start, point))
+			{
+				gp2x_pad_status |= GP2X_START;
+				newtouches[i] = GP2X_START;
+			}
+			else if (MyCGRectContainsPoint(Menu, point))
+			{
+                btnStates[BTN_SELECT] = BUTTON_PRESS;
+                btnStates[BTN_START] = BUTTON_PRESS;
+			}
+        }
+        else
+        {
+            if(!iOS_inputTouchType && touch == stickTouch)
+            {
+                dpad_state = DPAD_NONE;
+                stickTouch = nil;
+            }
+        }
     }
+    
+    [self handle_DPAD];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -969,7 +808,7 @@ int __emulation_run=0;
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
 	[self touchesBegan:touches withEvent:event];
 }
-
+  
 - (void)getControllerCoords:(int)orientation {
     char string[256];
     FILE *fp;
@@ -1146,9 +985,9 @@ int __emulation_run=0;
     		case 5:    rLandscapeViewFrame = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;
     		case 6:    rLandscapeViewFrameFull = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;      		    		    		
     		case 7:    rLandscapeViewFrameNotFull = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;    		
-    		case 8:    rLandscapeImageBackFrame  	= CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;  
-    		case 9:    rLandscapeImageOverlayFrame     	= CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;      		  		
-            case 10:    rLoopImageMask = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;    	
+    		case 8:    rLandscapeImageBackFrame  	= CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;
+                case 9:    break;
+            case 10:    break;
             case 11:   enable_dview = coords[0]; break;
 			}
       i++;

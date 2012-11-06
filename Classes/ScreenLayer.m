@@ -81,19 +81,10 @@ unsigned int *screenPixels;
 		} else {
 			[self setMagnificationFilter: kCAFilterNearest];
 		}
-		
-		/*if (1) {
-		    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-            [[NSNotificationCenter defaultCenter] addObserver:self 
-                                                     selector:@selector(orientationChanged:) 
-                                                         name:@"UIDeviceOrientationDidChangeNotification" 
-                                                       object:nil];
-        }*/
 #endif
 	}
 	return self;
 }
-		
 
 - (void)display {
 #if !TARGET_IPHONE_SIMULATOR
@@ -101,26 +92,9 @@ unsigned int *screenPixels;
     IOSurfaceLock(_surface, 1, &_seed);
     self.affineTransform = CGAffineTransformIdentity;
     self.contents = nil;
-    self.affineTransform = rotateTransform;
+//    self.affineTransform = rotateTransform;
     self.contents = (__bridge id) _surface;
     IOSurfaceUnlock(_surface, 1, &_seed);
 #endif
 }
-
-- (void) orientationChanged:(NSNotification *)notification
-{
-    UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-    if (orientation == UIDeviceOrientationLandscapeLeft) {
-        rotateTransform = CGAffineTransformMakeRotation(RADIANS(90));
-    } else if (orientation == UIDeviceOrientationLandscapeRight) {
-        rotateTransform = CGAffineTransformMakeRotation(RADIANS(270));
-    } else if (orientation == UIDeviceOrientationPortrait) {
-        rotateTransform = CGAffineTransformMakeRotation(RADIANS(0.0));
-    }
-    
-}
-
-
-
-
 @end

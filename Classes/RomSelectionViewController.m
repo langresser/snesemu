@@ -56,21 +56,9 @@
 }
 
 - (void)loadSNESController {
-    if (AppDelegate().snesControllerViewController == nil) {
-        AppDelegate().snesControllerViewController = [[SNESControllerViewController alloc] initWithNibName:@"SNESControllerViewController" bundle:[NSBundle mainBundle]];
-    }
-    AppDelegate().snesControllerViewController.imageName = @"snes-1";
-    AppDelegate().snesControllerAppDelegate.controllerType = SNESControllerTypeWireless;
-    AppDelegate().snesControllerViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentModalViewController:AppDelegate().snesControllerViewController animated:YES];
 }
 
 - (void)dismissSNESController {
-    UIViewController *parentViewController = [AppDelegate().snesControllerViewController parentViewController];
-    if ([AppDelegate().snesControllerViewController respondsToSelector:@selector(presentingViewController)]) {
-        parentViewController = [AppDelegate().snesControllerViewController presentingViewController];//Fixes iOS 5 bug
-    }
-    [parentViewController dismissModalViewControllerAnimated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -369,10 +357,8 @@
     
     if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         AppDelegate().snesControllerAppDelegate.controllerType = SNESControllerTypeLocal;
-        [self presentViewController:AppDelegate().snesControllerViewController animated:NO completion:^{
-            [AppDelegate().emulationViewController startWithRom:romPath];
-            [AppDelegate() showEmulator:YES];
-        }];
+        [AppDelegate().emulationViewController startWithRom:romPath];
+        [AppDelegate() showEmulator:YES];
     }
 	
 }

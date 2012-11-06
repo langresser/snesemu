@@ -118,17 +118,13 @@
 	}
 	else if (sender == powerButton) {
 		NSLog(@"power button pressed");
-        [self presentViewController:AppDelegate().snesControllerViewController animated:NO completion:^{
-            [AppDelegate().emulationViewController startWithRom:(NSString *)self.detailItem];
-            [AppDelegate() showEmulator:YES];
-        }];
+        [AppDelegate().emulationViewController startWithRom:(NSString *)self.detailItem];
+        [AppDelegate() showEmulator:YES];
 	} else if (sender == loadButton) {
 		NSLog(@"load button pressed");
         NSLog(@"Path: %@", self.saveStatePath);
-        [self presentViewController:AppDelegate().snesControllerViewController animated:NO completion:^{
-            [AppDelegate().emulationViewController startWithRom:self.saveStatePath];
-            [AppDelegate() showEmulator:YES];
-        }];
+        [AppDelegate().emulationViewController startWithRom:self.saveStatePath];
+        [AppDelegate() showEmulator:YES];
 	} else if (sender == ejectButton) {
 		self.detailItem = nil;
 	} else if (sender == playerOneButton || sender == playerTwoButton ||

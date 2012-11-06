@@ -17,7 +17,7 @@
 {
     UITableView* m_tableView;
     
-    NSArray* m_romData;
+    NSMutableArray* m_romData;
     NSMutableArray* m_purchaseList;
     
     NSString* m_currentSelectRom;

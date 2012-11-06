@@ -14,18 +14,14 @@
 #import "SNES4iOSAppDelegate.h"
 #import "EmulationViewController.h"
 
-extern volatile int __emulation_run;
-extern volatile int __emulation_paused;
-extern volatile int __emulation_saving;
-extern volatile int __emulation_reset;
-extern void clearFramebuffer(void);
-
 @implementation ScreenView
 
+#if !TARGET_IPHONE_SIMULATOR
 + (Class) layerClass
 {
     return [ScreenLayer class];
 }
+#endif
 
 - (id) initWithFrame:(CGRect)f
 {
@@ -33,6 +29,10 @@ extern void clearFramebuffer(void);
     {
         NSLog(@"ScreenView init");
         self.clearsContextBeforeDrawing = NO;
+        
+//#if TARGET_IPHONE_SIMULATOR
+        self.backgroundColor = [UIColor greenColor];
+//#endif
     }
     return self;
 }
@@ -41,7 +41,7 @@ extern void clearFramebuffer(void);
 // Wierd things happen without this empty drawRect
 - (void)drawRect:(CGRect)rect {
    // [self update];
-    //[self.layer display];
+//    [self.layer display];
 }
 
 
