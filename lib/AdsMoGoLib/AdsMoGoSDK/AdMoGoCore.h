@@ -133,4 +133,6 @@ typedef  enum{
  */
 - (void)specialAdapter:(AdMoGoAdNetworkAdapter *)adapter didFailAd:(NSError *)error ;
 
+
+
 @end

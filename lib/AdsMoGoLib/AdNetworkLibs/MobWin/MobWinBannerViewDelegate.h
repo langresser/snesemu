@@ -31,4 +31,10 @@
 // 详解:当弹出内嵌全屏广告关闭，返回广告栏界面时调用
 - (void)bannerViewDidDismissScreen;
 
+// 应用进入后台时调用
+//
+// 详解:当点击下载或者地图类型广告时，会调用系统程序打开，
+// 应用将被自动切换到后台
+- (void)bannerViewWillLeaveApplication;
+
 @end

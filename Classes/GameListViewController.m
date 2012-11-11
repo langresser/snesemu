@@ -17,12 +17,10 @@
 #import "TDBadgedCell.h"
 
 #import "SNES4iOSAppDelegate.h"
+#include "Snes9xMain.h"
+#import "LMSaveManager.h"
 
 extern int g_currentMB ;
-
-@interface GameListViewController ()
-
-@end
 
 @interface RomData : NSObject
 @property(nonatomic, strong) NSString* displayName;
@@ -79,20 +77,6 @@ extern int g_currentMB ;
     m_tableView.backgroundColor = [UIColor colorWithRed:240.0 / 255 green:248.0 / 255 blue:1.0 alpha:1.0];
     [m_tableView setBackgroundView:nil];
     [self.view addSubview:m_tableView];
-    
-    DJOfferBannerStyle bannerType = kDJBannerStyle320_50;
-    if (isPad()) {
-        bannerType = kDJBannerStyle480_50;
-    }
-    DianJinOfferBanner *_banner = [[DianJinOfferBanner alloc] initWithOfferBanner:CGPointMake(0, 0) style:bannerType];
-    DianJinTransitionParam *transitionParam = [[DianJinTransitionParam alloc] init];
-    transitionParam.animationType = kDJTransitionCube;
-    transitionParam.animationSubType = kDJTransitionFromTop;
-    transitionParam.duration = 1.0;
-    [_banner setupTransition:transitionParam];
-    [_banner startWithTimeInterval:20 delegate:self];
-    _banner.center = CGPointMake(rect.size.width / 2, 25);
-    [self.view addSubview:_banner];
     
     int offset = 0;
     if (isPad()) {
@@ -151,6 +135,16 @@ extern int g_currentMB ;
     NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
 	NSArray* dirContents = [fileManager contentsOfDirectoryAtPath:basePath error:nil];
     for (NSString* path in dirContents) {
+        BOOL isDir = NO;
+        NSString* fullPath = [basePath stringByAppendingPathComponent:path];
+        if (![fileManager fileExistsAtPath:fullPath isDirectory:&isDir] || isDir) {
+            continue;
+        }
+        
+        if ([[fullPath pathExtension] compare:@"db"] == 0) {
+            continue;
+        }
+
         [myGameList addObject:path];
     }
     
@@ -159,7 +153,6 @@ extern int g_currentMB ;
 
 -(void)onClickBack
 {
-    [self dismissModalViewControllerAnimated:NO];
 }
 
 - (void)viewDidLoad
@@ -187,8 +180,51 @@ extern int g_currentMB ;
         m_purchaseList = [[NSMutableArray alloc]initWithArray:array];
     }
     
+    adView = [[AdMoGoView alloc] initWithAppKey:kMangoAppKey
+                                         adType:AdViewTypeNormalBanner expressMode:NO
+                             adMoGoViewDelegate:self];
+    adView.adWebBrowswerDelegate = self;
+    adView.frame = CGRectMake(0, 0, 320, 50);
+    adView.center = CGPointMake(self.view.bounds.size.width / 2, 25);
+    [self.view addSubview:adView];
+    
+    
+    // documents folder
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsPath = [paths objectAtIndex:0];
+    
+    // set it for the ROMs
+    _romPath = [documentsPath copy];
+    SISetSystemPath([_romPath UTF8String]);
+    // and set it for SRAM
+    _sramPath = [_romPath stringByAppendingPathComponent:@"saves"];
+    SISetSRAMPath([_sramPath UTF8String]);
+    
+    isReloadRom = NO;
+    SISetSaveDelegate(self);
     // Do any additional setup after loading the view from its nib.
 }
+
+- (UIViewController *)viewControllerForPresentingModalView{
+    return self;
+}
+
+- (void)adMoGoDidStartAd:(AdMoGoView *)adMoGoView{
+    NSLog(@"广告开始请求回调");
+} /**
+   * 广告接收成功回调
+   */
+- (void)adMoGoDidReceiveAd:(AdMoGoView *)adMoGoView{
+    NSLog(@"广告接收成功回调"); }
+/**
+ * 广告接收失败回调 */
+- (void)adMoGoDidFailToReceiveAd:(AdMoGoView *)adMoGoView didFailWithError:(NSError *)error{
+    NSLog(@"广告接收失败回调"); }
+/**
+ * 点击广告回调 */
+- (void)adMoGoClickAd:(AdMoGoView *)adMoGoView{ NSLog(@"点击广告回调");
+}
+
 
 - (void)viewDidUnload
 {
@@ -201,19 +237,7 @@ extern int g_currentMB ;
 {
     [super viewWillAppear:animated];
     
-    NSMutableDictionary* myGame = [m_romData objectAtIndex:0];
-    NSMutableArray* myGameList = [myGame objectForKey:@"roms"];
-    [myGameList removeAllObjects];
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-	NSArray* dirContents = [fileManager contentsOfDirectoryAtPath:basePath error:nil];
-    for (NSString* path in dirContents) {
-        [myGameList addObject:path];
-    }
-    
-    [m_tableView reloadData];
+    [self onClickRefresh];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -294,9 +318,9 @@ extern int g_currentMB ;
             cell.accessoryType = UITableViewCellAccessoryNone;
             
             CGRect rectImage = CGRectMake(2, 10, 57, 57);
-            CGRect rectName = CGRectMake(60, 5, 110, 20);
+            CGRect rectName = CGRectMake(60, 5, 140, 20);
             CGRect rectIntro = CGRectMake(60, 30, 230, 50);
-            CGRect rectRate = CGRectMake(180, 0, 90, 30);
+            CGRect rectRate = CGRectMake(210, 0, 90, 30);
             CGRect rectLock = CGRectMake(280, 5, 16, 16);
             CGRect rectNew = CGRectMake(260, 55, 36, 16);
             float fontSize = 14;
@@ -503,36 +527,76 @@ extern int g_currentMB ;
     }
 }
 
++ (BOOL)isROMExtension:(NSString*)lowerCaseExtension
+{
+    if(lowerCaseExtension != nil
+       && ([lowerCaseExtension compare:@"smc"] == NSOrderedSame
+           || [lowerCaseExtension compare:@"sfc"] == NSOrderedSame
+           || [lowerCaseExtension compare:@"zip"] == NSOrderedSame))
+        return YES;
+    return NO;
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString* romPath = nil;
+    NSString* romName = nil;
     if (indexPath.section == 0) {
-        NSString* rom = [[[m_romData objectAtIndex:indexPath.section]objectForKey:@"roms"]objectAtIndex:indexPath.row];
+        romName = [[[m_romData objectAtIndex:indexPath.section]objectForKey:@"roms"]objectAtIndex:indexPath.row];
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-        romPath = [basePath stringByAppendingPathComponent:rom];
+        romPath = [basePath stringByAppendingPathComponent:romName];
         
     } else {
         NSDictionary* dict = [[[m_romData objectAtIndex:indexPath.section]objectForKey:@"roms"]objectAtIndex:indexPath.row];
-        romPath = [[[NSBundle mainBundle]bundlePath]stringByAppendingPathComponent: [dict objectForKey:@"rom"]];
+        romName = [dict objectForKey:@"rom"];
+        romPath = [[[NSBundle mainBundle]bundlePath]stringByAppendingPathComponent: romName];
     }
     
-    [MobClick event:@"openrom" label:romPath];
-    
-    m_currentSelectRom = romPath;
+    [MobClick event:@"openrom" label:romName];
+    m_currentSelectRom = romName;
+    m_currentRomPath = romPath;
     
     if (indexPath.section != 0 && ![self isRomPurchase:indexPath notify:YES]) {
         return;
     }
     
-    [self onClickBack];
-
-    AppDelegate().snesControllerAppDelegate.controllerType = SNESControllerTypeLocal;
-    [AppDelegate().emulationViewController startWithRom:romPath];
-    [AppDelegate() showEmulator:YES];
+    EmulationViewController* emuVC = [[EmulationViewController alloc] init];
+    emuVC.romFileName = romPath;
+    isReloadRom = NO;
+    [LMSaveManager sharedInstance].currentRomName = romName;
+    [LMSaveManager sharedInstance].currentSaveSlot = 1;
+    [self.navigationController pushViewController:emuVC animated:NO];
 }
 
+
+-(void)restartGame
+{
+    if (!m_currentSelectRom || [m_currentSelectRom length] == 0
+        || !m_currentRomPath || [m_currentRomPath length] == 0) {
+        return;
+    }
+
+    EmulationViewController* emuVC = [[EmulationViewController alloc] init];
+    emuVC.romFileName = m_currentRomPath;
+    isReloadRom = YES;
+    [self.navigationController pushViewController:emuVC animated:NO];
+}
+
+
+- (void)loadROMRunningState
+{
+    BOOL enableAutoSave = [[[NSUserDefaults standardUserDefaults]objectForKey:USER_DEFAULT_KEY_AUTOSAVE]boolValue];
+    if (enableAutoSave || isReloadRom) {
+        [LMSaveManager loadStateForROMNamed:m_currentRomPath slot:0];
+    }
+}
+
+- (void)saveROMRunningState
+{
+    [LMSaveManager saveStateForROMNamed:m_currentRomPath slot:0];
+}
 
 @end

@@ -1,8 +1,8 @@
-#import "ScreenView.h"
 #import "EmuControllerView.h"
 #import <pthread.h>
 #import "iosUtil.h"
-#import "ScreenLayer.h"
+#import "SNES4iOSAppDelegate.h"
+#include "Snes9xMain.h"
 
 #define MyCGRectContainsPoint(rect, point)						\
 	(((point.x >= rect.origin.x) &&								\
@@ -36,11 +36,6 @@ static CGRect rLandscapeImageBackFrame;
 static CGRect rShowKeyboard;
 
 CGRect rExternal;
-CGRect rView;
-
-static CGRect rStickWindow;
-extern CGRect rStickArea;
-int iOS_stick_radio; 
 
 extern int nativeTVOUT;
 extern int overscanTVOUT;
@@ -105,11 +100,8 @@ int iOS_exitGame;
 int actionPending=0;
 int wantExit = 0;
 
-int __emulation_run=0;
-
 @implementation EmuControllerView
 @synthesize screenView;
-
 -(id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -148,17 +140,6 @@ int __emulation_run=0;
         nameImgDPad[DPAD_DOWN_LEFT]= @"DPad_DL.png";
         nameImgDPad[DPAD_DOWN_RIGHT]= @"DPad_DR.png";
         
-        dpadView=nil;
-        analogStickView = nil;
-        
-        int i;
-        for(i=0; i<NUM_BUTTONS;i++)
-            buttonViews[i]=nil;
-        
-        screenView=nil;
-        imageBack=nil;
-        dview = nil;
-        
         [self getConf];
         
         self.opaque = YES;
@@ -168,6 +149,23 @@ int __emulation_run=0;
         
         self.multipleTouchEnabled = YES;
         self.exclusiveTouch = NO;
+        
+        imageBack = [[UIImageView alloc]initWithFrame:frame];
+        imageBack.userInteractionEnabled = NO;
+        imageBack.multipleTouchEnabled = NO;
+        imageBack.clearsContextBeforeDrawing = NO;
+        [self addSubview:imageBack];
+        
+        screenView = [[LMPixelView alloc]initWithFrame:frame];
+        [self addSubview:screenView];
+        
+        dpadView = [[UIImageView alloc]initWithFrame:frame];
+        [self addSubview:dpadView];
+        
+        for(int i=0; i<NUM_BUTTONS;i++) {
+            buttonViews[i] = [[UIImageView alloc]initWithFrame:frame];
+            [self addSubview:buttonViews[i]];
+        }
     }
     
     return self;
@@ -185,26 +183,8 @@ int __emulation_run=0;
 }
 
 - (void)changeUI : (UIInterfaceOrientation)interfaceOrientation {
-  [self getConf];
-  
-  [self removeDPadView];
-  if(imageBack!=nil)
-  {
-     [imageBack removeFromSuperview];
-     imageBack = nil;
-  }
-   
-  //si tiene overlay
-   if(imageOverlay!=nil)
-   {
-     [imageOverlay removeFromSuperview];
-     imageOverlay = nil;
-   }
-    
-    if (screenView && screenView.superview) {
-        [screenView removeFromSuperview];
-    }
-    
+    [self getConf];
+
     if (interfaceOrientation == UIInterfaceOrientationLandscapeLeft) {
         [self buildLandscape : YES];
     } else if (interfaceOrientation == UIInterfaceOrientationLandscapeRight) {
@@ -228,12 +208,6 @@ int __emulation_run=0;
       dpadView=nil;
    }
    
-   if(analogStickView!=nil)
-   {
-      [analogStickView removeFromSuperview];
-      analogStickView=nil;   
-   }
-   
    for(i=0; i<NUM_BUTTONS;i++)
    {
       if(buttonViews[i]!=nil)
@@ -247,8 +221,6 @@ int __emulation_run=0;
 - (void)buildDPadView {
 
    int i;
-   
-   [self removeDPadView];
     
    btUsed = num_of_joys!=0; 
    
@@ -260,19 +232,18 @@ int __emulation_run=0;
    if(iOS_inputTouchType == TOUCH_INPUT_DIGITAL)
    {
 	   name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin_data,nameImgDPad[DPAD_NONE]];
-	   dpadView = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:name]];
+       dpadView.image = [UIImage imageNamed:name];
 	   dpadView.frame = rDPad_image;
 	   if( (!iphone_is_landscape && iOS_full_screen_port) || (iphone_is_landscape && iOS_full_screen_land))
-	         [dpadView setAlpha:((float)iphone_controller_opacity / 100.0f)];  
-	   [self addSubview: dpadView];
+	         [dpadView setAlpha:((float)iphone_controller_opacity / 100.0f)];
 	   dpad_state = old_dpad_state = DPAD_NONE;
    }
    else
    {   
        //analogStickView
-	   analogStickView = [[AnalogStickView alloc] initWithFrame:rStickWindow];	  
-	   [self addSubview:analogStickView];  
-	   [analogStickView setNeedsDisplay];
+//	   analogStickView = [[AnalogStickView alloc] initWithFrame:rStickWindow];	  
+//	   [self addSubview:analogStickView];  
+//	   [analogStickView setNeedsDisplay];
    }
    
    for(i=0; i<NUM_BUTTONS;i++)
@@ -288,15 +259,12 @@ int __emulation_run=0;
           if(i==BTN_L1 && iOS_hide_LR)continue;
           if(i==BTN_R1 && iOS_hide_LR)continue;
       }
-   
-      //if((i==BTN_Y || i==BTN_A) && !iOS_4buttonsLand && iphone_is_landscape)
-         //continue;
+
       name = [NSString stringWithFormat:@"./SKIN_%d/%@",iOS_skin_data,nameImgButton_NotPress[i]];
-      buttonViews[i] = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:name]];
+      buttonViews[i].image = [UIImage imageNamed:name];
       buttonViews[i].frame = rButton_image[i];
       if((iphone_is_landscape && (iOS_full_screen_land /*|| i==BTN_Y || i==BTN_A*/)) || (!iphone_is_landscape && iOS_full_screen_port))      
-         [buttonViews[i] setAlpha:((float)iphone_controller_opacity / 100.0f)];   
-      [self addSubview: buttonViews[i]];
+         [buttonViews[i] setAlpha:((float)iphone_controller_opacity / 100.0f)];
       btnStates[i] = old_btnStates[i] = BUTTON_NO_PRESS; 
    }
        
@@ -310,17 +278,11 @@ int __emulation_run=0;
     if(!iOS_full_screen_port)
     {
         if(isPad())
-            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPad.png",iOS_skin_data]]];
+            imageBack.image = [UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPad.png",iOS_skin_data]];
         else
-            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPhone.png",iOS_skin_data]]];
+            imageBack.image = [UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_portrait_iPhone.png",iOS_skin_data]];
         
         imageBack.frame = rPortraitImageBackFrame; // Set the frame in which the UIImage should be drawn in.
-        
-        imageBack.userInteractionEnabled = NO;
-        imageBack.multipleTouchEnabled = NO;
-        imageBack.clearsContextBeforeDrawing = NO;
-        
-        [self addSubview: imageBack]; // Draw the image in self.view.
     }
    
    CGRect r;
@@ -367,17 +329,8 @@ int __emulation_run=0;
        r.size.width = tmp_width;
        r.size.height = tmp_height;
    
-   }  
-   
-   rView = r;
-
-    screenView = [[ScreenView alloc] initWithFrame:rView];
-    [self addSubview: screenView];
-    
-    ScreenLayer *layer = (ScreenLayer *)screenView.layer;
-    int width = r.size.width > r.size.height ? r.size.width : r.size.height;
-    int height = r.size.width > r.size.height ? r.size.height : r.size.width;
-    layer.bounds = CGRectMake(0, 0, width, height);
+   }
+    screenView.frame = r;
     
     //DPAD---
     [self buildDPadView];
@@ -408,18 +361,11 @@ int __emulation_run=0;
     if(!iOS_full_screen_land)
     {
         if(isPad())
-            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPad.png",iOS_skin_data]]];
+            imageBack.image = [UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPad.png",iOS_skin_data]];
         else
-            imageBack = [ [ UIImageView alloc ] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPhone.png",iOS_skin_data]]];
+            imageBack.image = [UIImage imageNamed:[NSString stringWithFormat:@"./SKIN_%d/back_landscape_iPhone.png",iOS_skin_data]];
         
         imageBack.frame = rLandscapeImageBackFrame; // Set the frame in which the UIImage should be drawn in.
-        
-        imageBack.userInteractionEnabled = NO;
-        imageBack.multipleTouchEnabled = NO;
-        imageBack.clearsContextBeforeDrawing = NO;
-        //[imageBack setOpaque:YES];
-        
-        [self addSubview: imageBack]; // Draw the image in self.view.
     }
         
    CGRect r;
@@ -432,8 +378,6 @@ int __emulation_run=0;
    
    if(iphone_keep_aspect_ratio_land)
    {
-       //printf("%d %d\n",emulated_width,emulated_height);
-
        int tmp_width = r.size.width;// > emulated_width ?
        int tmp_height = ((((tmp_width * emulated_height) / emulated_width)+7)&~7);
        
@@ -445,23 +389,15 @@ int __emulation_run=0;
           tmp_width = ((((tmp_height * emulated_width) / emulated_height)+7)&~7);
        }   
        
-       //printf("%d %d\n",tmp_width,tmp_height);
-                
+
        r.origin.x = r.origin.x +(((int)r.size.width - tmp_width) / 2);             
        r.origin.y = r.origin.y +(((int)r.size.height - tmp_height) / 2);
        r.size.width = tmp_width;
        r.size.height = tmp_height;
    }
-   
-   rView = r;
-    screenView = [[ScreenView alloc] initWithFrame:rView];
-    [self addSubview: screenView];
     
-    ScreenLayer *layer = (ScreenLayer *)screenView.layer;
-    int width = r.size.width > r.size.height ? r.size.width : r.size.height;
-    int height = r.size.width > r.size.height ? r.size.height : r.size.width;
-    layer.bounds = CGRectMake(0, 0, width, height);
-    
+    screenView.frame = r;
+
     [self buildDPadView];
     
     if(enable_dview)
@@ -480,14 +416,8 @@ int __emulation_run=0;
     }
 }
 
-////////////////
-
-
 - (void)handle_DPAD{
-    if(dpad_state!=old_dpad_state)
-    {
-        
-       //printf("cambia depad %d %d\n",old_dpad_state,dpad_state);
+    if(dpad_state!=old_dpad_state) {
        NSString *imgName; 
        imgName = nameImgDPad[dpad_state];
        if(imgName!=nil)
@@ -527,259 +457,211 @@ int __emulation_run=0;
     }
 }
 
-////////////////
+-(void)handleButton:(uint)button press:(BOOL)press
+{
+    SISetControllerPushButton(button);
+//    if (press) {
+//        SISetControllerPushButton(button);
+//    } else {
+//        SISetControllerReleaseButton(button);
+//    }
+}
+
+-(void)handleTouch:(NSSet *)touches
+{
+    SISetControllerReleaseButton(SIOS_UP);
+    SISetControllerReleaseButton(SIOS_LEFT);
+    SISetControllerReleaseButton(SIOS_RIGHT);
+    SISetControllerReleaseButton(SIOS_DOWN);
+    SISetControllerReleaseButton(SIOS_A);
+    SISetControllerReleaseButton(SIOS_B);
+    SISetControllerReleaseButton(SIOS_X);
+    SISetControllerReleaseButton(SIOS_Y);
+    SISetControllerReleaseButton(SIOS_SELECT);
+    SISetControllerReleaseButton(SIOS_START);
+    SISetControllerReleaseButton(SIOS_L);
+    SISetControllerReleaseButton(SIOS_R);
+
+    dpad_state = DPAD_NONE;
+    gp2x_pad_status11 = 0;
+    for (int i = 0; i < NUM_BUTTONS; ++i) {
+        btnStates[i] = BUTTON_NO_PRESS;
+    }
+
+    for (UITouch* touch in touches) {
+        BOOL press = NO;
+        if (touch == nil) {
+            continue;
+        }
+
+        if(touch.phase == UITouchPhaseBegan
+           || touch.phase == UITouchPhaseMoved
+           || touch.phase == UITouchPhaseStationary) {
+            press = YES;
+        } else {
+            press = NO;
+            continue;
+        }
+
+        struct CGPoint point;
+        point = [touch locationInView:self];
+        
+        if (MyCGRectContainsPoint(Up, point) && !STICK2WAY) {
+            dpad_state = DPAD_UP;
+            gp2x_pad_status11 |= GP2X_UP;
+            [self handleButton:SIOS_UP press:press];
+            
+        } else if (MyCGRectContainsPoint(Down, point) && !STICK2WAY) {
+            dpad_state = DPAD_DOWN;
+            gp2x_pad_status11 |= GP2X_DOWN;
+            [self handleButton:SIOS_DOWN press:press];
+        }
+        else if (MyCGRectContainsPoint(Left, point)) {
+            dpad_state = DPAD_LEFT;
+            gp2x_pad_status11 |= GP2X_LEFT;
+            [self handleButton:SIOS_LEFT press:press];
+        }
+        else if (MyCGRectContainsPoint(Right, point)) {
+            dpad_state = DPAD_RIGHT;
+            gp2x_pad_status11 |= GP2X_RIGHT;
+            [self handleButton:SIOS_RIGHT press:press];
+        }
+        else if (MyCGRectContainsPoint(UpLeft, point)) {
+            if(!STICK2WAY && !STICK4WAY) {
+                dpad_state = DPAD_UP_LEFT;
+            } else {
+                dpad_state = DPAD_LEFT;
+            }
+            
+            gp2x_pad_status11 |= GP2X_UP | GP2X_LEFT;
+            [self handleButton:SIOS_UP press:press];
+            [self handleButton:SIOS_LEFT press:press];
+        } else if (MyCGRectContainsPoint(UpRight, point)) {
+            if(!STICK2WAY && !STICK4WAY) {
+                dpad_state = DPAD_UP_RIGHT;
+            } else {
+                dpad_state = DPAD_RIGHT;
+            }     
+            gp2x_pad_status11 |= GP2X_UP | GP2X_RIGHT;
+            [self handleButton:SIOS_UP press:press];
+            [self handleButton:SIOS_RIGHT press:press];
+        } else if (MyCGRectContainsPoint(DownLeft, point)) {
+            if(!STICK2WAY && !STICK4WAY) {
+                dpad_state = DPAD_DOWN_LEFT;
+            } else {
+                dpad_state = DPAD_LEFT;
+            }
+            gp2x_pad_status11 |= GP2X_DOWN | GP2X_LEFT;
+            [self handleButton:SIOS_DOWN press:press];
+            [self handleButton:SIOS_LEFT press:press];
+        } else if (MyCGRectContainsPoint(DownRight, point)) {
+            if(!STICK2WAY && !STICK4WAY) {
+                dpad_state = DPAD_DOWN_RIGHT;
+            } else {
+                dpad_state = DPAD_RIGHT;
+            }
+            gp2x_pad_status11 |= GP2X_DOWN | GP2X_RIGHT;
+            [self handleButton:SIOS_DOWN press:press];
+            [self handleButton:SIOS_RIGHT press:press];
+        }
+        
+        if (MyCGRectContainsPoint(ButtonUp, point)) {
+            btnStates[BTN_Y] = BUTTON_PRESS;
+//            NSLog(@"GP2X_Y");
+            gp2x_pad_status11 |= GP2X_Y;
+            [self handleButton:SIOS_Y press:press];
+        }
+        else if (MyCGRectContainsPoint(ButtonDown, point)) {
+            btnStates[BTN_X] = BUTTON_PRESS;
+//            NSLog(@"GP2X_X");
+            gp2x_pad_status11 |= GP2X_X;
+            [self handleButton:SIOS_X press:press];
+        }
+        else if (MyCGRectContainsPoint(ButtonLeft, point)) {
+            btnStates[BTN_A] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_A;
+//            NSLog(@"GP2X_A");
+            [self handleButton:SIOS_A press:press];
+        }
+        else if (MyCGRectContainsPoint(ButtonRight, point)) {
+            btnStates[BTN_B] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_B;
+//            NSLog(@"GP2X_B");
+            [self handleButton:SIOS_B press:press];
+        }
+        else if (MyCGRectContainsPoint(ButtonUpLeft, point)) {
+            btnStates[BTN_Y] = BUTTON_PRESS;
+            btnStates[BTN_A] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_A | GP2X_Y;
+//            [self handleButton:SIOS_A press:press];
+        }
+        else if (MyCGRectContainsPoint(ButtonDownLeft, point)) { 
+            btnStates[BTN_A] = BUTTON_PRESS;
+            btnStates[BTN_X] = BUTTON_PRESS;
+            //NSLog(@"GP2X_X | GP2X_A");
+            
+            gp2x_pad_status11 |= GP2X_X | GP2X_A;
+        }
+        else if (MyCGRectContainsPoint(ButtonUpRight, point)) {                btnStates[BTN_B] = BUTTON_PRESS;
+            btnStates[BTN_Y] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_B | GP2X_Y;
+        }
+        else if (MyCGRectContainsPoint(ButtonDownRight, point)) {
+            if(!iOS_BplusX && iOS_landscape_buttons>=3)
+            {
+                btnStates[BTN_B] = BUTTON_PRESS;
+                btnStates[BTN_X] = BUTTON_PRESS;
+                
+                gp2x_pad_status11 |= GP2X_X | GP2X_B;
+            }
+        } else if (MyCGRectContainsPoint(Select, point)) {
+            btnStates[BTN_SELECT] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_SELECT;
+            
+            [self handleButton:SIOS_SELECT press:press];
+        } else if (MyCGRectContainsPoint(Start, point)) {
+            btnStates[BTN_START] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_START;
+            [self handleButton:SIOS_START press:press];
+        } else if (MyCGRectContainsPoint(LPad, point)) {
+            btnStates[BTN_L1] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_L;
+            [self handleButton:SIOS_L press:press];
+        }
+        else if (MyCGRectContainsPoint(RPad, point)) {
+            btnStates[BTN_R1] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_R;
+            [self handleButton:SIOS_R press:press];
+        }
+        else if (MyCGRectContainsPoint(LPad2, point)) {
+            [AppDelegate() showSettingPopup:YES];
+        }
+        else if (MyCGRectContainsPoint(RPad2, point)) {
+            btnStates[BTN_R2] = BUTTON_PRESS;
+            gp2x_pad_status11 |= GP2X_VOL_UP;
+        }
+    }
+}
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
-    int i;
-    static UITouch *stickTouch = nil;
-    //Get all the touches.
-    NSSet *allTouches = [event allTouches];
-    int touchcount = [allTouches count];
-    
-    for(i=0; i<NUM_BUTTONS;i++)
-    {
-        btnStates[i] = BUTTON_NO_PRESS;
-        gp2x_pad_status11 = 0;
-    }
-    
-    for (i = 0; i < touchcount; i++)
-    {
-        UITouch *touch = [[allTouches allObjects] objectAtIndex:i];
-        
-        if(touch == nil)
-        {
-            return;
-        }
-        
-        if( touch.phase == UITouchPhaseBegan		||
-           touch.phase == UITouchPhaseMoved		||
-           touch.phase == UITouchPhaseStationary	)
-        {
-            struct CGPoint point;
-            point = [touch locationInView:self];
-            
-            if(!iOS_inputTouchType)
-            {
-                if (MyCGRectContainsPoint(Up, point) && !STICK2WAY) {
-                    dpad_state = DPAD_UP;
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_UP;
-                }
-                else if (MyCGRectContainsPoint(Down, point) && !STICK2WAY) {
-                    dpad_state = DPAD_DOWN;
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_DOWN;
-                }
-                else if (MyCGRectContainsPoint(Left, point)) {
-                    dpad_state = DPAD_LEFT;
-                    
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_LEFT;
-                }
-                else if (MyCGRectContainsPoint(Right, point)) {
-                    dpad_state = DPAD_RIGHT;
-                    
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_RIGHT;
-                }
-                else if (MyCGRectContainsPoint(UpLeft, point)) {
-                    //NSLog(@"GP2X_UP | GP2X_LEFT");
-                    if(!STICK2WAY && !STICK4WAY)
-                    {
-                        dpad_state = DPAD_UP_LEFT;
-                    }
-                    else
-                    {
-                        dpad_state = DPAD_LEFT;
-                    }
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_UP | GP2X_LEFT;
-                }
-                else if (MyCGRectContainsPoint(UpRight, point)) {
-                    //NSLog(@"GP2X_UP | GP2X_RIGHT");
-                    
-                    if(!STICK2WAY && !STICK4WAY) {
-                        dpad_state = DPAD_UP_RIGHT;
-                    }
-                    else
-                    {
-                        dpad_state = DPAD_RIGHT;
-                    }
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_UP | GP2X_RIGHT;
-                }
-                else if (MyCGRectContainsPoint(DownLeft, point)) {
-                    //NSLog(@"GP2X_DOWN | GP2X_LEFT");
-                    
-                    if(!STICK2WAY && !STICK4WAY)
-                    {
-                        dpad_state = DPAD_DOWN_LEFT;
-                    }
-                    else
-                    {
-                        dpad_state = DPAD_LEFT;
-                    }
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_DOWN | GP2X_LEFT;
-                }
-                else if (MyCGRectContainsPoint(DownRight, point)) {
-                    if(!STICK2WAY && !STICK4WAY)
-                    {
-                        dpad_state = DPAD_DOWN_RIGHT;
-                    }
-                    else
-                    {
-                        dpad_state = DPAD_RIGHT;
-                    }
-                    stickTouch = touch;
-                    
-                    gp2x_pad_status11 |= GP2X_DOWN | GP2X_RIGHT;
-                }
-            }
-            
-            if(touch == stickTouch) continue;
-            
-            if (MyCGRectContainsPoint(ButtonUp, point)) {
-                btnStates[BTN_Y] = BUTTON_PRESS;
-                //NSLog(@"GP2X_Y");
-                gp2x_pad_status11 |= GP2X_Y;
-            }
-            else if (MyCGRectContainsPoint(ButtonDown, point)) {
-                btnStates[BTN_X] = BUTTON_PRESS;
-                //NSLog(@"GP2X_X");
-                gp2x_pad_status11 |= GP2X_X;
-            }
-            else if (MyCGRectContainsPoint(ButtonLeft, point)) {
-                if(iOS_BplusX)
-                {
-                    btnStates[BTN_B] = BUTTON_PRESS;
-                    btnStates[BTN_X] = BUTTON_PRESS;
-                    btnStates[BTN_A] = BUTTON_PRESS;
-                }
-                else
-                {
-                    btnStates[BTN_A] = BUTTON_PRESS;
-                    
-                    gp2x_pad_status11 |= GP2X_A;
-                }
-                //NSLog(@"GP2X_A");
-            }
-            else if (MyCGRectContainsPoint(ButtonRight, point)) {
-                btnStates[BTN_B] = BUTTON_PRESS;
-                //NSLog(@"GP2X_B");
-                
-                gp2x_pad_status11 |= GP2X_B;
-            }
-            else if (MyCGRectContainsPoint(ButtonUpLeft, point)) {
-                btnStates[BTN_Y] = BUTTON_PRESS;
-                btnStates[BTN_A] = BUTTON_PRESS;
-                //NSLog(@"GP2X_Y | GP2X_A");
-                
-                gp2x_pad_status11 |= GP2X_A | GP2X_Y;
-            }
-            else if (MyCGRectContainsPoint(ButtonDownLeft, point)) {
-                
-                btnStates[BTN_A] = BUTTON_PRESS;
-                btnStates[BTN_X] = BUTTON_PRESS;							
-                //NSLog(@"GP2X_X | GP2X_A");
-                
-                gp2x_pad_status11 |= GP2X_X | GP2X_A;
-            }
-            else if (MyCGRectContainsPoint(ButtonUpRight, point)) {                btnStates[BTN_B] = BUTTON_PRESS;
-                btnStates[BTN_Y] = BUTTON_PRESS;				
-                //NSLog(@"GP2X_Y | GP2X_B");
-                
-                gp2x_pad_status11 |= GP2X_B | GP2X_Y;
-            }			
-            else if (MyCGRectContainsPoint(ButtonDownRight, point)) {
-                if(!iOS_BplusX && iOS_landscape_buttons>=3)
-                {
-                    btnStates[BTN_B] = BUTTON_PRESS;
-                    btnStates[BTN_X] = BUTTON_PRESS;
-                    
-                    gp2x_pad_status11 |= GP2X_X | GP2X_B;
-                }
-                //NSLog(@"GP2X_X | GP2X_B");
-            } 
-            else if (MyCGRectContainsPoint(Select, point)) {
-                //NSLog(@"GP2X_SELECT");			
-                btnStates[BTN_SELECT] = BUTTON_PRESS;
-                gp2x_pad_status11 |= GP2X_SELECT;
-            }
-            else if (MyCGRectContainsPoint(Start, point)) {
-                //NSLog(@"GP2X_START");
-                btnStates[BTN_START] = BUTTON_PRESS;
-                gp2x_pad_status11 |= GP2X_START;
-            }
-            else if (MyCGRectContainsPoint(LPad, point)) {
-                //NSLog(@"GP2X_L");
-                btnStates[BTN_L1] = BUTTON_PRESS;
-                
-                gp2x_pad_status11 |= GP2X_L;
-            }
-            else if (MyCGRectContainsPoint(RPad, point)) {
-                //NSLog(@"GP2X_R");
-                btnStates[BTN_R1] = BUTTON_PRESS;
-                
-                gp2x_pad_status11 |= GP2X_R;
-            }			
-            else if (MyCGRectContainsPoint(LPad2, point)) {
-                //NSLog(@"GP2X_VOL_DOWN");
-                //gp2x_pad_status11 |= GP2X_VOL_DOWN;
-                btnStates[BTN_L2] = BUTTON_PRESS;
-                gp2x_pad_status11 |= GP2X_VOL_DOWN;
-            }
-            else if (MyCGRectContainsPoint(RPad2, point)) {
-                //NSLog(@"GP2X_VOL_UP");
-                //gp2x_pad_status11 |= GP2X_VOL_UP;
-                btnStates[BTN_R2] = BUTTON_PRESS;
-                
-                gp2x_pad_status11 |= GP2X_VOL_UP;
-            }else if (MyCGRectContainsPoint(Select, point))
-			{
-				gp2x_pad_status11 |= GP2X_SELECT;
-			}
-			else if (MyCGRectContainsPoint(Start, point))
-			{
-				gp2x_pad_status11 |= GP2X_START;
-			}
-			else if (MyCGRectContainsPoint(Menu, point))
-			{
-                btnStates[BTN_SELECT] = BUTTON_PRESS;
-                btnStates[BTN_START] = BUTTON_PRESS;
-			}
-        }
-        else
-        {
-            if(!iOS_inputTouchType && touch == stickTouch)
-            {
-                dpad_state = DPAD_NONE;
-                stickTouch = nil;
-            }
-        }
-    }
-    
+    [self handleTouch:[event allTouches]];
     [self handle_DPAD];
 }
 
 - (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self touchesBegan:touches withEvent:event];
+    [self handleTouch:[event allTouches]];
+    [self handle_DPAD];
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self touchesBegan:touches withEvent:event];
+    [self handleTouch:[event allTouches]];
+    [self handle_DPAD];
 }
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
-	[self touchesBegan:touches withEvent:event];
+    [self handleTouch:[event allTouches]];
+    [self handle_DPAD];
 }
   
 - (void)getControllerCoords:(int)orientation {
@@ -876,9 +758,9 @@ int __emulation_run=0;
             case 33:   rButton_image[BTN_L2] = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;
             case 34:   rButton_image[BTN_R2] = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;
             
-            case 35:   rStickWindow = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;
-            case 36:   rStickArea = CGRectMake( coords[0], coords[1], coords[2], coords[3] ); break;
-            case 37:   iOS_stick_radio =coords[0]; break;            
+            case 35:   break;
+            case 36:   break;
+            case 37:   break;
             case 38:   iphone_controller_opacity= coords[0]; break;
 			}
       i++;
@@ -1002,10 +884,6 @@ int __emulation_run=0;
     }
     else
     {
-        drects[16]=rStickWindow;
-        drects[17]=rStickArea;
-        
-        ndrects = 18;          
     }   
 }
 

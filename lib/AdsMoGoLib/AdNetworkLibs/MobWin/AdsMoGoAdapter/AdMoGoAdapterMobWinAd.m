@@ -7,12 +7,12 @@
 
 #import "AdMoGoAdapterMobWinAd.h"
 #import "AdMoGoAdNetworkRegistry.h"
-//#import "AdMoGoView.h"
 #import "AdMoGoAdNetworkConfig.h" 
 #import "AdMoGoAdNetworkAdapter+Helpers.h"
 #import "MobWinBannerViewDelegate.h"
 #import "AdMoGoConfigData.h"
 #import "AdMoGoConfigDataCenter.h"
+
 @implementation AdMoGoAdapterMobWinAd
 
 + (AdMoGoAdNetworkType)networkType {
@@ -56,14 +56,15 @@
         default:
             break;
     }
-    for (UIView *view in [self.adMoGoView subviews]) {
-        if ([view isKindOfClass:[MobWinBannerView class]]) {
-            MobWinBannerView *laseAdView = (MobWinBannerView*)view;
-            [laseAdView stopRequest];
-        }
-    }
-    
-    adView = [[MobWinBannerView alloc] initMobWinBannerSizeIdentifier:mobwinSizeID keyByMobWIN:@"ior0224ace"];
+//    for (UIView *view in [self.adMoGoView subviews]) {
+//        if ([view isKindOfClass:[MobWinBannerView class]]) {
+//            MobWinBannerView *laseAdView = (MobWinBannerView*)view;
+//            [laseAdView stopRequest];
+//        }
+//    }
+    //- (id)initMobWinBannerSizeIdentifier:(MobWinBannerSizeIdentifier)sizeIdentifier integrationKey:(NSString*)key
+    adView = [[MobWinBannerView alloc] initMobWinBannerSizeIdentifier:mobwinSizeID
+                                                       integrationKey:@"ior0224ace"];
     adView.adUnitID = [self.ration objectForKey:@"key"];
 
     adView.rootViewController = [adMoGoDelegate viewControllerForPresentingModalView];
@@ -83,6 +84,10 @@
 //        [timer release];
 //        timer = nil;
 //    }
+    [adView stopRequest];
+    [adView removeFromSuperview];
+    adView.delegate = nil;
+    [adView release];
 	[super dealloc];
 }
 - (void)bannerViewDidReceived{
@@ -113,6 +118,7 @@
     [adMoGoCore adapter:self didGetAd:@"mobwin"];
     [adMoGoCore adapter:self didFailAd:nil];
 }
+
 //- (void)loadAdTimeOut:(NSTimer*)theTimer {
 //    if (timer) {
 //        [timer invalidate];
@@ -120,8 +126,9 @@
 //        timer = nil;
 //    }
 //    [self stopBeingDelegate];
-//    [adMoGoView adapter:self didFailAd:nil];
+//    [adMoGoCore adapter:self didFailAd:nil];
 //}
+
 - (void)stopBeingDelegate {
     [adView stopRequest];
     adView.delegate = nil;

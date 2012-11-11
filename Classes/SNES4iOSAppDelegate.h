@@ -7,57 +7,31 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SNESControllerAppDelegate.h"
 #import "EmulationViewController.h"
+#import "GameListViewController.h"
+#import "SettingViewController.h"
 
-@class RomSelectionViewController;
-@class RomDetailViewController;
-@class SettingsViewController;
-@class ControlPadConnectViewController;
-@class ControlPadManager;
-@class WebBrowserViewController;
+#define kUMengAppKey @"509ad12152701560b9000001"
+#define kDianjinAppKey 12519
+#define kDianjinAppSecrect @"8c16476e3f10a98cbf8808161125f7b1"
+#define kMangoAppKey @"0a6d56311af3494f8f3ce4e423269ab2"
 
-@interface SNES4iOSAppDelegate : NSObject <UIApplicationDelegate> {
+@interface SNES4iOSAppDelegate : NSObject <UIApplicationDelegate, UIPopoverControllerDelegate> {
     
     UIWindow *window;
-    
-    UISplitViewController *splitViewController;
-    
-	EmulationViewController *emulationViewController;
-    RomSelectionViewController *romSelectionViewController;
-    RomDetailViewController *romDetailViewController;
-	SettingsViewController *settingsViewController;
-	ControlPadConnectViewController *controlPadConnectViewController;
-	ControlPadManager *controlPadManager;
-	WebBrowserViewController *webViewController;
-	UINavigationController *webNavController;
 	
-	NSString *romDirectoryPath, *saveDirectoryPath, *snapshotDirectoryPath;
+    UINavigationController* gameVC;
+    GameListViewController* gameListVC;
+    SettingViewController* settingVC;
+    UIPopoverController * popoverVC;
 }
 
 @property (nonatomic, strong) IBOutlet UIWindow *window;
+@property (nonatomic, strong) UIPopoverController * popoverVC;
 
-@property (nonatomic, strong) IBOutlet UISplitViewController *splitViewController;
-@property (nonatomic, strong) IBOutlet RomSelectionViewController *romSelectionViewController;
-@property (nonatomic, strong) IBOutlet RomDetailViewController *romDetailViewController;
-@property (nonatomic, strong) SettingsViewController *settingsViewController;
-@property (nonatomic, strong) ControlPadConnectViewController *controlPadConnectViewController;
-@property (nonatomic, strong) ControlPadManager *controlPadManager;
-
-@property (nonatomic, strong) EmulationViewController *emulationViewController;
-@property (nonatomic, strong) WebBrowserViewController *webViewController;
-@property (nonatomic, strong) UINavigationController *webNavController;
-@property (strong, nonatomic) UITabBarController *tabBarController;
-@property (strong, nonatomic) SNESControllerAppDelegate *snesControllerAppDelegate;
-
-@property (nonatomic, copy) NSString *romDirectoryPath;
-@property (nonatomic, copy) NSString *saveDirectoryPath;
-@property (nonatomic, copy) NSString *snapshotDirectoryPath;
-@property (copy, nonatomic) NSString *sramDirectoryPath;
-
-- (void) showEmulator:(BOOL)showOrHide;
-+ (NSString *) applicationDocumentsDirectory;
-
+-(void)showSettingPopup:(BOOL)show;
+-(void)showGameList;
+-(void)restartGame;
 @end
 
 extern SNES4iOSAppDelegate *AppDelegate();

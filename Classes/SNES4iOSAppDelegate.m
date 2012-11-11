@@ -9,14 +9,9 @@
 #import "SNES4iOSAppDelegate.h"
 
 #import "EmulationViewController.h"
-#import "RomSelectionViewController.h"
-#import "RomDetailViewController.h"
-#import "SettingsViewController.h"
-#import "ControlPadConnectViewController.h"
-#import "ControlPadManager.h"
-#import "WebBrowserViewController.h"
 #import "UMFeedback.h"
 #import "MobClick.h"
+#include "Snes9xMain.h"
 
 SNES4iOSAppDelegate *AppDelegate()
 {
@@ -24,69 +19,128 @@ SNES4iOSAppDelegate *AppDelegate()
 }
 
 @implementation SNES4iOSAppDelegate
-
-@synthesize window, splitViewController, romSelectionViewController, romDetailViewController, settingsViewController;
-@synthesize controlPadConnectViewController, controlPadManager;
-@synthesize romDirectoryPath, saveDirectoryPath, snapshotDirectoryPath;
-@synthesize emulationViewController, webViewController, webNavController;
-@synthesize tabBarController;
-@synthesize snesControllerAppDelegate;
-@synthesize sramDirectoryPath;
-
-
 #pragma mark -
 #pragma mark Application lifecycle
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
-    
-	settingsViewController = [[SettingsViewController alloc] init];
-	// access the view property to force it to load
-	settingsViewController.view = settingsViewController.view;
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSDictionary *firstRunValues = [NSDictionary dictionaryWithObjectsAndKeys:
+									[NSNumber numberWithBool:YES], USER_DEFAULT_KEY_AUTOSAVE,
+									[NSNumber numberWithBool:YES], USER_DEFAULT_KEY_SMOOTH_SCALING,
+                                    [NSNumber numberWithBool:YES],
+                                    USER_DEFAULT_KEY_SOUND,
+									nil];
 	
-	controlPadConnectViewController = [[ControlPadConnectViewController alloc] init];
-	controlPadManager = [[ControlPadManager alloc] init];
-    
-	NSString *documentsPath = [SNES4iOSAppDelegate applicationDocumentsDirectory];
-    //	romDirectoryPath = [[documentsPath stringByAppendingPathComponent:@"ROMs/SNES/"] retain];
-	self.romDirectoryPath = [documentsPath copy];
-	self.saveDirectoryPath = [romDirectoryPath stringByAppendingPathComponent:@"saves"];
-	self.snapshotDirectoryPath = [saveDirectoryPath stringByAppendingPathComponent:@"snapshots"];
-    self.sramDirectoryPath = [self.romDirectoryPath stringByAppendingPathComponent:@"sram"];
-    
-    NSFileManager *fileManager = [[NSFileManager alloc] init];
-    [fileManager createDirectoryAtPath:saveDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
-    [fileManager createDirectoryAtPath:snapshotDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
-    [fileManager createDirectoryAtPath:self.sramDirectoryPath withIntermediateDirectories:YES attributes:nil error:nil];
-    //Apple says its better to attempt to create the directories and accept an error than to manually check if they exist.
-    
-	// Make the main emulator view controller
-	emulationViewController = [[EmulationViewController alloc] init];
-    emulationViewController.view.userInteractionEnabled = NO;
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	
-	// Make the web browser view controller
-	// And put it in a navigation controller with back/forward buttons
-	webViewController = [[WebBrowserViewController alloc] initWithNibName:@"WebBrowserViewController" bundle:nil];
-	webNavController = [[UINavigationController alloc] initWithRootViewController:webViewController];
-	webNavController.navigationBar.barStyle = UIBarStyleBlack;
+	for (NSString *defaultKey in [firstRunValues allKeys])
+	{
+		NSNumber *value = [defaults objectForKey:defaultKey];
+		if (!value)
+		{
+			value = [firstRunValues objectForKey:defaultKey];
+			[defaults setObject:value forKey:defaultKey];
+		}
+	}
     
-//    snesControllerAppDelegate = [[SNESControllerAppDelegate alloc] init];
+    gameListVC = [[GameListViewController alloc]init];
 
-    [MobClick startWithAppkey:@"504b6946527015169e00004f"];
-    [[DianJinOfferPlatform defaultPlatform] setAppId:10036 andSetAppKey:@"0f3294fd5e50445ca4d28a259409ffd0"];
+    [MobClick startWithAppkey:kUMengAppKey];
+    [[DianJinOfferPlatform defaultPlatform] setAppId:kDianjinAppKey andSetAppKey:kDianjinAppSecrect];
 	[[DianJinOfferPlatform defaultPlatform] setOfferViewColor:kDJBrownColor];
-    [UMFeedback checkWithAppkey:@"504b6946527015169e00004f"];
+    [UMFeedback checkWithAppkey:kUMengAppKey];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onRecNewMsg:) name:UMFBCheckFinishedNotification object:nil];
 
+    gameVC = [[UINavigationController alloc] initWithRootViewController:gameListVC];
+    [gameVC setNavigationBarHidden:YES];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = emulationViewController;
+    self.window.rootViewController = gameVC;
 //    [self.window addSubview:emulationViewController.view];
 //    emulationViewController.view.hidden = YES;
     // 注意顺序 window不为key则presendViewController等函数无效
-    [self.window makeKeyAndVisible];
-    [emulationViewController showGameList];
-    
+    [self.window makeKeyAndVisible];    
     
     return YES;
+}
+
+-(void)applicationDidEnterBackground:(UIApplication *)application
+{
+    SISetEmulationPaused(1);
+    SIWaitForPause();
+}
+
+-(void)applicationWillEnterForeground:(UIApplication *)application
+{
+    SISetEmulationPaused(0);
+}
+
+-(void)showSettingPopup:(BOOL)show
+{
+    if (show) {
+        if (isPad()) {
+            if (popoverVC == nil) {
+                settingVC = [[SettingViewController alloc]initWithNibName:nil bundle:nil];
+                popoverVC = [[UIPopoverController alloc] initWithContentViewController:settingVC];
+                popoverVC.delegate = self;
+            }
+            
+            CGRect rect;
+            switch (gameVC.interfaceOrientation) {
+                case UIInterfaceOrientationLandscapeLeft:
+                case UIInterfaceOrientationLandscapeRight:
+                    rect = CGRectMake(100, 60, 10, 10);
+                    [popoverVC presentPopoverFromRect:rect inView:gameVC.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
+                    break;
+                case UIInterfaceOrientationPortrait:
+                case UIInterfaceOrientationPortraitUpsideDown:
+                    rect = CGRectMake(400, 580, 10, 10);
+                    [popoverVC presentPopoverFromRect:rect inView:gameVC.view permittedArrowDirections:UIPopoverArrowDirectionDown animated:YES];
+                    break;
+                default:
+                    break;
+            }
+            
+        } else {
+            if (settingVC == nil) {
+                settingVC = [[SettingViewController alloc]initWithNibName:nil bundle:nil];
+            }
+            
+            [gameVC pushViewController:settingVC animated:YES];
+        }
+    } else {
+        if (isPad()) {
+            [popoverVC dismissPopoverAnimated:YES];
+        } else {
+            [settingVC.navigationController popViewControllerAnimated:YES];
+        }
+    }
+    
+}
+
+-(void)showGameList
+{
+    if (isPad()) {
+        [popoverVC dismissPopoverAnimated:NO];
+    }
+
+    SISetEmulationRunning(0);
+    SIWaitForEmulationEnd();
+    [gameVC popToRootViewControllerAnimated:YES];
+}
+
+-(void)restartGame
+{
+    if (isPad()) {
+        [popoverVC dismissPopoverAnimated:NO];
+    }
+    
+    SISetEmulationRunning(0);
+    SIWaitForEmulationEnd();
+    [gameVC popToRootViewControllerAnimated:NO];
+    [gameListVC restartGame];
+}
+
+- (void)popoverControllerDidDismissPopover:(UIPopoverController *)popoverController
+{
 }
 
 -(void)onRecNewMsg:(NSNotification*)notification
@@ -114,33 +168,5 @@ SNES4iOSAppDelegate *AppDelegate()
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Save data if appropriate
 }
-
-- (void) showEmulator:(BOOL)showOrHide
-{
-	if (showOrHide) {
-        self.splitViewController.view.hidden = YES;
-		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationFade];
-	} else {
-        self.splitViewController.view.hidden = NO;
-        
-		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-        UIView *view = self.window.rootViewController.view;
-        int statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
-        [view setFrame:CGRectMake(0.0,statusBarHeight,view.bounds.size.width,view.bounds.size.height - statusBarHeight)];
-	}
-}
-
-+ (NSString *) applicationDocumentsDirectory 
-{    
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-    return basePath;
-}
-
-#pragma mark -
-#pragma mark Memory management
-
-
-
 @end
 

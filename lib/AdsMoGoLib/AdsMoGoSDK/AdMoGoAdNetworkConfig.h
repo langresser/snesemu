@@ -7,8 +7,11 @@
 //
 
 
-
+/*
+    仅在反射生成对象时使用此类
+ */
 #import <Foundation/Foundation.h>
+//#import "AdMoGoDelegateProtocol.h"
 
 @class AdMoGoError;
 @class AdMoGoAdNetworkRegistry;

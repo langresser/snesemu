@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <CommonCrypto/CommonDigest.h>
 #import <sys/sysctl.h>
 #import <sys/socket.h> 
 #import <net/if.h>
@@ -62,14 +63,33 @@
  */
 -(NSString *)getDeviceUUID;
 /**
+ *获得Vendor
+ *Available in iOS 6.0 and later.
+ */
+-(NSString *)getVendor;
+/**
+ *获得AdvertisingIdentifier
+ */
+-(NSString *)getAdvertisingIdentifier;
+/**
  *获得MAC地址
  */
 -(NSString *)getMacAddress;
+/**
+ *获得ODIN1
+ *refence http://code.google.com/p/odinmobile/wiki/ODIN1
+ */
+-(NSString *)getODIN1;
 /**
  *获得国家代码
  *locationOn:是否开启定位
  */
 -(NSString *)currentLocaleCountryCode:(BOOL)locationOn;
+/**
+ *获得本机现在用的语言
+ * en:英文  zh-Hans:简体中文   zh-Hant:繁体中文    ja:日本  ......
+ */
+- (NSString*)getPreferredLanguage;
 /**
  *获得当前系统版本
  */
@@ -114,4 +134,10 @@
  *停止定位服务
  */
 -(void) stopLocation;
+
+/*
+    返回屏幕像素
+    宽*高
+ */
+-(NSString *)getScreenPt;
 @end

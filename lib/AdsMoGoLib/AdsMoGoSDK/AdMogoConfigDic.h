@@ -19,6 +19,11 @@
 -(id)objectForKey:(id)aKey andSuffix:(NSString *)suffix;
 -(void)setObject:(id)object forKey:(id)aKey;
 
+
+/*
+    删除内存configdata
+ */
 - (void)deleteDataByKey:(id)aKey;
 
+//[configDataCenter.config_dict setObject:configData forKey:configKey];
 @end

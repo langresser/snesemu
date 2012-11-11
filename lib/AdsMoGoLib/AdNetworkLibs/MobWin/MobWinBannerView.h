@@ -6,6 +6,7 @@
 //  Copyright (c) 2011 Tencent. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import "MobWinBannerViewDelegate.h"
 
 typedef enum {
@@ -13,11 +14,11 @@ typedef enum {
     MobWINBannerSizeIdentifier320x50     = 1, // iPhone/iPod Touch广告
     MobWINBannerSizeIdentifier300x250    = 2, // IAB页首条幅 iPad广告
     MobWINBannerSizeIdentifier468x60     = 3, // IAB标准条幅 iPad广告
-    MobWINBannerSizeIdentifier728x90     = 4  // IAB中灯矩形 iPad广告
+    MobWINBannerSizeIdentifier728x90     = 4, // IAB中灯矩形 iPad广告
+    MobWINBannerSizeIdentifier320x25     = 5  // MiniBanner广告
 } MobWinBannerSizeIdentifier;
 
-@interface MobWinBannerView : UIView
-// 提交给开发者代码
+@interface MobWinBannerView : UIView <MobWinBannerViewDelegate>
 
 // 应用鉴权ID
 // 详解：[必须设定]绑定应用的应用鉴权ID
@@ -29,7 +30,7 @@ typedef enum {
 
 
 // GPS精准广告定位模式开关
-// 默认Gps模式开启 adGpsMode == YES
+// 默认Gps模式开启 adGpsMode == NO
 //
 // 详解：[可选]精准定位模式开关，YES为精准定位模式，NO为非精准定位模式，建议设为精准定位模式，可以获取地域精准定向广告，提高广告的填充率，增加收益。
 @property (nonatomic, assign) bool adGpsMode; 
@@ -66,15 +67,18 @@ typedef enum {
 // 委托
 @property(nonatomic, assign) id<MobWinBannerViewDelegate> delegate;
 
-// 广告条初始化请求
-// 
-// 详解：[必选]需传入广告条尺寸参数，生成对应广告栏
-- (id)initMobWinBannerSizeIdentifier:(MobWinBannerSizeIdentifier)sizeIdentifier;
+
+#pragma mark PreRequest
 
 // 广告条初始化请求 针对聚合平台
 // 
 // 详解：[必选]需传入广告条尺寸参数，生成对应广告栏
-- (id)initMobWinBannerSizeIdentifier:(MobWinBannerSizeIdentifier)sizeIdentifier keyByMobWIN:(NSString*)key;
+- (id)initMobWinBannerSizeIdentifier:(MobWinBannerSizeIdentifier)sizeIdentifier integrationKey:(NSString*)key;
+
+// 广告条初始化请求
+// 
+// 详解：[必选]需传入广告条尺寸参数，生成对应广告栏
+- (id)initMobWinBannerSizeIdentifier:(MobWinBannerSizeIdentifier)sizeIdentifier;
 
 // 广告发起请求方法
 // 

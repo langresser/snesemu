@@ -6,7 +6,9 @@
 //  Copyright 2011 AdsMogo.com. All rights reserved.
 //
 
-
+/*
+    反射工具类 old code
+ */
 #import <Foundation/Foundation.h>
 
 @class AdMoGoAdNetworkAdapter;

@@ -11,11 +11,22 @@
 #import "AdMogoConfigDic.h"
 @interface AdMoGoConfigDataCenter : NSObject
 
-
+/*
+    config_dict 保存多个用户配置 
+ */
 @property(readonly,retain,nonatomic) AdMogoConfigDic * config_dict;
 
-+(id) singleton;
 
+/*
+ 获取用户配置实体
+ 单例模式
+ */
++(id) singleton;
+//- (NSMutableDictionary *) config_dict;
+
+/*
+    获取用户配置实体
+ */
 + (AdMoGoConfigData *) getconfigDictByKey:(NSString *)key;
 
 + (void) deleteAllData;

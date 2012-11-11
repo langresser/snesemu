@@ -92,6 +92,9 @@
 	
 	CLLocation *location =
 	(CLLocation *)[self delegateValueForSelector:@selector(locationInfo)];
+	/*
+        2012-6-20 王浩 这里可能会有问题
+     */
     if (location == nil) {
 //        location = [AdMoGoView sharedLocation];
         
@@ -104,11 +107,15 @@
             if ([latitude intValue] == 0 && [longitude intValue] == 0) {
                 return;
             }
+            /*2012-8-1 用户提议 在这里设置autorelease 可以减少内存泄露*/
             location = [[CLLocation alloc] 
                         initWithLatitude:[latitude doubleValue] 
                         longitude:[longitude doubleValue]];
         }
      }
+    /*
+        2012-6-20 王浩 这里可能会有问题
+     */
 	if ([configData islocationOn] && (location)) {
 		[request setLocationWithLatitude:location.coordinate.latitude
 							   longitude:location.coordinate.longitude
@@ -138,6 +145,8 @@
         request.testDevices = [NSArray arrayWithObjects:GAD_SIMULATOR_ID,
                                [[UIDevice currentDevice] uniqueIdentifier],nil];
     }
+	
+//    AdViewType type = adMoGoView.adType;
     
     AdViewType type = [configData.ad_type intValue];
     
@@ -166,6 +175,8 @@
 	view.delegate = self;
 	view.rootViewController =
 	[adMoGoDelegate viewControllerForPresentingModalView];
+    //2012-7-24 wanghao 
+//	self.adNetworkView = [view autorelease];
     self.adNetworkView = view;
 	[view loadRequest:request];
 }
@@ -178,6 +189,7 @@
 	}
 }
 - (void)stopAd{
+//    [self stopBeingDelegate];
     isStop = YES;
 }
 - (void)dealloc {

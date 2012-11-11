@@ -6,14 +6,16 @@
 //  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
 //
 
-
-#import "AdViewType.h"
 #import "AdMoGoDelegateProtocol.h"
 #import "AdMoGoWebBrowserControllerUserDelegate.h"
-
+#import "AdViewType.h"
+/*
+  AdViewType 广告视图类型 不是配置信息请求type
+ */
 
 @interface AdMoGoView : UIView<AdMoGoDelegate>{
     
+    BOOL isStop;
     
 }
 @property(nonatomic,assign) id<AdMoGoDelegate> delegate;
@@ -48,6 +50,5 @@
 
 
 @end
-
 
 

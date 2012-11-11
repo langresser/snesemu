@@ -8,35 +8,18 @@
 
 #import <UIKit/UIKit.h>
 #import "EmuControllerView.h"
-#import "ScreenView.h"
 #import "iosUtil.h"
-#import "SettingViewController.h"
-#import "GameListViewController.h"
-#import "EmulationViewController.h"
-#import "RomSelectionViewController.h"
 
-@interface EmulationViewController : UIViewController <UIActionSheetDelegate, UIAlertViewDelegate, UIPopoverControllerDelegate> {
+@interface EmulationViewController : UIViewController {
     id pauseAlert;
+    UIInterfaceOrientation currentOrientation;
 
     EmuControllerView* controllerView;
-
-    GameListViewController* gameListVC;
-    SettingViewController* settingVC;
-    UIPopoverController * popoverVC;
     
-//    RomSelectionViewController* rsVC;
+    volatile NSThread* _emulationThread;
+    
+    NSString* _romFileName;
 }
 
-@property (strong, nonatomic) id pauseAlert;
-@property (strong, nonatomic) UIPopoverController * popoverVC;
-
-- (void) startWithRom:(NSString *)romFile;
-
-- (void) refreshScreen;
-- (void) didRotate:(NSNotification *)notification;
-
-- (void) showPauseDialogFromRect:(CGRect)rect;
-- (void) object:(id)object clickedButtonAtIndex:(NSInteger)buttonIndex;
-
--(void)showGameList;
+@property (strong, nonatomic) NSString* romFileName;
 @end

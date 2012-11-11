@@ -6,8 +6,9 @@
 //  Copyright 2011 AdsMogo.com. All rights reserved.
 //
 
-
-
+/*
+    所有适配器父类 old code
+ */
 #import "AdMoGoDelegateProtocol.h"
 #import "AdMoGoCore.h"
 #import "AdMoGoWebBrowserControllerUserDelegate.h"
@@ -61,34 +62,64 @@ typedef enum {
     AdMoGoAdNetworkTypeUM           = 55,
     AdMoGoAdNetworkTypeWQ           = 56,
     AdMoGoAdNetworkTypeAdermob      = 57,
-    
+    AdMoGoAdNetworkTypeAllyesi      = 59,
+    AdMoGoAdNetworkTypeAduu         = 60,
+    AdMoGoAdNetworkTypeUMAppUnion   = 62,
+    AdMoGoAdNetworkTypeMiidi        = 63,
     AdMoGoAdNetworkTypeAdChinaFullAd = 2100,
     AdMoGoAdNetworkTypeYouMiFullAd  = 2400,
     AdMoGoAdNetworkTypeAdFractalFullAd = 5000,
     
+    AdMoGoAdNetworkTypeInMobiSDK = 180,
+    AdMoGoAdNetworkTypeAdFractalSDK = 500,
+    AdMoGoAdNetworkTypeWQSDK = 560,
+    AdMoGoAdNetworkTypeWiAdFullAd  = 2200,
+    AdMoGoAdNetworkTypeWoobooFullAd = 2300,
+    AdMoGoAdNetworkTypeDoMobFullAd = 2900,
+    AdMoGoAdNetworkTypeMobiSageFullAd = 3100,
+    AdMoGoAdNetworkTypeSuiZongFullAd = 5100,
+    
+    AdMoGoAdNetworkTypeAdFractalFullScreenSDK = 50000,
+
 } AdMoGoAdNetworkType;
 
 @class AdMoGoView;
+//@class AdMoGoConfig;
 @class AdMoGoCore;
 @class AdMoGoAdNetworkConfig;
 
 @interface AdMoGoAdNetworkAdapter : NSObject {
 	id<AdMoGoDelegate> adMoGoDelegate;
 	AdMoGoView *adMoGoView;
+//	AdMoGoConfig *adMoGoConfig;
     AdMoGoCore *adMoGoCore;
+//	AdMoGoAdNetworkConfig *networkConfig;
 	UIView *adNetworkView;
     NSDictionary *ration;
     id<AdMoGoWebBrowserControllerUserDelegate> adWebBrowswerDelegate;
+    /*
+        2012-9-11 特殊id
+     */
+    NSString *specialID;
 }
 
-
+/*
+- (id)initWithAdMoGoDelegate:(id<AdMoGoDelegate>)delegate
+						view:(AdMoGoView *)view
+					   core:(AdMoGoCore *)core
+			   networkConfig:(AdMoGoAdNetworkConfig *)netConf;
+*/
 
 - (id)initWithAdMoGoDelegate:(id<AdMoGoDelegate>)delegate
                         view:(AdMoGoView *)view
                         core:(AdMoGoCore *)core
                networkConfig:(NSDictionary *)netConf;
 
-
+/*
+- (id)initWithAdMoGoDelegateview:(AdMoGoView *)view
+					  config:(AdMoGoConfig *)config
+                   networkConfig:(AdMoGoAdNetworkConfig *)netConf;
+ */
 - (void)getAd;
 - (void)stopBeingDelegate;
 - (void)stopTimer;
@@ -98,6 +129,10 @@ typedef enum {
 
 - (void)stopAd;
 
+- (void)rotateToOrientation:(UIInterfaceOrientation)orientation;
+/*
+- (BOOL)isBannerAnimationOK:(AMBannerAnimationType)animType;
+*/
 @property (nonatomic,assign) id<AdMoGoDelegate> adMoGoDelegate;
 
 @property (nonatomic,assign) AdMoGoView *adMoGoView;
@@ -107,4 +142,8 @@ typedef enum {
 @property (nonatomic,retain) NSDictionary *ration;
 
 @property (nonatomic,assign) id<AdMoGoWebBrowserControllerUserDelegate> adWebBrowswerDelegate;
+/*
+ 2012-9-11 特殊id
+ */
+@property (nonatomic,retain) NSString *specialID;
 @end

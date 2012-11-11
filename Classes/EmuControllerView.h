@@ -3,8 +3,8 @@
 #import <Foundation/Foundation.h>
 #import <QuartzCore/CALayer.h>
 #import "DView.h"
-#import "AnalogStick.h"
-#import "ScreenView.h"
+#import "LMPixelView.h"
+#import "LMPixelLayer.h"
 
 #import <pthread.h>
 #import <sched.h>
@@ -20,15 +20,14 @@ enum  { GP2X_UP=1,       GP2X_LEFT=1 << 2,       GP2X_DOWN=1 << 4,  GP2X_RIGHT=1
 
 @interface EmuControllerView : UIView
 {
-  ScreenView		* screenView;
+  LMPixelView		* screenView;
+
   UIImageView	    * imageBack;
   UIImageView	    * imageOverlay;
   DView             * dview;
 
   UIImageView	    * dpadView;
   UIImageView	    * buttonViews[NUM_BUTTONS];
-
-  AnalogStickView   * analogStickView;
 
   //joy controller
   CGRect ButtonUp;
@@ -65,7 +64,7 @@ enum  { GP2X_UP=1,       GP2X_LEFT=1 << 2,       GP2X_DOWN=1 << 4,  GP2X_RIGHT=1
   NSString *nameImgButton_NotPress[NUM_BUTTONS];
 }
 
-@property(nonatomic, retain) ScreenView* screenView;
+@property(nonatomic, retain) LMPixelView* screenView;
 
 - (void)getControllerCoords:(int)orientation;
 

@@ -18,16 +18,20 @@
 #import "AdMoGoLocationDelegate.h"
 
 @interface AdMoGoCountryCodeHelper : NSObject<CLLocationManagerDelegate,MKReverseGeocoderDelegate>{
-
+    //国家代码
     NSString *countryCode;
-
+    //位置管理用于定位
+//    CLLocationManager *locationManager;
+    //地理编码
     MKReverseGeocoder *geoCoder;
-    
+    //坐标模型
     CLLocation *curLocation;
-    
+    /*
+        回调判断是否执行
+     */
     BOOL isstopLocation;
 }
-
+//获取配置所用的Key
 @property(nonatomic,assign)NSString * configKey;
 @property(nonatomic,assign)id<AdMoGoLocationDelegate> delegate;
 @property(nonatomic,assign)CLLocationManager *locationManager;

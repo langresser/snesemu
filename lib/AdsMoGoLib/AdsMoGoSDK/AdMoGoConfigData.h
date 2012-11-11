@@ -22,26 +22,40 @@ typedef enum {
 
 @interface AdMoGoConfigData : NSObject
 {
-    
+    /*
+        用户信息 头
+     */
     NSMutableDictionary *_config_extra;
     
     
-    
+    /*
+        用户信息 体
+     */
     NSMutableArray *_config_rations;
     
-    
+    /*
+        appkey
+     */
     NSString * _app_key;
     
-    
+    /*
+        广告类型
+     */
     NSNumber * _ad_type;
     
-    
+    /*
+        广告banner动画类型
+     */
     AMBannerAnimationType bannerAnimationType;
     
-    
+    /*
+        国家代码
+     */
     NSString *_countryCode;
     
-    
+    /*
+        城市代码
+     */
     NSString *_cityCode;
 }
 @property(retain,nonatomic) NSString * app_key;
@@ -55,36 +69,66 @@ typedef enum {
 @property(retain,nonatomic) NSString *cityCode;
 @property(retain,nonatomic) NSString *curLocation;
 
-
+/*
+    获取用户配置信息
+ */
 - (id) getMoGoConfigData;
 
-
+/*
+    获取时间戳
+ */
 - (NSString *) getTimestamp;
 
-
+/*
+    更新用户配置缓存
+ */
 - (BOOL) refreshConfig;
 
-
+/*
+    用户配置是否存在
+ */
 - (BOOL) configDataIsExisted;
 
-
+/*
+    此方法有问题 不要使用
+    2012-7-24
+    建议在适配器中 使用 [self.ration objectForKey:@"type"]
+    获取适配器编号
+ */
 - (int) getMoGonfigNetworkType;
 
 - (UIColor *) getBackgroundColor;
 
 - (UIColor *) getTextColorColor;
 
-
+/*
+    获取配置中点击优化配置
+ */
 - (BOOL) getClickOptimized;
 
-
+/*
+    
+ */
 - (NSString *) getPackage;
 
+/*
+ 
+ */
 - (NSString *) getVersion;
 
 - (BOOL) istestMode;
 
 - (BOOL) islocationOn;
+
+///*
+//    获取AppID
+// */
+//- (NSString *) getAppID;
+//
+///*
+//    获取AppSEC
+// */
+//- (NSString *) getAppSEC;
 
 - (NSMutableString *)getAdPlatforms;
 

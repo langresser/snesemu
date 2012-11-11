@@ -1,10 +1,10 @@
 //
 //  File: AdMoGoAdapterDoMob.h
 //  Project: AdsMOGO iOS SDK
-//  Version: 1.1.9
+//  Version: 1.2.1
 //
 //  Copyright 2011 AdsMogo.com. All rights reserved.
-//Domob v2.0
+//Domob v3.x
 
 #import "AdMoGoAdNetworkAdapter.h"
 #import "DMAdView.h"
@@ -14,5 +14,4 @@
     BOOL isStop;
 }
 + (AdMoGoAdNetworkType)networkType;
-- (void)loadAdTimeOut:(NSTimer*)theTimer;
 @end

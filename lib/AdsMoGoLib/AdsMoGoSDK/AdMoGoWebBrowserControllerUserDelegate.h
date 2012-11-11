@@ -28,4 +28,10 @@
     浏览器已经关闭
  */
 - (void)webBrowserDidClosed;
+
+/*
+    浏览器分享
+    url 浏览器打开url
+ */
+- (void)webBrowserShare:(NSString *)url;
 @end

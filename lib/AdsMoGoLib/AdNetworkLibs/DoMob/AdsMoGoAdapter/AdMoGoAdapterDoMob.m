@@ -7,7 +7,6 @@
 //
 
 #import "AdMoGoAdapterDoMob.h"
-//#import "AdMoGoView.h"
 #import "AdMoGoAdNetworkRegistry.h"
 #import "AdMoGoAdNetworkAdapter+Helpers.h"
 #import "AdMoGoAdNetworkConfig.h" 
@@ -45,13 +44,11 @@
     CGSize size = CGSizeZero;
     switch (type) {
         case AdViewTypeNormalBanner:
-            size = DOMOB_AD_SIZE_320x50;
-            break;
         case AdViewTypeiPadNormalBanner:
             size = DOMOB_AD_SIZE_320x50;
             break;
         case AdViewTypeMediumBanner:
-            size = DOMOB_AD_SIZE_448x80;
+            size = DOMOB_AD_SIZE_488x80;
             break;
         case AdViewTypeLargeBanner:
             size = DOMOB_AD_SIZE_728x90;
@@ -59,6 +56,7 @@
         default:
             break;
     }
+    
     
 
     DMAdView *adview = [[DMAdView alloc] initWithPublisherId:[self.ration objectForKey:@"key"] size:size autorefresh:NO];
@@ -84,22 +82,10 @@
     
 }
 
-//- (void)stopTimer {
-//    if (timer) {
-//        [timer invalidate];
-//        [timer release];
-//        timer = nil;
-//    }
-//}
+
 
 - (void)dealloc {
-//    if (timer) {
-//        [timer invalidate];
-//        [timer release];
-//        timer = nil;
-//    }
-
-	[super dealloc];
+    [super dealloc];
 }
 
 - (void)rotateToOrientation:(UIInterfaceOrientation)orientation{
