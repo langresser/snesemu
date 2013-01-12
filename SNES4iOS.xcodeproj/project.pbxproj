@@ -235,7 +235,6 @@
 		3BCDA1AA164C528F004A7455 /* reader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA056164C528F004A7455 /* reader.cpp */; };
 		3BCDA1AB164C528F004A7455 /* sa1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA058164C528F004A7455 /* sa1.cpp */; };
 		3BCDA1AC164C528F004A7455 /* sa1cpu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA05A164C528F004A7455 /* sa1cpu.cpp */; };
-		3BCDA1AD164C528F004A7455 /* screenshot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA05C164C528F004A7455 /* screenshot.cpp */; };
 		3BCDA1AE164C528F004A7455 /* sdd1.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA05E164C528F004A7455 /* sdd1.cpp */; };
 		3BCDA1AF164C528F004A7455 /* sdd1emu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA060164C528F004A7455 /* sdd1emu.cpp */; };
 		3BCDA1B0164C528F004A7455 /* server.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 3BCDA062164C528F004A7455 /* server.cpp */; };
@@ -722,7 +721,6 @@
 		3BCDA059164C528F004A7455 /* sa1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sa1.h; sourceTree = "<group>"; };
 		3BCDA05A164C528F004A7455 /* sa1cpu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sa1cpu.cpp; sourceTree = "<group>"; };
 		3BCDA05B164C528F004A7455 /* sar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sar.h; sourceTree = "<group>"; };
-		3BCDA05C164C528F004A7455 /* screenshot.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = screenshot.cpp; sourceTree = "<group>"; };
 		3BCDA05D164C528F004A7455 /* screenshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = screenshot.h; sourceTree = "<group>"; };
 		3BCDA05E164C528F004A7455 /* sdd1.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = sdd1.cpp; sourceTree = "<group>"; };
 		3BCDA05F164C528F004A7455 /* sdd1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sdd1.h; sourceTree = "<group>"; };
@@ -1379,7 +1377,6 @@
 				3BCDA059164C528F004A7455 /* sa1.h */,
 				3BCDA05A164C528F004A7455 /* sa1cpu.cpp */,
 				3BCDA05B164C528F004A7455 /* sar.h */,
-				3BCDA05C164C528F004A7455 /* screenshot.cpp */,
 				3BCDA05D164C528F004A7455 /* screenshot.h */,
 				3BCDA05E164C528F004A7455 /* sdd1.cpp */,
 				3BCDA05F164C528F004A7455 /* sdd1.h */,
@@ -2452,7 +2449,6 @@
 				3BCDA1AA164C528F004A7455 /* reader.cpp in Sources */,
 				3BCDA1AB164C528F004A7455 /* sa1.cpp in Sources */,
 				3BCDA1AC164C528F004A7455 /* sa1cpu.cpp in Sources */,
-				3BCDA1AD164C528F004A7455 /* screenshot.cpp in Sources */,
 				3BCDA1AE164C528F004A7455 /* sdd1.cpp in Sources */,
 				3BCDA1AF164C528F004A7455 /* sdd1emu.cpp in Sources */,
 				3BCDA1B0164C528F004A7455 /* server.cpp in Sources */,
@@ -2517,10 +2513,10 @@
 					"\"$(SRCROOT)/lib/SDK/DianJinFramework\"",
 					"\"$(SRCROOT)/lib\"",
 				);
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SNES4iOS_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "";
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
 				GENERATE_MASTER_OBJECT_FILE = NO;
 				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/\"";
 				INFOPLIST_FILE = "SNES4iOS-Info.plist";
@@ -2539,6 +2535,10 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "${SNES_CFLAGS}";
+				OTHER_CPLUSPLUSFLAGS = (
+					"-ftemplate-depth-36",
+					"$(OTHER_CFLAGS)",
+				);
 				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = SNES4iOS;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
@@ -2566,7 +2566,7 @@
 					"\"$(SRCROOT)/lib/SDK/DianJinFramework\"",
 					"\"$(SRCROOT)/lib\"",
 				);
-				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_OPTIMIZATION_LEVEL = s;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = SNES4iOS_Prefix.pch;
 				GCC_PREPROCESSOR_DEFINITIONS = "";

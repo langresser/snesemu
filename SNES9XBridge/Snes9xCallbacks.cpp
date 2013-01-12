@@ -97,6 +97,11 @@ const char * S9xStringInput (const char *s)
   return (NULL);
 }
 
+bool8 S9xDoScreenshot (int width, int height)
+{
+    return 0;
+}
+
 void S9xHandlePortCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 {
   return;
