@@ -158,7 +158,7 @@ extern int g_currentMB ;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    CGRect rect = [[UIScreen mainScreen]bounds];
     NSError* error = nil;
     NSString* filePath = [[NSBundle mainBundle]pathForResource:@"romlist" ofType:@"json"];
     NSString* jsonString = [NSString stringWithContentsOfFile:filePath encoding:NSUTF8StringEncoding error:&error];
@@ -180,14 +180,21 @@ extern int g_currentMB ;
         m_purchaseList = [[NSMutableArray alloc]initWithArray:array];
     }
     
-    adView = [[AdMoGoView alloc] initWithAppKey:kMangoAppKey
-                                         adType:AdViewTypeNormalBanner expressMode:NO
-                             adMoGoViewDelegate:self];
-    adView.adWebBrowswerDelegate = self;
-    adView.frame = CGRectMake(0, 0, 320, 50);
-    adView.center = CGPointMake(self.view.bounds.size.width / 2, 25);
-    [self.view addSubview:adView];
-    
+    DJOfferBannerStyle bannerType = kDJBannerStyle320_50;
+    if (isPad()) {
+        bannerType = kDJBannerStyle480_50;
+    }
+
+    _banner = [[DianJinOfferBanner alloc] initWithOfferBanner:CGPointMake(0, 0) style:bannerType];
+    DianJinTransitionParam *transitionParam = [[DianJinTransitionParam alloc] init];
+    transitionParam.animationType = kDJTransitionCube;
+    transitionParam.animationSubType = kDJTransitionFromTop;
+    transitionParam.duration = 1.0;
+    [_banner setupTransition:transitionParam];
+    [_banner startWithTimeInterval:20 delegate:self];
+    _banner.center = CGPointMake(rect.size.width / 2, 25);
+    [self.view addSubview:_banner];
+    [_banner startWithTimeInterval:30 delegate:self];
     
     // documents folder
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -202,29 +209,10 @@ extern int g_currentMB ;
     
     isReloadRom = NO;
     SISetSaveDelegate(self);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActivatedDidFinish:) name:kDJAppActivateDidFinish object:nil];
     // Do any additional setup after loading the view from its nib.
 }
-
-- (UIViewController *)viewControllerForPresentingModalView{
-    return self;
-}
-
-- (void)adMoGoDidStartAd:(AdMoGoView *)adMoGoView{
-    NSLog(@"广告开始请求回调");
-} /**
-   * 广告接收成功回调
-   */
-- (void)adMoGoDidReceiveAd:(AdMoGoView *)adMoGoView{
-    NSLog(@"广告接收成功回调"); }
-/**
- * 广告接收失败回调 */
-- (void)adMoGoDidFailToReceiveAd:(AdMoGoView *)adMoGoView didFailWithError:(NSError *)error{
-    NSLog(@"广告接收失败回调"); }
-/**
- * 点击广告回调 */
-- (void)adMoGoClickAd:(AdMoGoView *)adMoGoView{ NSLog(@"点击广告回调");
-}
-
 
 - (void)viewDidUnload
 {
@@ -433,8 +421,9 @@ extern int g_currentMB ;
     return NO;
 }
 
-- (void)appActivatedDidFinish:(NSDictionary *)resultDic
+- (void)appActivatedDidFinish:(NSNotification *)notice;
 {
+    NSDictionary* resultDic = [notice object];
     NSLog(@"%@", resultDic);
     NSNumber *result = [resultDic objectForKey:@"result"];
     if ([result boolValue]) {
@@ -580,6 +569,26 @@ extern int g_currentMB ;
     [self.navigationController pushViewController:emuVC animated:NO];
 }
 
+-(void)adjustView:(UIInterfaceOrientation)toInterfaceOrientation
+{
+    CGRect rect = [UIScreen mainScreen].bounds;
+    float width = rect.size.width > rect.size.height ? rect.size.width : rect.size.height;
+    float height = rect.size.width > rect.size.height ? rect.size.height : rect.size.width;
+    
+    if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+        m_tableView.frame = CGRectMake(0, 100, width, height - 100);
+        _banner.center = CGPointMake(width / 2, 25);
+    } else {
+        m_tableView.frame = CGRectMake(0, 100, height, width - 100);
+        _banner.center = CGPointMake(height / 2, 25);
+    }
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    [self adjustView:toInterfaceOrientation];
+    [m_tableView reloadData];
+}
 
 -(void)restartGame
 {

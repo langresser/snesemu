@@ -8,8 +8,6 @@
 	<string>任天堂经典集</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
-	<key>CFBundleGetInfoString</key>
-	<string></string>
 	<key>CFBundleIconFile</key>
 	<string>snes_all_icon_57.png</string>
 	<key>CFBundleIconFiles</key>
@@ -43,17 +41,15 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.1</string>
+	<string>1.4</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.1</string>
+	<string>1.4</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSHumanReadableCopyright</key>
-	<string></string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string></string>

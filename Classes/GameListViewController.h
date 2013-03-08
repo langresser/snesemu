@@ -13,13 +13,9 @@
 #import <DianJinOfferPlatform/DianJinTransitionParam.h>
 #import <DianJinOfferPlatform/DianJinOfferPlatformProtocol.h>
 
-#import "AdMoGoDelegateProtocol.h"
-#import "AdMoGoView.h"
-#import "AdMoGoWebBrowserControllerUserDelegate.h"
-
 #import "SISaveDelegate.h"
 
-@interface GameListViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, DianJinOfferBannerDelegate, UIAlertViewDelegate, DianJinOfferPlatformProtocol, AdMoGoDelegate,AdMoGoWebBrowserControllerUserDelegate, SISaveDelegate>
+@interface GameListViewController : UIViewController<UITableViewDataSource, UITableViewDelegate, DianJinOfferBannerDelegate, UIAlertViewDelegate, DianJinOfferPlatformProtocol, SISaveDelegate>
 {
     UITableView* m_tableView;
     
@@ -29,7 +25,7 @@
     NSString* m_currentSelectRom;
     NSString* m_currentRomPath;
     
-    AdMoGoView *adView;
+    DianJinOfferBanner *_banner;
     
     
     NSString* _romPath;
