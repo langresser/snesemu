@@ -210,6 +210,8 @@ extern int g_currentMB ;
     isReloadRom = NO;
     SISetSaveDelegate(self);
     
+    [self adjustView:UIInterfaceOrientationLandscapeLeft];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appActivatedDidFinish:) name:kDJAppActivateDidFinish object:nil];
     // Do any additional setup after loading the view from its nib.
 }
@@ -229,7 +231,7 @@ extern int g_currentMB ;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 - (BOOL)shouldAutorotate
@@ -239,7 +241,7 @@ extern int g_currentMB ;
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskLandscape;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

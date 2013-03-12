@@ -106,7 +106,7 @@ int wantExit = 0;
 {
     self = [super initWithFrame:frame];
     if (self) {
-//        self.backgroundColor = [UIColor yellowColor];
+        self.backgroundColor = [UIColor yellowColor];
         
         nameImgButton_NotPress[BTN_B] = @"button_NotPress_B.png";
         nameImgButton_NotPress[BTN_X] = @"button_NotPress_X.png";
@@ -160,6 +160,7 @@ int wantExit = 0;
         [self addSubview:screenView];
         
         dpadView = [[UIImageView alloc]initWithFrame:frame];
+        dpadView.alpha = 0.6;
         [self addSubview:dpadView];
         
         for(int i=0; i<NUM_BUTTONS;i++) {

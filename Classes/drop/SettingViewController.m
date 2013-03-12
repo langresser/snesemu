@@ -22,6 +22,7 @@
 #define kTagFrameSkip 103
 
 int g_currentMB = 0;
+int g_rotation = 0;
 
 @implementation SettingViewController
 
@@ -115,7 +116,9 @@ int g_currentMB = 0;
     swh3.tag = kTagSound;
     [swh3 addTarget:self action:@selector(settingChanged:) forControlEvents:UIControlEventValueChanged];
     [enableSound.contentView addSubview:swh3];
-//   
+//
+    g_rotation = [[NSUserDefaults standardUserDefaults]integerForKey:@"rotation"];
+    [m_tableView reloadData];
 //    frameSkip = [[LMTableViewNumberCell alloc] initWithReuseIdentifier:@"NumberCell"];
 //    frameSkip.textLabel.text = @"游戏加速(跳帧)";
 //    frameSkip.textLabel.font = [UIFont systemFontOfSize:17];
@@ -218,7 +221,7 @@ int g_currentMB = 0;
     if (section == 0) {
         return 4;
     } else if (section == 1) {
-        return 3;
+        return 4;
     } else if (section == 2) {
         return 3;
     }
@@ -343,6 +346,22 @@ int g_currentMB = 0;
                 return enableSound;
             }
                 break;
+            case 3:
+            {
+                static NSString* cellIdent = @"MyCellMyC";
+                cell = [tableView dequeueReusableCellWithIdentifier:cellIdent];
+                if (!cell) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellIdent];
+                    cell.textLabel.font = [UIFont systemFontOfSize:17.0];
+                    cell.selectionStyle = UITableViewCellSelectionStyleGray;
+                }
+                
+                cell.textLabel.text = @"竖屏显示";
+                cell.detailTextLabel.text = @"";
+                cell.accessoryType = g_rotation ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+                return cell;
+            }
+                break;
             default:
                 break;
         }
@@ -407,6 +426,11 @@ int g_currentMB = 0;
                 alert.tag = 100;
                 [alert show];
             }
+                break;
+            case 4:
+                g_rotation = g_rotation == 0 ? 1 : 0;
+                [[NSUserDefaults standardUserDefaults]setInteger:g_rotation forKey:@"rotation"];
+                [m_tableView reloadData];
                 break;
             default:
                 break;

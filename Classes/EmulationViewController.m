@@ -16,6 +16,8 @@
 #import "SNES9XBridge/SISaveDelegate.h"
 #import "LMSaveManager.h"
 
+extern int g_rotation;
+
 @implementation EmulationViewController
 @synthesize romFileName = _romFileName;
 
@@ -30,15 +32,17 @@
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didRotateOrientation:) name:@"UIDeviceOrientationDidChangeNotification" object:nil];
     
-    currentOrientation = UIInterfaceOrientationPortrait;
+    currentOrientation = UIInterfaceOrientationLandscapeLeft;
     CGSize size = [UIScreen mainScreen].bounds.size;
-    int width = size.width < size.height ? size.width : size.height;
-    int height = size.width < size.height ? size.height : size.width;
+    int width = size.width > size.height ? size.width : size.height;
+    int height = size.width > size.height ? size.height : size.width;
     controllerView.frame = CGRectMake(0, 0, width, height);
-    [controllerView changeUI:UIInterfaceOrientationPortrait];
+    [controllerView changeUI:UIInterfaceOrientationLandscapeLeft];
     
     self.wantsFullScreenLayout = YES;
     self.view.multipleTouchEnabled = YES;
+    
+    g_rotation = [[NSUserDefaults standardUserDefaults]integerForKey:@"rotation"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -71,7 +75,7 @@
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
-    return YES;
+    return UIInterfaceOrientationIsLandscape(interfaceOrientation);
 }
 
 - (BOOL)shouldAutorotate
@@ -81,13 +85,13 @@
 
 - (NSUInteger)supportedInterfaceOrientations
 {
-    return UIInterfaceOrientationMaskAll;
+    return UIInterfaceOrientationMaskLandscape;
 }
 
 - (void) didRotateOrientation:(NSNotification *)notification {
     UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
     if (orientation == UIDeviceOrientationPortrait) {
-        if (currentOrientation == UIInterfaceOrientationPortrait) {
+        if (currentOrientation == UIInterfaceOrientationPortrait || !g_rotation) {
             return;
         }
         currentOrientation = UIInterfaceOrientationPortrait;
@@ -97,7 +101,7 @@
         controllerView.frame = CGRectMake(0, 0, width, height);
         [controllerView changeUI:UIInterfaceOrientationPortrait];
     } else if (orientation == UIDeviceOrientationPortraitUpsideDown) {
-        if (currentOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+        if (currentOrientation == UIInterfaceOrientationPortraitUpsideDown || !g_rotation) {
             return;
         }
         currentOrientation = UIInterfaceOrientationPortraitUpsideDown;
@@ -108,7 +112,7 @@
         controllerView.frame = CGRectMake(0, 0, width, height);
         [controllerView changeUI:UIInterfaceOrientationPortraitUpsideDown];
     } else if (orientation == UIDeviceOrientationLandscapeLeft) {
-        if (currentOrientation == UIInterfaceOrientationLandscapeRight) {
+        if (currentOrientation == UIInterfaceOrientationLandscapeRight || g_rotation) {
             return;
         }
         currentOrientation = UIInterfaceOrientationLandscapeRight;
@@ -119,7 +123,7 @@
         controllerView.frame = CGRectMake(0, 0, width, height);
         [controllerView changeUI:UIInterfaceOrientationLandscapeRight];
     } else if (orientation == UIDeviceOrientationLandscapeRight) {
-        if (currentOrientation == UIInterfaceOrientationLandscapeLeft) {
+        if (currentOrientation == UIInterfaceOrientationLandscapeLeft || g_rotation) {
             return;
         }
         currentOrientation = UIInterfaceOrientationLandscapeLeft;
